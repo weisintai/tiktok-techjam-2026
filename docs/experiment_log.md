@@ -143,6 +143,27 @@ At the current checkpoint, private-set generalization is a larger concern than
 public recall. New experiments should use grouped validation and should avoid
 hardcoding public ASINs or simulator messages.
 
+## Main-Branch Robustness Harnesses
+
+The deterministic paraphrase and ASIN-separated synthetic harnesses from
+`weisintai/main` commit `02d8b34` were run against this branch. Only the imported
+agent and its constructor call were adapted; message transformations, synthetic
+split assignment, session generation, and official evaluator scoring were
+unchanged.
+
+| Evaluation | Hit@10 | MRR | MTTC | TechnicalScore |
+|---|---:|---:|---:|---:|
+| Official public, 200 | 0.995 | 0.905875 | 2.805 | 0.933163 |
+| Deterministic paraphrase stress, 200 | 0.640 | 0.350141 | 5.40 | 0.537042 |
+| Unseen-ASIN validation, 400 | 0.970 | 0.786016 | 3.465 | 0.871505 |
+| Untouched synthetic test, 400 | 0.9375 | 0.775077 | 3.705 | 0.847173 |
+
+The unseen-ASIN results show that retrieval generalizes beyond public targets,
+although ranking and override behavior degrade. The much larger paraphrase drop
+isolates intent normalization as the dominant robustness bottleneck. Main's
+normalized constraint variants and exact catalog-card index directly address
+that failure mode.
+
 ## Next Experiments
 
 - Confidence-based gating instead of fixed turn-based withholding.
@@ -150,4 +171,5 @@ hardcoding public ASINs or simulator messages.
 - A separate free-form paraphrase validation set to test template dependence.
 - Route-specific learned models only after enough non-public validation exists.
 - Calibration of score margins into expected MRR gain versus turn cost.
-- Stress evaluation when the organizer provides the missing stress artifacts.
+- Evidence-grounded paraphrase normalization using catalog-derived constraint
+  variants.

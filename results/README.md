@@ -23,3 +23,8 @@ The benchmark summary and provenance notes are maintained in
 The current `shwe-experiment` public result is generated as
 `results/shwe_experiment_public.json`: Hit@10 `0.995`, MRR `0.905875`, MTTC
 `2.805`, and TechnicalScore `0.933163` over 200 sessions.
+
+Aligned robustness outputs generated with the harnesses from `weisintai/main`
+commit `02d8b34` are named `shwe_experiment_stress.json`,
+`shwe_experiment_validation.json`, and `shwe_experiment_test.json`. Their
+aggregate metrics are reported in the root README and experiment log.

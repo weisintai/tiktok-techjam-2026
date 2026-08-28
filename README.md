@@ -62,6 +62,9 @@ conversion-aware recommendation gating.
 | Evaluation | Hit@10 | MRR | MTTC | TechnicalScore |
 |---|---:|---:|---:|---:|
 | Official public set, 200 sessions | **0.995** | **0.905875** | **2.805** | **0.933163** |
+| Deterministic paraphrase stress set | **0.640** | **0.350141** | **5.40** | **0.537042** |
+| Unseen-ASIN synthetic validation, 400 sessions | **0.970** | **0.786016** | **3.465** | **0.871505** |
+| Untouched synthetic test, 400 sessions | **0.9375** | **0.775077** | **3.705** | **0.847173** |
 
 Scenario breakdown from the same run:
 
@@ -76,10 +79,19 @@ The released BM25 starter achieved Hit@10 `0.125`, MRR `0.068034`, and MTTC
 `9.81`. This branch reaches Hit@10 `0.995`, MRR `0.905875`, and MTTC `2.805`
 without changing the official evaluator, catalog, labels, or protocol. These
 figures were reproduced from commit `5897124` on branch `shwe-experiment` with
-`PYTHONHASHSEED=1`. The output is stored locally at
-`results/shwe_experiment_public.json`. The stress and synthetic datasets are not
-present in this workspace, so no stress or synthetic scores are claimed. The
-default evaluator pipeline makes zero external model calls.
+`PYTHONHASHSEED=1`. Outputs are stored locally as
+`results/shwe_experiment_{public,stress,validation,test}.json`. The robustness
+harnesses and deterministic split generator were taken from `weisintai/main` at
+commit `02d8b34`; only the agent import and constructor were adapted to evaluate
+this branch. The public and synthetic results show useful catalog retrieval, but
+the stress result exposes substantial dependence on official message templates.
+The default evaluator pipeline makes zero external model calls.
+
+Compared with `weisintai/main`, this branch uses broad multi-route retrieval and
+a manually enumerated typed parser. Main additionally uses normalized constraint
+variants, exact catalog intent-card indexing, shown-product filtering, and an
+ambiguity-gated Top-K policy. Those differences account for much of main's
+higher MRR and paraphrase robustness.
 
 See `docs/how_it_works.md` for an end-to-end explanation of the runtime pipeline.
 See `docs/project_reference.md` for the consolidated Track 4 brief, architecture,
