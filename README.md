@@ -43,8 +43,31 @@ python3 -m evaluator.local_evaluator
 Edit `starter/agent.py` to implement your system. Do not edit the evaluator or public labels when reporting your local score.
 The command writes per-session results and aggregate metrics to `results.json`.
 
+For an interactive free-form conversation, run:
+
+```bash
+PYTHONPATH=. python3 scripts/manual_chat.py
+```
+
 The included weak BM25 starter scores Hit Rate@10 `0.125`, MRR `0.068034`, and
 MTTC `9.81` on the released public set. See `docs/baseline_results.json`.
+
+## Current Project Status
+
+The current offline agent combines systematic typed intent parsing, stateful
+tracking, multi-route FTS and facet retrieval, information-gain clarification, a
+pairwise top-40 reranker, bounded product compatibility matching, and
+conversion-aware recommendation gating. Its latest verified public result is:
+
+- TechnicalScore: `0.933163`
+- Hit Rate@10: `0.995`
+- MRR: `0.905875`
+- MTTC: `2.805`
+- External model calls: `0`
+
+See `docs/project_reference.md` for the consolidated Track 4 brief, architecture,
+rubric mapping, deliverables, and caveats. See `docs/experiment_log.md` for every
+tested hypothesis, including rejected experiments and historical checkpoints.
 
 ## Agent Interface
 
