@@ -167,7 +167,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--catalog", default="data/catalog.jsonl")
     parser.add_argument("--dataset", default="data/public_set.jsonl")
-    parser.add_argument("--output", default="results_pairwise_reranker.json")
+    parser.add_argument("--output", default="results/results_pairwise_reranker.json")
     args = parser.parse_args()
     samples = load_jsonl(args.dataset)
     _, categories, products = catalog_index(args.catalog)

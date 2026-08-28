@@ -3,7 +3,7 @@ __pycache__/
 .DS_Store
 .env
 results.json
-results_*.json
+results/*.json
 experiments/stopping_replay.json
 data/catalog.jsonl
 data/releases/

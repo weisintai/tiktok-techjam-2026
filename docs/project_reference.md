@@ -166,15 +166,12 @@ The agent first uses broad `other` questions because the official simulator can
 reveal any undisclosed constraint through that attribute. It then uses entropy,
 candidate coverage, and attribute priorities to choose a narrower facet.
 
-The current score-optimized policy deliberately withholds recommendations while
-collecting:
-
-- Two clarification responses for Buying and Browsing sessions.
-- One fresh clarification after an intent override.
-
-This prevents the evaluator from terminating on an early low-ranked hit before
-new information can move the target toward rank one. It improves MRR and the
-combined score at the cost of higher MTTC.
+The current score-optimized policy normally withholds Buying and Browsing
+recommendations during turns one and two, but recommends early when the learned
+ranker margin is at least `2.0` and the selected result is also within the top 20
+of fused retrieval. It also collects one fresh clarification after an intent
+override. This balances the reciprocal-rank value of another clarification
+against its MTTC cost.
 
 ### Reproducibility
 
@@ -184,7 +181,7 @@ identical metrics.
 
 ## Current Verified Result
 
-Public evaluator result from `results_systematic_intent_bounded.json`:
+Public evaluator result from `results/results_systematic_intent_bounded.json`:
 
 | Metric | Result |
 |---|---:|
@@ -192,7 +189,7 @@ Public evaluator result from `results_systematic_intent_bounded.json`:
 | Hit Rate@10 | **0.995** |
 | MRR | **0.905875** |
 | MTTC | **2.805** |
-| Efficiency | **0.771** |
+| Efficiency | **0.8195** |
 | Model/API calls | **0** |
 
 Scenario results:
@@ -200,8 +197,8 @@ Scenario results:
 | Scenario | Hit@10 | MRR | MTTC |
 |---|---:|---:|---:|
 | Boundary | 1.0000 | 0.574167 | 3.30 |
-| Browsing | 1.0000 | 0.922292 | 3.00 |
-| Buying | 0.9875 | 0.928542 | 3.0875 |
+| Browsing | 1.0000 | 0.922292 | 2.4875 |
+| Buying | 0.9875 | 0.928542 | 2.3875 |
 | Intent override | 1.0000 | 0.912222 | 4.60 |
 
 ## Judging Rubric
@@ -252,7 +249,7 @@ multi-turn override flow. Upload it publicly to YouTube and link it from Devpost
 ```bash
 python3 -m unittest
 PYTHONHASHSEED=1 python3 -m evaluator.local_evaluator \
-  --output results_pairwise_defer_override.json
+  --output results/results_pairwise_defer_override.json
 ```
 
 Retrain the pairwise experiment with:

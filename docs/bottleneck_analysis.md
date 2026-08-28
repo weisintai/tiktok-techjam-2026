@@ -2,7 +2,7 @@
 
 Last updated: 28 August 2026
 
-This analysis uses `results_systematic_intent_bounded.json` and a replay of all
+This analysis uses `results/results_systematic_intent_bounded.json` and a replay of all
 200 public sessions that recorded target rank after fused retrieval and final
 reranking.
 

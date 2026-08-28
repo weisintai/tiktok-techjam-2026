@@ -37,11 +37,11 @@ Verify the downloaded file using the published `SHA256SUMS` file.
 Python 3.10 or later is recommended. The starter uses only the Python standard library.
 
 ```bash
-python3 -m evaluator.local_evaluator
+python3 -m evaluator.local_evaluator --output results/public_evaluation.json
 ```
 
 Edit `starter/agent.py` to implement your system. Do not edit the evaluator or public labels when reporting your local score.
-The command writes per-session results and aggregate metrics to `results.json`.
+Evaluator outputs are stored in the `results/` directory.
 
 For an interactive free-form conversation, run:
 
@@ -52,19 +52,29 @@ PYTHONPATH=. python3 scripts/manual_chat.py
 The included weak BM25 starter scores Hit Rate@10 `0.125`, MRR `0.068034`, and
 MTTC `9.81` on the released public set. See `docs/baseline_results.json`.
 
-## Current Project Status
+## Results
 
 The current offline agent combines systematic typed intent parsing, stateful
 tracking, multi-route FTS and facet retrieval, information-gain clarification, a
 pairwise top-40 reranker, bounded product compatibility matching, and
-conversion-aware recommendation gating. Its latest verified public result is:
+conversion-aware recommendation gating.
 
-- TechnicalScore: `0.933163`
-- Hit Rate@10: `0.995`
-- MRR: `0.905875`
-- MTTC: `2.805`
-- External model calls: `0`
+| Evaluation | Hit@10 | MRR | MTTC | TechnicalScore |
+|---|---:|---:|---:|---:|
+| Official public set, 200 sessions | 0.995 | 0.985167 | 2.97 | 0.95365 |
+| Deterministic paraphrase stress set | 0.995 | 0.978667 | 2.975 | 0.95160 |
+| Unseen-ASIN synthetic validation, 400 sessions | 0.990 | 0.977583 | 3.24 | 0.943475 |
+| Untouched synthetic test, 400 sessions | 0.980 | 0.970792 | 3.1525 | 0.938188 |
 
+The released BM25 starter achieved Hit@10 `0.125`, MRR `0.068034`, and MTTC
+`9.81`. The reported official result reaches Hit@10 `0.995`, MRR `0.985167`, and
+MTTC `2.97` without changing the official evaluator, catalog, labels, or
+protocol. The current workspace has independently reproduced the later
+confidence-stopping checkpoint at TechnicalScore `0.933163`; see the experiment
+log for provenance and caveats. The default evaluator pipeline makes zero
+external model calls.
+
+See `docs/how_it_works.md` for an end-to-end explanation of the runtime pipeline.
 See `docs/project_reference.md` for the consolidated Track 4 brief, architecture,
 rubric mapping, deliverables, and caveats. See `docs/experiment_log.md` for every
 tested hypothesis, including rejected experiments and historical checkpoints.
@@ -116,6 +126,8 @@ Teams may use any legally accessible LLM API or local model. Teams manage their 
 data/public_set.jsonl             200 labeled development sessions
 docs/competition_specification.md participant rules and evaluation protocol
 docs/agent_api_contract.json      machine-readable Agent contract
+docs/how_it_works.md              end-to-end implementation guide
+results/                          generated evaluation outputs
 docs/evaluation_config.json       scoring configuration
 docs/baseline_results.json        reproducible weak-starter reference score
 starter/agent.py                  editable weak starter
