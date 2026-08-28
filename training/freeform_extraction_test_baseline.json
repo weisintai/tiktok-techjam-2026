@@ -1,0 +1,1501 @@
+{
+  "generated_at": "2026-08-28T13:52:44.755567+00:00",
+  "hardware": {
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "logical_cpus": 11
+  },
+  "rules": {
+    "cases": 40,
+    "exact_match": 0.0,
+    "micro_precision": 0.1321,
+    "micro_recall": 0.0437,
+    "micro_f1": 0.0657,
+    "exact_state_match": 0.0,
+    "state_micro_precision": 0.7226,
+    "state_micro_recall": 0.495,
+    "state_micro_f1": 0.5875,
+    "false_addition_rate": 1.0,
+    "sibling_preservation": 1.0,
+    "by_split": {
+      "test": {
+        "cases": 40,
+        "exact_state_match": 0.0,
+        "state_micro_precision": 0.7226,
+        "state_micro_recall": 0.495,
+        "state_micro_f1": 0.5875,
+        "false_addition_rate": 1.0,
+        "sibling_preservation": 1.0
+      }
+    }
+  },
+  "/Users/weisintai/.cache/shopping-copilot/models/Qwen3-0.6B-Q8_0.gguf": {
+    "metrics": {
+      "cases": 40,
+      "exact_match": 0.025,
+      "micro_precision": 0.8824,
+      "micro_recall": 0.5625,
+      "micro_f1": 0.687,
+      "exact_state_match": 0.1,
+      "state_micro_precision": 0.8743,
+      "state_micro_recall": 0.765,
+      "state_micro_f1": 0.816,
+      "false_addition_rate": 0.2,
+      "sibling_preservation": 1.0
+    },
+    "performance": {
+      "model_loading_seconds": 0.2613,
+      "median_extraction_seconds": 0.6613,
+      "p95_extraction_seconds": 0.9063,
+      "peak_process_rss_mb": 1092.17,
+      "peak_process_rss_increase_mb": 1055.56,
+      "prompt_tokens": 17269,
+      "completion_tokens": 1477
+    },
+    "diagnostics": [
+      {
+        "case": 1,
+        "case_id": "freeform_0161",
+        "split": "test",
+        "message": "Plans changed: I need a warm jacket instead of a dress.",
+        "exact_match": false,
+        "missing": [
+          "category=jacket"
+        ],
+        "extra": [],
+        "latency_seconds": 0.7754,
+        "prompt_tokens": 435,
+        "completion_tokens": 39,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "feature": [
+              "warm"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 435,
+          "completion_tokens": 39
+        },
+        "state_missing": [
+          "category=jacket"
+        ],
+        "state_extra": [
+          "category=dress"
+        ]
+      },
+      {
+        "case": 2,
+        "case_id": "freeform_0162",
+        "split": "test",
+        "message": "Stop searching for dresses and find me a jacket that is warm.",
+        "exact_match": false,
+        "missing": [
+          "category=jacket",
+          "override"
+        ],
+        "extra": [],
+        "latency_seconds": 0.5545,
+        "prompt_tokens": 435,
+        "completion_tokens": 34,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "warm"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 435,
+          "completion_tokens": 34
+        },
+        "state_missing": [
+          "category=jacket"
+        ],
+        "state_extra": [
+          "category=dress"
+        ]
+      },
+      {
+        "case": 3,
+        "case_id": "freeform_0163",
+        "split": "test",
+        "message": "Actually, switch the category to jacket and add warmth.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=warm"
+        ],
+        "extra": [],
+        "latency_seconds": 0.864,
+        "prompt_tokens": 433,
+        "completion_tokens": 52,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "jacket",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 433,
+          "completion_tokens": 52
+        },
+        "state_missing": [
+          "slot:feature=warm"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 4,
+        "case_id": "freeform_0164",
+        "split": "test",
+        "message": "A dress is no longer right; make it a warm jacket.",
+        "exact_match": false,
+        "missing": [
+          "category=jacket",
+          "override"
+        ],
+        "extra": [],
+        "latency_seconds": 0.6507,
+        "prompt_tokens": 435,
+        "completion_tokens": 39,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "warm"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 435,
+          "completion_tokens": 39
+        },
+        "state_missing": [
+          "category=jacket"
+        ],
+        "state_extra": [
+          "category=dress"
+        ]
+      },
+      {
+        "case": 5,
+        "case_id": "freeform_0165",
+        "split": "test",
+        "message": "Change of plan\u2014I am buying a jacket now, and it needs to be warm.",
+        "exact_match": false,
+        "missing": [
+          "override"
+        ],
+        "extra": [],
+        "latency_seconds": 0.5375,
+        "prompt_tokens": 439,
+        "completion_tokens": 33,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "jacket",
+          "add": {
+            "feature": [
+              "warm"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 439,
+          "completion_tokens": 33
+        },
+        "state_missing": [],
+        "state_extra": []
+      },
+      {
+        "case": 6,
+        "case_id": "freeform_0166",
+        "split": "test",
+        "message": "Replace the dress search with warm jackets.",
+        "exact_match": false,
+        "missing": [
+          "category=jacket"
+        ],
+        "extra": [],
+        "latency_seconds": 0.9221,
+        "prompt_tokens": 430,
+        "completion_tokens": 55,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "feature": [
+              "warm"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 430,
+          "completion_tokens": 55
+        },
+        "state_missing": [
+          "category=jacket"
+        ],
+        "state_extra": [
+          "category=dress"
+        ]
+      },
+      {
+        "case": 7,
+        "case_id": "freeform_0167",
+        "split": "test",
+        "message": "The product should be a jacket rather than a dress, with warmth as a requirement.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=warm",
+          "category=jacket",
+          "override"
+        ],
+        "extra": [],
+        "latency_seconds": 0.6352,
+        "prompt_tokens": 439,
+        "completion_tokens": 38,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 439,
+          "completion_tokens": 38
+        },
+        "state_missing": [
+          "category=jacket",
+          "slot:feature=warm"
+        ],
+        "state_extra": [
+          "category=dress"
+        ]
+      },
+      {
+        "case": 8,
+        "case_id": "freeform_0168",
+        "split": "test",
+        "message": "Move me from dresses to jackets and prioritize something warm.",
+        "exact_match": false,
+        "missing": [
+          "category=jacket",
+          "override"
+        ],
+        "extra": [],
+        "latency_seconds": 0.5624,
+        "prompt_tokens": 433,
+        "completion_tokens": 34,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "warm"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 433,
+          "completion_tokens": 34
+        },
+        "state_missing": [
+          "category=jacket"
+        ],
+        "state_extra": [
+          "category=dress"
+        ]
+      },
+      {
+        "case": 9,
+        "case_id": "freeform_0169",
+        "split": "test",
+        "message": "I need to revise the item type: warm jacket, not dress.",
+        "exact_match": false,
+        "missing": [
+          "category=jacket",
+          "override"
+        ],
+        "extra": [],
+        "latency_seconds": 0.709,
+        "prompt_tokens": 436,
+        "completion_tokens": 42,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "warm"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 436,
+          "completion_tokens": 42
+        },
+        "state_missing": [
+          "category=jacket"
+        ],
+        "state_extra": [
+          "category=dress"
+        ]
+      },
+      {
+        "case": 10,
+        "case_id": "freeform_0170",
+        "split": "test",
+        "message": "Forget the dress. Search for a warm jacket instead.",
+        "exact_match": false,
+        "missing": [
+          "category=jacket"
+        ],
+        "extra": [],
+        "latency_seconds": 0.6964,
+        "prompt_tokens": 433,
+        "completion_tokens": 41,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "feature": [
+              "warm"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 433,
+          "completion_tokens": 41
+        },
+        "state_missing": [
+          "category=jacket"
+        ],
+        "state_extra": [
+          "category=dress"
+        ]
+      },
+      {
+        "case": 11,
+        "case_id": "freeform_0171",
+        "split": "test",
+        "message": "Drop cotton as a requirement and keep the blue work shirt.",
+        "exact_match": false,
+        "missing": [
+          "remove:material=cotton"
+        ],
+        "extra": [
+          "category=shirt"
+        ],
+        "latency_seconds": 0.7699,
+        "prompt_tokens": 441,
+        "completion_tokens": 41,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "shirt",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 441,
+          "completion_tokens": 41
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:material=cotton"
+        ]
+      },
+      {
+        "case": 12,
+        "case_id": "freeform_0172",
+        "split": "test",
+        "message": "The shirt doesn't have to be cotton anymore.",
+        "exact_match": false,
+        "missing": [
+          "override",
+          "remove:material=cotton"
+        ],
+        "extra": [
+          "category=shirt"
+        ],
+        "latency_seconds": 0.7572,
+        "prompt_tokens": 439,
+        "completion_tokens": 35,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "shirt",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 439,
+          "completion_tokens": 35
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:material=cotton"
+        ]
+      },
+      {
+        "case": 13,
+        "case_id": "freeform_0173",
+        "split": "test",
+        "message": "Remove my cotton preference; blue and office use still apply.",
+        "exact_match": false,
+        "missing": [
+          "override",
+          "remove:material=cotton"
+        ],
+        "extra": [],
+        "latency_seconds": 0.7686,
+        "prompt_tokens": 441,
+        "completion_tokens": 40,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 441,
+          "completion_tokens": 40
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:material=cotton"
+        ]
+      },
+      {
+        "case": 14,
+        "case_id": "freeform_0174",
+        "split": "test",
+        "message": "I'm flexible on fabric now, so forget cotton.",
+        "exact_match": false,
+        "missing": [
+          "remove:material=cotton"
+        ],
+        "extra": [],
+        "latency_seconds": 0.7108,
+        "prompt_tokens": 440,
+        "completion_tokens": 40,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 440,
+          "completion_tokens": 40
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:material=cotton"
+        ]
+      },
+      {
+        "case": 15,
+        "case_id": "freeform_0175",
+        "split": "test",
+        "message": "Take cotton off the requirements without changing anything else.",
+        "exact_match": false,
+        "missing": [
+          "override",
+          "remove:material=cotton"
+        ],
+        "extra": [],
+        "latency_seconds": 0.5779,
+        "prompt_tokens": 439,
+        "completion_tokens": 34,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 439,
+          "completion_tokens": 34
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:material=cotton"
+        ]
+      },
+      {
+        "case": 16,
+        "case_id": "freeform_0176",
+        "split": "test",
+        "message": "Cotton is no longer necessary for this shirt.",
+        "exact_match": false,
+        "missing": [
+          "override",
+          "remove:material=cotton"
+        ],
+        "extra": [
+          "category=shirt"
+        ],
+        "latency_seconds": 0.588,
+        "prompt_tokens": 439,
+        "completion_tokens": 34,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "shirt",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 439,
+          "completion_tokens": 34
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:material=cotton"
+        ]
+      },
+      {
+        "case": 17,
+        "case_id": "freeform_0177",
+        "split": "test",
+        "message": "Cancel the material condition but preserve blue and work use.",
+        "exact_match": false,
+        "missing": [
+          "override",
+          "remove:material=cotton"
+        ],
+        "extra": [],
+        "latency_seconds": 0.7142,
+        "prompt_tokens": 440,
+        "completion_tokens": 41,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 440,
+          "completion_tokens": 41
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:material=cotton"
+        ]
+      },
+      {
+        "case": 18,
+        "case_id": "freeform_0178",
+        "split": "test",
+        "message": "I don't need the cotton requirement any longer.",
+        "exact_match": false,
+        "missing": [
+          "remove:material=cotton"
+        ],
+        "extra": [],
+        "latency_seconds": 0.5817,
+        "prompt_tokens": 439,
+        "completion_tokens": 35,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 439,
+          "completion_tokens": 35
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:material=cotton"
+        ]
+      },
+      {
+        "case": 19,
+        "case_id": "freeform_0179",
+        "split": "test",
+        "message": "Please retract cotton and leave the remaining shirt preferences alone.",
+        "exact_match": false,
+        "missing": [
+          "override",
+          "remove:material=cotton"
+        ],
+        "extra": [
+          "category=shirt"
+        ],
+        "latency_seconds": 0.5726,
+        "prompt_tokens": 440,
+        "completion_tokens": 34,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "shirt",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 440,
+          "completion_tokens": 34
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:material=cotton"
+        ]
+      },
+      {
+        "case": 20,
+        "case_id": "freeform_0180",
+        "split": "test",
+        "message": "Material is open now\u2014remove the earlier cotton constraint.",
+        "exact_match": false,
+        "missing": [
+          "override",
+          "remove:material=cotton"
+        ],
+        "extra": [],
+        "latency_seconds": 0.5728,
+        "prompt_tokens": 440,
+        "completion_tokens": 34,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 440,
+          "completion_tokens": 34
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:material=cotton"
+        ]
+      },
+      {
+        "case": 21,
+        "case_id": "freeform_0181",
+        "split": "test",
+        "message": "Add blue leather, office use, and a price below $150.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.7163,
+        "prompt_tokens": 431,
+        "completion_tokens": 39,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "budget": [
+              "budget under $150"
+            ],
+            "color": [
+              "color: blue"
+            ],
+            "material": [
+              "leather"
+            ],
+            "use_case": [
+              "work"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 431,
+          "completion_tokens": 39
+        },
+        "state_missing": [],
+        "state_extra": []
+      },
+      {
+        "case": 22,
+        "case_id": "freeform_0182",
+        "split": "test",
+        "message": "For the shoes, I also want blue leather and need them for work under $150.",
+        "exact_match": false,
+        "missing": [],
+        "extra": [
+          "category=shoes"
+        ],
+        "latency_seconds": 0.7165,
+        "prompt_tokens": 435,
+        "completion_tokens": 40,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "shoes",
+          "add": {
+            "budget": [
+              "budget under $150"
+            ],
+            "color": [
+              "color: blue"
+            ],
+            "material": [
+              "leather"
+            ],
+            "use_case": [
+              "work"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 435,
+          "completion_tokens": 40
+        },
+        "state_missing": [],
+        "state_extra": []
+      },
+      {
+        "case": 23,
+        "case_id": "freeform_0183",
+        "split": "test",
+        "message": "Make them blue and leather, suitable for the office, with a $150 maximum.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $150"
+        ],
+        "extra": [],
+        "latency_seconds": 0.767,
+        "prompt_tokens": 434,
+        "completion_tokens": 43,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "color": [
+              "color: blue"
+            ],
+            "material": [
+              "leather"
+            ],
+            "use_case": [
+              "work"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 434,
+          "completion_tokens": 43
+        },
+        "state_missing": [
+          "slot:budget=budget under $150"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 24,
+        "case_id": "freeform_0184",
+        "split": "test",
+        "message": "One more set of requirements: leather, blue, work-ready, below one hundred fifty.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $150"
+        ],
+        "extra": [],
+        "latency_seconds": 0.8315,
+        "prompt_tokens": 433,
+        "completion_tokens": 47,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "color": [
+              "color: blue"
+            ],
+            "material": [
+              "leather"
+            ],
+            "use_case": [
+              "work"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 433,
+          "completion_tokens": 47
+        },
+        "state_missing": [
+          "slot:budget=budget under $150"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 25,
+        "case_id": "freeform_0185",
+        "split": "test",
+        "message": "Please narrow the comfortable shoes to blue leather options for work under $150.",
+        "exact_match": false,
+        "missing": [],
+        "extra": [
+          "add:feature=comfortable",
+          "category=shoes"
+        ],
+        "latency_seconds": 0.7015,
+        "prompt_tokens": 432,
+        "completion_tokens": 40,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "shoes",
+          "add": {
+            "budget": [
+              "budget under $150"
+            ],
+            "color": [
+              "color: blue"
+            ],
+            "material": [
+              "leather"
+            ],
+            "feature": [
+              "comfortable"
+            ],
+            "use_case": [
+              "work"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 432,
+          "completion_tokens": 40
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:feature=comfortable"
+        ]
+      },
+      {
+        "case": 26,
+        "case_id": "freeform_0186",
+        "split": "test",
+        "message": "I can spend up to $150 and want blue leather shoes for office days.",
+        "exact_match": false,
+        "missing": [],
+        "extra": [
+          "category=shoes"
+        ],
+        "latency_seconds": 0.6674,
+        "prompt_tokens": 433,
+        "completion_tokens": 38,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "shoes",
+          "add": {
+            "budget": [
+              "budget under $150"
+            ],
+            "color": [
+              "color: blue"
+            ],
+            "material": [
+              "leather"
+            ],
+            "use_case": [
+              "work"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 433,
+          "completion_tokens": 38
+        },
+        "state_missing": [],
+        "state_extra": []
+      },
+      {
+        "case": 27,
+        "case_id": "freeform_0187",
+        "split": "test",
+        "message": "Blue leather is preferred, the use is work, and my limit is $150.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $150"
+        ],
+        "extra": [],
+        "latency_seconds": 0.6689,
+        "prompt_tokens": 434,
+        "completion_tokens": 38,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "color": [
+              "color: blue"
+            ],
+            "material": [
+              "leather"
+            ],
+            "use_case": [
+              "work"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 434,
+          "completion_tokens": 38
+        },
+        "state_missing": [
+          "slot:budget=budget under $150"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 28,
+        "case_id": "freeform_0188",
+        "split": "test",
+        "message": "Keep comfort, then add a blue colour, leather material, office use, and sub-$150 price.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $150"
+        ],
+        "extra": [
+          "add:feature=comfortable"
+        ],
+        "latency_seconds": 1.0316,
+        "prompt_tokens": 438,
+        "completion_tokens": 58,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "color": [
+              "color: blue"
+            ],
+            "material": [
+              "leather"
+            ],
+            "feature": [
+              "comfortable"
+            ],
+            "use_case": [
+              "work"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 438,
+          "completion_tokens": 58
+        },
+        "state_missing": [
+          "slot:budget=budget under $150"
+        ],
+        "state_extra": [
+          "slot:feature=comfortable"
+        ]
+      },
+      {
+        "case": 29,
+        "case_id": "freeform_0189",
+        "split": "test",
+        "message": "They should be leather and blue for work, costing less than $150.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $150"
+        ],
+        "extra": [],
+        "latency_seconds": 0.9054,
+        "prompt_tokens": 432,
+        "completion_tokens": 50,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "color": [
+              "color: blue"
+            ],
+            "material": [
+              "leather"
+            ],
+            "use_case": [
+              "work"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 432,
+          "completion_tokens": 50
+        },
+        "state_missing": [
+          "slot:budget=budget under $150"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 30,
+        "case_id": "freeform_0190",
+        "split": "test",
+        "message": "Within $150, find blue leather work shoes while retaining comfort.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $150"
+        ],
+        "extra": [
+          "add:feature=comfortable",
+          "category=shoes"
+        ],
+        "latency_seconds": 0.6719,
+        "prompt_tokens": 430,
+        "completion_tokens": 38,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "shoes",
+          "add": {
+            "color": [
+              "color: blue"
+            ],
+            "material": [
+              "leather"
+            ],
+            "feature": [
+              "comfortable"
+            ],
+            "use_case": [
+              "work"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 430,
+          "completion_tokens": 38
+        },
+        "state_missing": [
+          "slot:budget=budget under $150"
+        ],
+        "state_extra": [
+          "slot:feature=comfortable"
+        ]
+      },
+      {
+        "case": 31,
+        "case_id": "freeform_0191",
+        "split": "test",
+        "message": "I'm browsing for an elegant, lightweight gift and haven't chosen the product type.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=lightweight",
+          "add:style=elegant",
+          "add:use_case=gift"
+        ],
+        "extra": [],
+        "latency_seconds": 0.4688,
+        "prompt_tokens": 421,
+        "completion_tokens": 25,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 421,
+          "completion_tokens": 25
+        },
+        "state_missing": [
+          "slot:feature=lightweight",
+          "slot:style=elegant",
+          "slot:use_case=gift"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 32,
+        "case_id": "freeform_0192",
+        "split": "test",
+        "message": "Could you suggest a lightweight gift with an elegant feel? I'm open on category.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=lightweight",
+          "add:style=elegant",
+          "add:use_case=gift"
+        ],
+        "extra": [],
+        "latency_seconds": 0.4,
+        "prompt_tokens": 421,
+        "completion_tokens": 22,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 421,
+          "completion_tokens": 22
+        },
+        "state_missing": [
+          "slot:feature=lightweight",
+          "slot:style=elegant",
+          "slot:use_case=gift"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 33,
+        "case_id": "freeform_0193",
+        "split": "test",
+        "message": "No exact item in mind\u2014something elegant and light enough to give as a gift.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=lightweight",
+          "add:style=elegant",
+          "add:use_case=gift"
+        ],
+        "extra": [],
+        "latency_seconds": 0.3727,
+        "prompt_tokens": 421,
+        "completion_tokens": 21,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 421,
+          "completion_tokens": 21
+        },
+        "state_missing": [
+          "slot:feature=lightweight",
+          "slot:style=elegant",
+          "slot:use_case=gift"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 34,
+        "case_id": "freeform_0194",
+        "split": "test",
+        "message": "I'm exploring elegant gift ideas where lightweight design matters.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=lightweight",
+          "add:style=elegant",
+          "add:use_case=gift"
+        ],
+        "extra": [],
+        "latency_seconds": 0.3944,
+        "prompt_tokens": 415,
+        "completion_tokens": 22,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 415,
+          "completion_tokens": 22
+        },
+        "state_missing": [
+          "slot:feature=lightweight",
+          "slot:style=elegant",
+          "slot:use_case=gift"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 35,
+        "case_id": "freeform_0195",
+        "split": "test",
+        "message": "It could be clothing or jewelry; I want an elegant, lightweight present.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=lightweight",
+          "add:style=elegant",
+          "add:use_case=gift"
+        ],
+        "extra": [],
+        "latency_seconds": 0.4632,
+        "prompt_tokens": 419,
+        "completion_tokens": 25,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 419,
+          "completion_tokens": 25
+        },
+        "state_missing": [
+          "slot:feature=lightweight",
+          "slot:style=elegant",
+          "slot:use_case=gift"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 36,
+        "case_id": "freeform_0196",
+        "split": "test",
+        "message": "Help me browse for a gift that feels elegant and isn't heavy.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=lightweight",
+          "add:style=elegant",
+          "add:use_case=gift"
+        ],
+        "extra": [],
+        "latency_seconds": 0.3759,
+        "prompt_tokens": 418,
+        "completion_tokens": 21,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 418,
+          "completion_tokens": 21
+        },
+        "state_missing": [
+          "slot:feature=lightweight",
+          "slot:style=elegant",
+          "slot:use_case=gift"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 37,
+        "case_id": "freeform_0197",
+        "split": "test",
+        "message": "The category is undecided, but the gift should be lightweight and elegant.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=lightweight",
+          "add:style=elegant",
+          "add:use_case=gift"
+        ],
+        "extra": [],
+        "latency_seconds": 0.5532,
+        "prompt_tokens": 418,
+        "completion_tokens": 32,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 418,
+          "completion_tokens": 32
+        },
+        "state_missing": [
+          "slot:feature=lightweight",
+          "slot:style=elegant",
+          "slot:use_case=gift"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 38,
+        "case_id": "freeform_0198",
+        "split": "test",
+        "message": "Show me elegant lightweight options suitable as a present.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=lightweight",
+          "add:style=elegant",
+          "add:use_case=gift"
+        ],
+        "extra": [],
+        "latency_seconds": 0.5502,
+        "prompt_tokens": 414,
+        "completion_tokens": 32,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 414,
+          "completion_tokens": 32
+        },
+        "state_missing": [
+          "slot:feature=lightweight",
+          "slot:style=elegant",
+          "slot:use_case=gift"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 39,
+        "case_id": "freeform_0199",
+        "split": "test",
+        "message": "I'm open to what I buy as long as it is a light, elegant gift.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=lightweight",
+          "add:style=elegant",
+          "add:use_case=gift"
+        ],
+        "extra": [],
+        "latency_seconds": 0.5999,
+        "prompt_tokens": 422,
+        "completion_tokens": 34,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 422,
+          "completion_tokens": 34
+        },
+        "state_missing": [
+          "slot:feature=lightweight",
+          "slot:style=elegant",
+          "slot:use_case=gift"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 40,
+        "case_id": "freeform_0200",
+        "split": "test",
+        "message": "For a gift, I'd like something elegant and lightweight, with no fixed item type.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=lightweight",
+          "add:style=elegant",
+          "add:use_case=gift",
+          "intent=browsing"
+        ],
+        "extra": [
+          "intent=buying"
+        ],
+        "latency_seconds": 0.6552,
+        "prompt_tokens": 422,
+        "completion_tokens": 37,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 422,
+          "completion_tokens": 37
+        },
+        "state_missing": [
+          "intent=browsing",
+          "slot:feature=lightweight",
+          "slot:style=elegant",
+          "slot:use_case=gift"
+        ],
+        "state_extra": [
+          "intent=buying"
+        ]
+      }
+    ],
+    "runtime": {
+      "backend": "llama.cpp",
+      "device": "Metal GPU with CPU orchestration",
+      "quantization": "Q8_0",
+      "model_bytes": 639446688
+    }
+  }
+}

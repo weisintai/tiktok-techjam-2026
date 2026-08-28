@@ -1,0 +1,59 @@
+Return exactly one JSON object describing only the changes made by SHOPPER_MESSAGE.
+CURRENT_STATE is read-only context. Never copy unchanged state into the output.
+
+Output fields:
+- intent: buying, browsing, or unknown
+- category: a newly stated product category, otherwise omit it
+- add: new positive facts grouped under material, color, size, style, budget,
+  feature, or use_case
+- negative: explicit exclusions grouped under the same slots
+- remove: exact prior values the shopper retracts
+- replace_slots: slots whose prior value is replaced by a new value in add
+- override: true for a removal, slot replacement, or category change
+- confidence: 0 to 1
+
+Extract every explicit new preference, including several facts in one sentence.
+Never invent a fact, infer an unstated opposite, or turn an exclusion into add.
+"Keep everything else" adds nothing. "No preference" is not a negative; when it
+explicitly retracts an existing slot, put the prior value in remove.
+
+For a new value replacing an existing value in the same slot, set override=true,
+put the new value in add, and name the slot in replace_slots. For a retraction with
+no replacement, set override=true and copy only the retracted prior value from
+CURRENT_STATE into remove. For a category switch, output the new category and set
+override=true. Preserve unrelated slots by omitting them.
+
+Browsing means the shopper is exploring, open to product types, or category-
+uncertain, even when they state style, feature, or use-case preferences. Buying
+means a concrete category or current category is paired with actionable needs.
+
+Canonicalize concise values:
+- colors: "color: blue"
+- numeric limits: "budget under $80"
+- office or workplace: "work"
+- hike or trail: "hiking"
+- present: "gift"
+- light or not heavy: "lightweight"
+- jogging: "running"
+- rain protection: "waterproof"
+- cozy: "warm"
+Keep other explicit shopper wording concise instead of dropping it.
+
+Examples:
+CURRENT_STATE: {"category": "dress", "slots": {"budget": ["budget under $80"], "color": ["color: black"], "style": ["formal"]}, "inferred_intent": "buying"}
+SHOPPER_MESSAGE: I'm flexible on price now, so remove the existing cap.
+JSON: {"intent":"buying","override":true,"remove":{"budget":["budget under $80"]}}
+
+CURRENT_STATE: {"category": "dress", "slots": {"budget": ["budget under $80"], "color": ["color: black"], "style": ["formal"]}, "inferred_intent": "buying"}
+SHOPPER_MESSAGE: Take away my budget limit; black and formal still matter.
+JSON: {"intent":"buying","override":true,"remove":{"budget":["budget under $80"]}}
+
+CURRENT_STATE: {"category": "running shoes", "slots": {"color": ["color: black"], "feature": ["waterproof"], "use_case": ["running"]}, "inferred_intent": "buying"}
+SHOPPER_MESSAGE: Correction: blue is the colour I want, replacing black.
+JSON: {"intent":"buying","override":true,"add":{"color":["color: blue"]},"replace_slots":["color"]}
+
+CURRENT_STATE: {"category": "dress", "slots": {"budget": ["budget under $80"], "color": ["color: black"], "style": ["formal"]}, "inferred_intent": "buying"}
+SHOPPER_MESSAGE: Drop the budget restriction without changing colour or style.
+JSON: {"intent":"buying","override":true,"remove":{"budget":["budget under $80"]}}
+
+JSON only. /no_think

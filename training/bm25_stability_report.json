@@ -1,0 +1,4349 @@
+{
+  "method": "Freeze the production candidate pool, then rerank it after changing one FTS5 field weight by +/-10%.",
+  "production_ranking_changed": false,
+  "weights": {
+    "baseline": [
+      0.0,
+      5.0,
+      4.0,
+      6.0,
+      6.0,
+      1.0,
+      2.0
+    ],
+    "title_minus_10pct": [
+      0.0,
+      4.5,
+      4.0,
+      6.0,
+      6.0,
+      1.0,
+      2.0
+    ],
+    "title_plus_10pct": [
+      0.0,
+      5.5,
+      4.0,
+      6.0,
+      6.0,
+      1.0,
+      2.0
+    ],
+    "category_minus_10pct": [
+      0.0,
+      5.0,
+      3.6,
+      6.0,
+      6.0,
+      1.0,
+      2.0
+    ],
+    "category_plus_10pct": [
+      0.0,
+      5.0,
+      4.4,
+      6.0,
+      6.0,
+      1.0,
+      2.0
+    ]
+  },
+  "summary": {
+    "title_minus_10pct": {
+      "observations": 40,
+      "leader_survival_rate": 1.0,
+      "mean_top10_jaccard": 0.995455,
+      "minimum_top10_jaccard": 0.818182,
+      "target_rank_change_rate": 0.025,
+      "mean_absolute_target_rank_delta": 0.025
+    },
+    "title_plus_10pct": {
+      "observations": 40,
+      "leader_survival_rate": 1.0,
+      "mean_top10_jaccard": 0.995455,
+      "minimum_top10_jaccard": 0.818182,
+      "target_rank_change_rate": 0.025,
+      "mean_absolute_target_rank_delta": 0.05
+    },
+    "category_minus_10pct": {
+      "observations": 40,
+      "leader_survival_rate": 1.0,
+      "mean_top10_jaccard": 0.945455,
+      "minimum_top10_jaccard": 0.818182,
+      "target_rank_change_rate": 0.425,
+      "mean_absolute_target_rank_delta": 0.7
+    },
+    "category_plus_10pct": {
+      "observations": 40,
+      "leader_survival_rate": 1.0,
+      "mean_top10_jaccard": 0.987121,
+      "minimum_top10_jaccard": 0.666667,
+      "target_rank_change_rate": 0.325,
+      "mean_absolute_target_rank_delta": 0.425
+    }
+  },
+  "sessions": [
+    {
+      "sample_id": "public_0020",
+      "scenario_type": "buying",
+      "target": "B08P4SSFX4",
+      "turns": [
+        {
+          "turn": 1,
+          "user_message": "I'm looking for Novelty Women. A key requirement is: cotton.",
+          "category": "Novelty Women",
+          "constraints": [
+            "cotton"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 8179,
+          "exact_tie_count": 8147,
+          "baseline_leader": "B01JOTZKE8",
+          "baseline_target_rank": 15,
+          "baseline_top10": [
+            "B01JOTZKE8",
+            "B00LIO1UM4",
+            "B077QM3PGY",
+            "B01KVT25A2",
+            "B074S36RH8",
+            "B075Y7B3SY",
+            "B07NQLKVW6",
+            "B01JND7T0S",
+            "B071ZJ5N3C",
+            "B09M24W3N2"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": 15,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01JOTZKE8",
+                "B077QM3PGY",
+                "B00LIO1UM4",
+                "B01KVT25A2",
+                "B074S36RH8",
+                "B075Y7B3SY",
+                "B071ZJ5N3C",
+                "B076J26NGC",
+                "B01JND7T0S",
+                "B09M24W3N2"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": 13,
+              "target_rank_delta": -2,
+              "top10": [
+                "B01JOTZKE8",
+                "B00LIO1UM4",
+                "B077QM3PGY",
+                "B01KVT25A2",
+                "B074S36RH8",
+                "B075Y7B3SY",
+                "B07NQLKVW6",
+                "B018BHRNSK",
+                "B01JND7T0S",
+                "B09M24W3N2"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": 13,
+              "target_rank_delta": -2,
+              "top10": [
+                "B01JOTZKE8",
+                "B00LIO1UM4",
+                "B077QM3PGY",
+                "B01KVT25A2",
+                "B074S36RH8",
+                "B075Y7B3SY",
+                "B07NQLKVW6",
+                "B01JND7T0S",
+                "B071ZJ5N3C",
+                "B018BHRNSK"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": 18,
+              "target_rank_delta": 3,
+              "top10": [
+                "B01JOTZKE8",
+                "B00LIO1UM4",
+                "B077QM3PGY",
+                "B01KVT25A2",
+                "B074S36RH8",
+                "B075Y7B3SY",
+                "B09M24W3N2",
+                "B07NQLKVW6",
+                "B071ZJ5N3C",
+                "B018BHRNSK"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 2,
+          "user_message": "For that, what matters is: color: grey; Solid colors: 100% Cotton; Heather Grey: 90% Cotton, 10% Polyester; All Other Heathers: 50% Cotton, 50% Polyester.",
+          "category": "Novelty Women",
+          "constraints": [
+            "cotton",
+            "Solid colors: 100% Cotton",
+            "Heather Grey: 90% Cotton, 10% Polyester",
+            "All Other Heathers: 50% Cotton, 50% Polyester",
+            "color: grey"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 8891,
+          "exact_tie_count": 694,
+          "baseline_leader": "B01GJ0LYCM",
+          "baseline_target_rank": 256,
+          "baseline_top10": [
+            "B01GJ0LYCM",
+            "B077QM3PGY",
+            "B073RNZ1XP",
+            "B01N55AG7L",
+            "B06XK73TN8",
+            "B01NCZJA3N",
+            "B01N989YEM",
+            "B077D111YP",
+            "B0748JCM4K",
+            "B06XW3CVPV"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 253,
+              "target_rank_delta": -3,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 257,
+              "target_rank_delta": 1,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 3,
+          "user_message": "For that, what matters is: Imported.",
+          "category": "Novelty Women",
+          "constraints": [
+            "cotton",
+            "Solid colors: 100% Cotton",
+            "Heather Grey: 90% Cotton, 10% Polyester",
+            "All Other Heathers: 50% Cotton, 50% Polyester",
+            "color: grey",
+            "Imported"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "baseline_leader": "B01GJ0LYCM",
+          "baseline_target_rank": 256,
+          "baseline_top10": [
+            "B01GJ0LYCM",
+            "B077QM3PGY",
+            "B073RNZ1XP",
+            "B01N55AG7L",
+            "B06XK73TN8",
+            "B01NCZJA3N",
+            "B01N989YEM",
+            "B077D111YP",
+            "B0748JCM4K",
+            "B06XW3CVPV"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 254,
+              "target_rank_delta": -2,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 257,
+              "target_rank_delta": 1,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 4,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Novelty Women",
+          "constraints": [
+            "cotton",
+            "Solid colors: 100% Cotton",
+            "Heather Grey: 90% Cotton, 10% Polyester",
+            "All Other Heathers: 50% Cotton, 50% Polyester",
+            "color: grey",
+            "Imported"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "baseline_leader": "B01GJ0LYCM",
+          "baseline_target_rank": 256,
+          "baseline_top10": [
+            "B01GJ0LYCM",
+            "B077QM3PGY",
+            "B073RNZ1XP",
+            "B01N55AG7L",
+            "B06XK73TN8",
+            "B01NCZJA3N",
+            "B01N989YEM",
+            "B077D111YP",
+            "B0748JCM4K",
+            "B06XW3CVPV"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 254,
+              "target_rank_delta": -2,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 257,
+              "target_rank_delta": 1,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 5,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Novelty Women",
+          "constraints": [
+            "cotton",
+            "Solid colors: 100% Cotton",
+            "Heather Grey: 90% Cotton, 10% Polyester",
+            "All Other Heathers: 50% Cotton, 50% Polyester",
+            "color: grey",
+            "Imported"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "baseline_leader": "B01GJ0LYCM",
+          "baseline_target_rank": 256,
+          "baseline_top10": [
+            "B01GJ0LYCM",
+            "B077QM3PGY",
+            "B073RNZ1XP",
+            "B01N55AG7L",
+            "B06XK73TN8",
+            "B01NCZJA3N",
+            "B01N989YEM",
+            "B077D111YP",
+            "B0748JCM4K",
+            "B06XW3CVPV"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 254,
+              "target_rank_delta": -2,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 257,
+              "target_rank_delta": 1,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 6,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Novelty Women",
+          "constraints": [
+            "cotton",
+            "Solid colors: 100% Cotton",
+            "Heather Grey: 90% Cotton, 10% Polyester",
+            "All Other Heathers: 50% Cotton, 50% Polyester",
+            "color: grey",
+            "Imported"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "baseline_leader": "B01GJ0LYCM",
+          "baseline_target_rank": 256,
+          "baseline_top10": [
+            "B01GJ0LYCM",
+            "B077QM3PGY",
+            "B073RNZ1XP",
+            "B01N55AG7L",
+            "B06XK73TN8",
+            "B01NCZJA3N",
+            "B01N989YEM",
+            "B077D111YP",
+            "B0748JCM4K",
+            "B06XW3CVPV"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 254,
+              "target_rank_delta": -2,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 257,
+              "target_rank_delta": 1,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 7,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Novelty Women",
+          "constraints": [
+            "cotton",
+            "Solid colors: 100% Cotton",
+            "Heather Grey: 90% Cotton, 10% Polyester",
+            "All Other Heathers: 50% Cotton, 50% Polyester",
+            "color: grey",
+            "Imported"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "baseline_leader": "B01GJ0LYCM",
+          "baseline_target_rank": 256,
+          "baseline_top10": [
+            "B01GJ0LYCM",
+            "B077QM3PGY",
+            "B073RNZ1XP",
+            "B01N55AG7L",
+            "B06XK73TN8",
+            "B01NCZJA3N",
+            "B01N989YEM",
+            "B077D111YP",
+            "B0748JCM4K",
+            "B06XW3CVPV"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 254,
+              "target_rank_delta": -2,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 257,
+              "target_rank_delta": 1,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 8,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Novelty Women",
+          "constraints": [
+            "cotton",
+            "Solid colors: 100% Cotton",
+            "Heather Grey: 90% Cotton, 10% Polyester",
+            "All Other Heathers: 50% Cotton, 50% Polyester",
+            "color: grey",
+            "Imported"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "baseline_leader": "B01GJ0LYCM",
+          "baseline_target_rank": 256,
+          "baseline_top10": [
+            "B01GJ0LYCM",
+            "B077QM3PGY",
+            "B073RNZ1XP",
+            "B01N55AG7L",
+            "B06XK73TN8",
+            "B01NCZJA3N",
+            "B01N989YEM",
+            "B077D111YP",
+            "B0748JCM4K",
+            "B06XW3CVPV"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 254,
+              "target_rank_delta": -2,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 257,
+              "target_rank_delta": 1,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 9,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Novelty Women",
+          "constraints": [
+            "cotton",
+            "Solid colors: 100% Cotton",
+            "Heather Grey: 90% Cotton, 10% Polyester",
+            "All Other Heathers: 50% Cotton, 50% Polyester",
+            "color: grey",
+            "Imported"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "baseline_leader": "B01GJ0LYCM",
+          "baseline_target_rank": 256,
+          "baseline_top10": [
+            "B01GJ0LYCM",
+            "B077QM3PGY",
+            "B073RNZ1XP",
+            "B01N55AG7L",
+            "B06XK73TN8",
+            "B01NCZJA3N",
+            "B01N989YEM",
+            "B077D111YP",
+            "B0748JCM4K",
+            "B06XW3CVPV"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 254,
+              "target_rank_delta": -2,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 257,
+              "target_rank_delta": 1,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 10,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Novelty Women",
+          "constraints": [
+            "cotton",
+            "Solid colors: 100% Cotton",
+            "Heather Grey: 90% Cotton, 10% Polyester",
+            "All Other Heathers: 50% Cotton, 50% Polyester",
+            "color: grey",
+            "Imported"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "baseline_leader": "B01GJ0LYCM",
+          "baseline_target_rank": 256,
+          "baseline_top10": [
+            "B01GJ0LYCM",
+            "B077QM3PGY",
+            "B073RNZ1XP",
+            "B01N55AG7L",
+            "B06XK73TN8",
+            "B01NCZJA3N",
+            "B01N989YEM",
+            "B077D111YP",
+            "B0748JCM4K",
+            "B06XW3CVPV"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 256,
+              "target_rank_delta": 0,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 254,
+              "target_rank_delta": -2,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 257,
+              "target_rank_delta": 1,
+              "top10": [
+                "B01GJ0LYCM",
+                "B077QM3PGY",
+                "B073RNZ1XP",
+                "B01N55AG7L",
+                "B06XK73TN8",
+                "B01NCZJA3N",
+                "B01N989YEM",
+                "B077D111YP",
+                "B0748JCM4K",
+                "B06XW3CVPV"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample_id": "public_0096",
+      "scenario_type": "intent_override",
+      "target": "B074K2QX3M",
+      "turns": [
+        {
+          "turn": 1,
+          "user_message": "I'm looking for Tees & Blouses T-Shirts. Pull On closure",
+          "category": "Tees & Blouses T-Shirts",
+          "constraints": [],
+          "negative_constraints": [],
+          "candidate_count": 500,
+          "exact_tie_count": 500,
+          "baseline_leader": "B09WCMPTN6",
+          "baseline_target_rank": null,
+          "baseline_top10": [
+            "B09WCMPTN6",
+            "B09TRNVPWP",
+            "B09Z9H8ZM5",
+            "B09B93J25N",
+            "B0C1BT5862",
+            "B07ZHYSWZY",
+            "B09228WKCF",
+            "B07SVX4K3V",
+            "B0C8WM9W2N",
+            "B09721LJ61"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": null,
+              "target_rank_delta": null,
+              "top10": [
+                "B09WCMPTN6",
+                "B09TRNVPWP",
+                "B09Z9H8ZM5",
+                "B0C1BT5862",
+                "B09B93J25N",
+                "B07ZHYSWZY",
+                "B07SVX4K3V",
+                "B09228WKCF",
+                "B0C8WM9W2N",
+                "B09721LJ61"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": null,
+              "target_rank_delta": null,
+              "top10": [
+                "B09WCMPTN6",
+                "B09TRNVPWP",
+                "B09Z9H8ZM5",
+                "B07ZHYSWZY",
+                "B09B93J25N",
+                "B0C1BT5862",
+                "B09228WKCF",
+                "B07SVX4K3V",
+                "B09721LJ61",
+                "B0C8WM9W2N"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": null,
+              "target_rank_delta": null,
+              "top10": [
+                "B09WCMPTN6",
+                "B09TRNVPWP",
+                "B09Z9H8ZM5",
+                "B09B93J25N",
+                "B0C1BT5862",
+                "B07ZHYSWZY",
+                "B09228WKCF",
+                "B0C8WM9W2N",
+                "B09721LJ61",
+                "B0B8JWHWJD"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.666667,
+              "target_rank": null,
+              "target_rank_delta": null,
+              "top10": [
+                "B09WCMPTN6",
+                "B09TRNVPWP",
+                "B07ZHYSWZY",
+                "B09Z9H8ZM5",
+                "B09B93J25N",
+                "B0C1BT5862",
+                "B07SVX4K3V",
+                "B09228WKCF",
+                "B08GK645DZ",
+                "B07S3FDZQB"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 2,
+          "user_message": "For that, what matters is: polyester; 95% Polyester, 5% Spandex.",
+          "category": "Tees & Blouses T-Shirts",
+          "constraints": [
+            "polyester",
+            "95% Polyester, 5% Spandex"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 7386,
+          "exact_tie_count": 335,
+          "baseline_leader": "B096NVSN1L",
+          "baseline_target_rank": 34,
+          "baseline_top10": [
+            "B096NVSN1L",
+            "B097BL6G7S",
+            "B08CDJDJXL",
+            "B07TZPFQ9N",
+            "B0B4RW6DF2",
+            "B087B4KKX7",
+            "B07SD35K7G",
+            "B0B18MM3RR",
+            "B01KKQLXW2",
+            "B01N9I8V70"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 34,
+              "target_rank_delta": 0,
+              "top10": [
+                "B096NVSN1L",
+                "B097BL6G7S",
+                "B08CDJDJXL",
+                "B0B4RW6DF2",
+                "B07TZPFQ9N",
+                "B087B4KKX7",
+                "B07SD35K7G",
+                "B0B18MM3RR",
+                "B01KKQLXW2",
+                "B01N9I8V70"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 34,
+              "target_rank_delta": 0,
+              "top10": [
+                "B096NVSN1L",
+                "B097BL6G7S",
+                "B08CDJDJXL",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B087B4KKX7",
+                "B07SD35K7G",
+                "B0B18MM3RR",
+                "B01KKQLXW2",
+                "B01N9I8V70"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": 34,
+              "target_rank_delta": 0,
+              "top10": [
+                "B096NVSN1L",
+                "B097BL6G7S",
+                "B08CDJDJXL",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B087B4KKX7",
+                "B07SD35K7G",
+                "B0B18MM3RR",
+                "B01KKQLXW2",
+                "B0854F3M46"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 32,
+              "target_rank_delta": -2,
+              "top10": [
+                "B096NVSN1L",
+                "B097BL6G7S",
+                "B08CDJDJXL",
+                "B07TZPFQ9N",
+                "B087B4KKX7",
+                "B0B4RW6DF2",
+                "B07SD35K7G",
+                "B01KKQLXW2",
+                "B0B18MM3RR",
+                "B01N9I8V70"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 3,
+          "user_message": "Actually, ignore my earlier preference. What I need is: polyester.",
+          "category": "Tees & Blouses T-Shirts",
+          "constraints": [
+            "polyester",
+            "95% Polyester, 5% Spandex"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 7386,
+          "exact_tie_count": 335,
+          "baseline_leader": "B096NVSN1L",
+          "baseline_target_rank": 34,
+          "baseline_top10": [
+            "B096NVSN1L",
+            "B097BL6G7S",
+            "B08CDJDJXL",
+            "B07TZPFQ9N",
+            "B0B4RW6DF2",
+            "B087B4KKX7",
+            "B07SD35K7G",
+            "B0B18MM3RR",
+            "B01KKQLXW2",
+            "B01N9I8V70"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 34,
+              "target_rank_delta": 0,
+              "top10": [
+                "B096NVSN1L",
+                "B097BL6G7S",
+                "B08CDJDJXL",
+                "B0B4RW6DF2",
+                "B07TZPFQ9N",
+                "B087B4KKX7",
+                "B07SD35K7G",
+                "B0B18MM3RR",
+                "B01KKQLXW2",
+                "B01N9I8V70"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 34,
+              "target_rank_delta": 0,
+              "top10": [
+                "B096NVSN1L",
+                "B097BL6G7S",
+                "B08CDJDJXL",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B087B4KKX7",
+                "B07SD35K7G",
+                "B0B18MM3RR",
+                "B01KKQLXW2",
+                "B01N9I8V70"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": 34,
+              "target_rank_delta": 0,
+              "top10": [
+                "B096NVSN1L",
+                "B097BL6G7S",
+                "B08CDJDJXL",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B087B4KKX7",
+                "B07SD35K7G",
+                "B0B18MM3RR",
+                "B01KKQLXW2",
+                "B0854F3M46"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 32,
+              "target_rank_delta": -2,
+              "top10": [
+                "B096NVSN1L",
+                "B097BL6G7S",
+                "B08CDJDJXL",
+                "B07TZPFQ9N",
+                "B087B4KKX7",
+                "B0B4RW6DF2",
+                "B07SD35K7G",
+                "B01KKQLXW2",
+                "B0B18MM3RR",
+                "B01N9I8V70"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 4,
+          "user_message": "For that, what matters is: Imported; Pull On closure.",
+          "category": "Tees & Blouses T-Shirts",
+          "constraints": [
+            "polyester",
+            "95% Polyester, 5% Spandex",
+            "Imported",
+            "Pull On closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 21530,
+          "exact_tie_count": 50,
+          "baseline_leader": "B087B4KKX7",
+          "baseline_target_rank": 12,
+          "baseline_top10": [
+            "B087B4KKX7",
+            "B01KKQLXW2",
+            "B07TZPFQ9N",
+            "B0B4RW6DF2",
+            "B0953H3TZT",
+            "B07W4W6QNM",
+            "B0BWD9T482",
+            "B07QXYGFRP",
+            "B0BZ4TC8C6",
+            "B07BRVF979"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B0B4RW6DF2",
+                "B07TZPFQ9N",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B07QXYGFRP",
+                "B0BWD9T482",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B0BWD9T482",
+                "B07QXYGFRP",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": 13,
+              "target_rank_delta": 1,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B0BWD9T482",
+                "B07QXYGFRP",
+                "B0BZ4TC8C6",
+                "B08YR5M6C4"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B07QXYGFRP",
+                "B0BWD9T482",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 5,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Tees & Blouses T-Shirts",
+          "constraints": [
+            "polyester",
+            "95% Polyester, 5% Spandex",
+            "Imported",
+            "Pull On closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 21530,
+          "exact_tie_count": 50,
+          "baseline_leader": "B087B4KKX7",
+          "baseline_target_rank": 12,
+          "baseline_top10": [
+            "B087B4KKX7",
+            "B01KKQLXW2",
+            "B07TZPFQ9N",
+            "B0B4RW6DF2",
+            "B0953H3TZT",
+            "B07W4W6QNM",
+            "B0BWD9T482",
+            "B07QXYGFRP",
+            "B0BZ4TC8C6",
+            "B07BRVF979"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B0B4RW6DF2",
+                "B07TZPFQ9N",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B07QXYGFRP",
+                "B0BWD9T482",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B0BWD9T482",
+                "B07QXYGFRP",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": 13,
+              "target_rank_delta": 1,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B0BWD9T482",
+                "B07QXYGFRP",
+                "B0BZ4TC8C6",
+                "B08YR5M6C4"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B07QXYGFRP",
+                "B0BWD9T482",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 6,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Tees & Blouses T-Shirts",
+          "constraints": [
+            "polyester",
+            "95% Polyester, 5% Spandex",
+            "Imported",
+            "Pull On closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 21530,
+          "exact_tie_count": 50,
+          "baseline_leader": "B087B4KKX7",
+          "baseline_target_rank": 12,
+          "baseline_top10": [
+            "B087B4KKX7",
+            "B01KKQLXW2",
+            "B07TZPFQ9N",
+            "B0B4RW6DF2",
+            "B0953H3TZT",
+            "B07W4W6QNM",
+            "B0BWD9T482",
+            "B07QXYGFRP",
+            "B0BZ4TC8C6",
+            "B07BRVF979"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B0B4RW6DF2",
+                "B07TZPFQ9N",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B07QXYGFRP",
+                "B0BWD9T482",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B0BWD9T482",
+                "B07QXYGFRP",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": 13,
+              "target_rank_delta": 1,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B0BWD9T482",
+                "B07QXYGFRP",
+                "B0BZ4TC8C6",
+                "B08YR5M6C4"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B07QXYGFRP",
+                "B0BWD9T482",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 7,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Tees & Blouses T-Shirts",
+          "constraints": [
+            "polyester",
+            "95% Polyester, 5% Spandex",
+            "Imported",
+            "Pull On closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 21530,
+          "exact_tie_count": 50,
+          "baseline_leader": "B087B4KKX7",
+          "baseline_target_rank": 12,
+          "baseline_top10": [
+            "B087B4KKX7",
+            "B01KKQLXW2",
+            "B07TZPFQ9N",
+            "B0B4RW6DF2",
+            "B0953H3TZT",
+            "B07W4W6QNM",
+            "B0BWD9T482",
+            "B07QXYGFRP",
+            "B0BZ4TC8C6",
+            "B07BRVF979"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B0B4RW6DF2",
+                "B07TZPFQ9N",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B07QXYGFRP",
+                "B0BWD9T482",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B0BWD9T482",
+                "B07QXYGFRP",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": 13,
+              "target_rank_delta": 1,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B0BWD9T482",
+                "B07QXYGFRP",
+                "B0BZ4TC8C6",
+                "B08YR5M6C4"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B07QXYGFRP",
+                "B0BWD9T482",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 8,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Tees & Blouses T-Shirts",
+          "constraints": [
+            "polyester",
+            "95% Polyester, 5% Spandex",
+            "Imported",
+            "Pull On closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 21530,
+          "exact_tie_count": 50,
+          "baseline_leader": "B087B4KKX7",
+          "baseline_target_rank": 12,
+          "baseline_top10": [
+            "B087B4KKX7",
+            "B01KKQLXW2",
+            "B07TZPFQ9N",
+            "B0B4RW6DF2",
+            "B0953H3TZT",
+            "B07W4W6QNM",
+            "B0BWD9T482",
+            "B07QXYGFRP",
+            "B0BZ4TC8C6",
+            "B07BRVF979"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B0B4RW6DF2",
+                "B07TZPFQ9N",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B07QXYGFRP",
+                "B0BWD9T482",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B0BWD9T482",
+                "B07QXYGFRP",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": 13,
+              "target_rank_delta": 1,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B0BWD9T482",
+                "B07QXYGFRP",
+                "B0BZ4TC8C6",
+                "B08YR5M6C4"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B07QXYGFRP",
+                "B0BWD9T482",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 9,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Tees & Blouses T-Shirts",
+          "constraints": [
+            "polyester",
+            "95% Polyester, 5% Spandex",
+            "Imported",
+            "Pull On closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 21530,
+          "exact_tie_count": 50,
+          "baseline_leader": "B087B4KKX7",
+          "baseline_target_rank": 12,
+          "baseline_top10": [
+            "B087B4KKX7",
+            "B01KKQLXW2",
+            "B07TZPFQ9N",
+            "B0B4RW6DF2",
+            "B0953H3TZT",
+            "B07W4W6QNM",
+            "B0BWD9T482",
+            "B07QXYGFRP",
+            "B0BZ4TC8C6",
+            "B07BRVF979"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B0B4RW6DF2",
+                "B07TZPFQ9N",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B07QXYGFRP",
+                "B0BWD9T482",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B0BWD9T482",
+                "B07QXYGFRP",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": 13,
+              "target_rank_delta": 1,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B0BWD9T482",
+                "B07QXYGFRP",
+                "B0BZ4TC8C6",
+                "B08YR5M6C4"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B07QXYGFRP",
+                "B0BWD9T482",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 10,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Tees & Blouses T-Shirts",
+          "constraints": [
+            "polyester",
+            "95% Polyester, 5% Spandex",
+            "Imported",
+            "Pull On closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 21530,
+          "exact_tie_count": 50,
+          "baseline_leader": "B087B4KKX7",
+          "baseline_target_rank": 12,
+          "baseline_top10": [
+            "B087B4KKX7",
+            "B01KKQLXW2",
+            "B07TZPFQ9N",
+            "B0B4RW6DF2",
+            "B0953H3TZT",
+            "B07W4W6QNM",
+            "B0BWD9T482",
+            "B07QXYGFRP",
+            "B0BZ4TC8C6",
+            "B07BRVF979"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B0B4RW6DF2",
+                "B07TZPFQ9N",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B07QXYGFRP",
+                "B0BWD9T482",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B0BWD9T482",
+                "B07QXYGFRP",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": 13,
+              "target_rank_delta": 1,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B0BWD9T482",
+                "B07QXYGFRP",
+                "B0BZ4TC8C6",
+                "B08YR5M6C4"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 12,
+              "target_rank_delta": 0,
+              "top10": [
+                "B087B4KKX7",
+                "B01KKQLXW2",
+                "B07TZPFQ9N",
+                "B0B4RW6DF2",
+                "B0953H3TZT",
+                "B07W4W6QNM",
+                "B07QXYGFRP",
+                "B0BWD9T482",
+                "B0BZ4TC8C6",
+                "B07BRVF979"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample_id": "public_0144",
+      "scenario_type": "intent_override",
+      "target": "B08LMMDYV7",
+      "turns": [
+        {
+          "turn": 1,
+          "user_message": "I'm looking for Jackets & Vests Down Jackets & Parkas. Zipper closure",
+          "category": "Jackets & Vests Down Jackets & Parkas",
+          "constraints": [],
+          "negative_constraints": [],
+          "candidate_count": 500,
+          "exact_tie_count": 500,
+          "baseline_leader": "B07XLNJXDW",
+          "baseline_target_rank": 104,
+          "baseline_top10": [
+            "B07XLNJXDW",
+            "B01LYCJSER",
+            "B07D8W778T",
+            "B07Y8VL8QH",
+            "B0123YHODG",
+            "B07Z7JMYXT",
+            "B07P5GYCWN",
+            "B08D9MX2YY",
+            "B075JGL3JG",
+            "B07JCXYC2D"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 103,
+              "target_rank_delta": -1,
+              "top10": [
+                "B07XLNJXDW",
+                "B01LYCJSER",
+                "B07D8W778T",
+                "B07Y8VL8QH",
+                "B0123YHODG",
+                "B07Z7JMYXT",
+                "B07P5GYCWN",
+                "B08D9MX2YY",
+                "B075JGL3JG",
+                "B07JCXYC2D"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 104,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07XLNJXDW",
+                "B01LYCJSER",
+                "B07D8W778T",
+                "B07Y8VL8QH",
+                "B0123YHODG",
+                "B07Z7JMYXT",
+                "B07P5GYCWN",
+                "B08D9MX2YY",
+                "B075JGL3JG",
+                "B07JCXYC2D"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 104,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07XLNJXDW",
+                "B01LYCJSER",
+                "B07D8W778T",
+                "B07Y8VL8QH",
+                "B0123YHODG",
+                "B07Z7JMYXT",
+                "B07P5GYCWN",
+                "B08D9MX2YY",
+                "B075JGL3JG",
+                "B07JCXYC2D"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 103,
+              "target_rank_delta": -1,
+              "top10": [
+                "B07XLNJXDW",
+                "B01LYCJSER",
+                "B07D8W778T",
+                "B07Y8VL8QH",
+                "B0123YHODG",
+                "B07Z7JMYXT",
+                "B07P5GYCWN",
+                "B08D9MX2YY",
+                "B075JGL3JG",
+                "B07JCXYC2D"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 2,
+          "user_message": "For that, what matters is: polyester; 100% Polyester.",
+          "category": "Jackets & Vests Down Jackets & Parkas",
+          "constraints": [
+            "polyester",
+            "100% Polyester"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 7470,
+          "exact_tie_count": 2359,
+          "baseline_leader": "B07BR2J71F",
+          "baseline_target_rank": 19,
+          "baseline_top10": [
+            "B07BR2J71F",
+            "B07CZGMNML",
+            "B00DDFK0DQ",
+            "B076TTCM7S",
+            "B09D112TGF",
+            "B01LOS71XK",
+            "B088Y6BN67",
+            "B01J6KNXTO",
+            "B07RS44M91",
+            "B081BHJZWZ"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 19,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B00DDFK0DQ",
+                "B076TTCM7S",
+                "B09D112TGF",
+                "B01LOS71XK",
+                "B088Y6BN67",
+                "B01J6KNXTO",
+                "B07RS44M91",
+                "B081BHJZWZ"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 19,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B00DDFK0DQ",
+                "B076TTCM7S",
+                "B09D112TGF",
+                "B01LOS71XK",
+                "B088Y6BN67",
+                "B01J6KNXTO",
+                "B07RS44M91",
+                "B081BHJZWZ"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 19,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B00DDFK0DQ",
+                "B076TTCM7S",
+                "B09D112TGF",
+                "B01LOS71XK",
+                "B088Y6BN67",
+                "B01J6KNXTO",
+                "B07RS44M91",
+                "B081BHJZWZ"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 19,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B00DDFK0DQ",
+                "B076TTCM7S",
+                "B09D112TGF",
+                "B01LOS71XK",
+                "B088Y6BN67",
+                "B01J6KNXTO",
+                "B07RS44M91",
+                "B081BHJZWZ"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 3,
+          "user_message": "For that, what matters is: Imported; Zipper closure.",
+          "category": "Jackets & Vests Down Jackets & Parkas",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Zipper closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19038,
+          "exact_tie_count": 186,
+          "baseline_leader": "B07BR2J71F",
+          "baseline_target_rank": 8,
+          "baseline_top10": [
+            "B07BR2J71F",
+            "B07CZGMNML",
+            "B088Y6BN67",
+            "B09D112TGF",
+            "B01GHS9PUE",
+            "B09JX1Q6RY",
+            "B0BCK59834",
+            "B08LMMDYV7",
+            "B073X1RZTC",
+            "B07RHVLJ13"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 4,
+          "user_message": "Actually, ignore my earlier preference. What I need is: polyester.",
+          "category": "Jackets & Vests Down Jackets & Parkas",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Zipper closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19038,
+          "exact_tie_count": 186,
+          "baseline_leader": "B07BR2J71F",
+          "baseline_target_rank": 8,
+          "baseline_top10": [
+            "B07BR2J71F",
+            "B07CZGMNML",
+            "B088Y6BN67",
+            "B09D112TGF",
+            "B01GHS9PUE",
+            "B09JX1Q6RY",
+            "B0BCK59834",
+            "B08LMMDYV7",
+            "B073X1RZTC",
+            "B07RHVLJ13"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 5,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Jackets & Vests Down Jackets & Parkas",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Zipper closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19038,
+          "exact_tie_count": 186,
+          "baseline_leader": "B07BR2J71F",
+          "baseline_target_rank": 8,
+          "baseline_top10": [
+            "B07BR2J71F",
+            "B07CZGMNML",
+            "B088Y6BN67",
+            "B09D112TGF",
+            "B01GHS9PUE",
+            "B09JX1Q6RY",
+            "B0BCK59834",
+            "B08LMMDYV7",
+            "B073X1RZTC",
+            "B07RHVLJ13"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 6,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Jackets & Vests Down Jackets & Parkas",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Zipper closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19038,
+          "exact_tie_count": 186,
+          "baseline_leader": "B07BR2J71F",
+          "baseline_target_rank": 8,
+          "baseline_top10": [
+            "B07BR2J71F",
+            "B07CZGMNML",
+            "B088Y6BN67",
+            "B09D112TGF",
+            "B01GHS9PUE",
+            "B09JX1Q6RY",
+            "B0BCK59834",
+            "B08LMMDYV7",
+            "B073X1RZTC",
+            "B07RHVLJ13"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 7,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Jackets & Vests Down Jackets & Parkas",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Zipper closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19038,
+          "exact_tie_count": 186,
+          "baseline_leader": "B07BR2J71F",
+          "baseline_target_rank": 8,
+          "baseline_top10": [
+            "B07BR2J71F",
+            "B07CZGMNML",
+            "B088Y6BN67",
+            "B09D112TGF",
+            "B01GHS9PUE",
+            "B09JX1Q6RY",
+            "B0BCK59834",
+            "B08LMMDYV7",
+            "B073X1RZTC",
+            "B07RHVLJ13"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 8,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Jackets & Vests Down Jackets & Parkas",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Zipper closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19038,
+          "exact_tie_count": 186,
+          "baseline_leader": "B07BR2J71F",
+          "baseline_target_rank": 8,
+          "baseline_top10": [
+            "B07BR2J71F",
+            "B07CZGMNML",
+            "B088Y6BN67",
+            "B09D112TGF",
+            "B01GHS9PUE",
+            "B09JX1Q6RY",
+            "B0BCK59834",
+            "B08LMMDYV7",
+            "B073X1RZTC",
+            "B07RHVLJ13"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 9,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Jackets & Vests Down Jackets & Parkas",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Zipper closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19038,
+          "exact_tie_count": 186,
+          "baseline_leader": "B07BR2J71F",
+          "baseline_target_rank": 8,
+          "baseline_top10": [
+            "B07BR2J71F",
+            "B07CZGMNML",
+            "B088Y6BN67",
+            "B09D112TGF",
+            "B01GHS9PUE",
+            "B09JX1Q6RY",
+            "B0BCK59834",
+            "B08LMMDYV7",
+            "B073X1RZTC",
+            "B07RHVLJ13"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 10,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Jackets & Vests Down Jackets & Parkas",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Zipper closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 19038,
+          "exact_tie_count": 186,
+          "baseline_leader": "B07BR2J71F",
+          "baseline_target_rank": 8,
+          "baseline_top10": [
+            "B07BR2J71F",
+            "B07CZGMNML",
+            "B088Y6BN67",
+            "B09D112TGF",
+            "B01GHS9PUE",
+            "B09JX1Q6RY",
+            "B0BCK59834",
+            "B08LMMDYV7",
+            "B073X1RZTC",
+            "B07RHVLJ13"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B073X1RZTC",
+                "B07RHVLJ13"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 8,
+              "target_rank_delta": 0,
+              "top10": [
+                "B07BR2J71F",
+                "B07CZGMNML",
+                "B088Y6BN67",
+                "B09D112TGF",
+                "B01GHS9PUE",
+                "B09JX1Q6RY",
+                "B0BCK59834",
+                "B08LMMDYV7",
+                "B07RHVLJ13",
+                "B073X1RZTC"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample_id": "public_0174",
+      "scenario_type": "buying",
+      "target": "B0794VPVBH",
+      "turns": [
+        {
+          "turn": 1,
+          "user_message": "I'm looking for Sleep & Lounge Robes. A key requirement is: polyester.",
+          "category": "Sleep & Lounge Robes",
+          "constraints": [
+            "polyester"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 7403,
+          "exact_tie_count": 7159,
+          "baseline_leader": "B08FZZ68T2",
+          "baseline_target_rank": 69,
+          "baseline_top10": [
+            "B08FZZ68T2",
+            "B01LDELSIO",
+            "B075697T3J",
+            "B0756C4C1R",
+            "B07T5K299W",
+            "B08C34HQW1",
+            "B01M29D3YO",
+            "B00Z7BJJIQ",
+            "B09TSDRX3F",
+            "B07111P7Q7"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 69,
+              "target_rank_delta": 0,
+              "top10": [
+                "B08FZZ68T2",
+                "B01LDELSIO",
+                "B075697T3J",
+                "B0756C4C1R",
+                "B07T5K299W",
+                "B08C34HQW1",
+                "B01M29D3YO",
+                "B00Z7BJJIQ",
+                "B09TSDRX3F",
+                "B07111P7Q7"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 69,
+              "target_rank_delta": 0,
+              "top10": [
+                "B08FZZ68T2",
+                "B01LDELSIO",
+                "B075697T3J",
+                "B0756C4C1R",
+                "B07T5K299W",
+                "B08C34HQW1",
+                "B01M29D3YO",
+                "B00Z7BJJIQ",
+                "B09TSDRX3F",
+                "B07111P7Q7"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 69,
+              "target_rank_delta": 0,
+              "top10": [
+                "B08FZZ68T2",
+                "B01LDELSIO",
+                "B075697T3J",
+                "B0756C4C1R",
+                "B07T5K299W",
+                "B08C34HQW1",
+                "B01M29D3YO",
+                "B00Z7BJJIQ",
+                "B09TSDRX3F",
+                "B07111P7Q7"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 69,
+              "target_rank_delta": 0,
+              "top10": [
+                "B08FZZ68T2",
+                "B01LDELSIO",
+                "B075697T3J",
+                "B07T5K299W",
+                "B0756C4C1R",
+                "B08C34HQW1",
+                "B01M29D3YO",
+                "B09TSDRX3F",
+                "B07111P7Q7",
+                "B00Z7BJJIQ"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 2,
+          "user_message": "For that, what matters is: 100% Polyester; Imported.",
+          "category": "Sleep & Lounge Robes",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 18175,
+          "exact_tie_count": 1165,
+          "baseline_leader": "B015HQH8II",
+          "baseline_target_rank": 16,
+          "baseline_top10": [
+            "B015HQH8II",
+            "B00F4O2QC2",
+            "B0CCNK8JP9",
+            "B00HZHTXZE",
+            "B010O2S2JO",
+            "B01HVLWJ7M",
+            "B079JJXSSN",
+            "B00MRQWSWI",
+            "B01EKDRVIG",
+            "B079JGHJN3"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 16,
+              "target_rank_delta": 0,
+              "top10": [
+                "B015HQH8II",
+                "B00F4O2QC2",
+                "B0CCNK8JP9",
+                "B00HZHTXZE",
+                "B010O2S2JO",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B00MRQWSWI",
+                "B01EKDRVIG",
+                "B079JGHJN3"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 16,
+              "target_rank_delta": 0,
+              "top10": [
+                "B015HQH8II",
+                "B00F4O2QC2",
+                "B0CCNK8JP9",
+                "B00HZHTXZE",
+                "B010O2S2JO",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B00MRQWSWI",
+                "B01EKDRVIG",
+                "B079JGHJN3"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 0.818182,
+              "target_rank": 16,
+              "target_rank_delta": 0,
+              "top10": [
+                "B015HQH8II",
+                "B0CCNK8JP9",
+                "B00F4O2QC2",
+                "B00HZHTXZE",
+                "B010O2S2JO",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B00MRQWSWI",
+                "B01EKDRVIG",
+                "B082N4XNWS"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 16,
+              "target_rank_delta": 0,
+              "top10": [
+                "B015HQH8II",
+                "B00F4O2QC2",
+                "B00HZHTXZE",
+                "B0CCNK8JP9",
+                "B010O2S2JO",
+                "B01HVLWJ7M",
+                "B00MRQWSWI",
+                "B079JJXSSN",
+                "B01EKDRVIG",
+                "B079JGHJN3"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 3,
+          "user_message": "For that, what matters is: Tie closure.",
+          "category": "Sleep & Lounge Robes",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Tie closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 18384,
+          "exact_tie_count": 27,
+          "baseline_leader": "B00F4O2QC2",
+          "baseline_target_rank": 6,
+          "baseline_top10": [
+            "B00F4O2QC2",
+            "B01HVLWJ7M",
+            "B079JJXSSN",
+            "B079JGHJN3",
+            "B09GT64JCG",
+            "B0794VPVBH",
+            "B01IFL8X1S",
+            "B073VSFKKZ",
+            "B07PBWL353",
+            "B07CM1PHW1"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B079JJXSSN",
+                "B01HVLWJ7M",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 4,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Sleep & Lounge Robes",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Tie closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 18384,
+          "exact_tie_count": 27,
+          "baseline_leader": "B00F4O2QC2",
+          "baseline_target_rank": 6,
+          "baseline_top10": [
+            "B00F4O2QC2",
+            "B01HVLWJ7M",
+            "B079JJXSSN",
+            "B079JGHJN3",
+            "B09GT64JCG",
+            "B0794VPVBH",
+            "B01IFL8X1S",
+            "B073VSFKKZ",
+            "B07PBWL353",
+            "B07CM1PHW1"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B079JJXSSN",
+                "B01HVLWJ7M",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 5,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Sleep & Lounge Robes",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Tie closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 18384,
+          "exact_tie_count": 27,
+          "baseline_leader": "B00F4O2QC2",
+          "baseline_target_rank": 6,
+          "baseline_top10": [
+            "B00F4O2QC2",
+            "B01HVLWJ7M",
+            "B079JJXSSN",
+            "B079JGHJN3",
+            "B09GT64JCG",
+            "B0794VPVBH",
+            "B01IFL8X1S",
+            "B073VSFKKZ",
+            "B07PBWL353",
+            "B07CM1PHW1"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B079JJXSSN",
+                "B01HVLWJ7M",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 6,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Sleep & Lounge Robes",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Tie closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 18384,
+          "exact_tie_count": 27,
+          "baseline_leader": "B00F4O2QC2",
+          "baseline_target_rank": 6,
+          "baseline_top10": [
+            "B00F4O2QC2",
+            "B01HVLWJ7M",
+            "B079JJXSSN",
+            "B079JGHJN3",
+            "B09GT64JCG",
+            "B0794VPVBH",
+            "B01IFL8X1S",
+            "B073VSFKKZ",
+            "B07PBWL353",
+            "B07CM1PHW1"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B079JJXSSN",
+                "B01HVLWJ7M",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 7,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Sleep & Lounge Robes",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Tie closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 18384,
+          "exact_tie_count": 27,
+          "baseline_leader": "B00F4O2QC2",
+          "baseline_target_rank": 6,
+          "baseline_top10": [
+            "B00F4O2QC2",
+            "B01HVLWJ7M",
+            "B079JJXSSN",
+            "B079JGHJN3",
+            "B09GT64JCG",
+            "B0794VPVBH",
+            "B01IFL8X1S",
+            "B073VSFKKZ",
+            "B07PBWL353",
+            "B07CM1PHW1"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B079JJXSSN",
+                "B01HVLWJ7M",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 8,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Sleep & Lounge Robes",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Tie closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 18384,
+          "exact_tie_count": 27,
+          "baseline_leader": "B00F4O2QC2",
+          "baseline_target_rank": 6,
+          "baseline_top10": [
+            "B00F4O2QC2",
+            "B01HVLWJ7M",
+            "B079JJXSSN",
+            "B079JGHJN3",
+            "B09GT64JCG",
+            "B0794VPVBH",
+            "B01IFL8X1S",
+            "B073VSFKKZ",
+            "B07PBWL353",
+            "B07CM1PHW1"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B079JJXSSN",
+                "B01HVLWJ7M",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 9,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Sleep & Lounge Robes",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Tie closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 18384,
+          "exact_tie_count": 27,
+          "baseline_leader": "B00F4O2QC2",
+          "baseline_target_rank": 6,
+          "baseline_top10": [
+            "B00F4O2QC2",
+            "B01HVLWJ7M",
+            "B079JJXSSN",
+            "B079JGHJN3",
+            "B09GT64JCG",
+            "B0794VPVBH",
+            "B01IFL8X1S",
+            "B073VSFKKZ",
+            "B07PBWL353",
+            "B07CM1PHW1"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B079JJXSSN",
+                "B01HVLWJ7M",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            }
+          ]
+        },
+        {
+          "turn": 10,
+          "user_message": "I don't have an additional preference for other.",
+          "category": "Sleep & Lounge Robes",
+          "constraints": [
+            "polyester",
+            "100% Polyester",
+            "Imported",
+            "Tie closure"
+          ],
+          "negative_constraints": [],
+          "candidate_count": 18384,
+          "exact_tie_count": 27,
+          "baseline_leader": "B00F4O2QC2",
+          "baseline_target_rank": 6,
+          "baseline_top10": [
+            "B00F4O2QC2",
+            "B01HVLWJ7M",
+            "B079JJXSSN",
+            "B079JGHJN3",
+            "B09GT64JCG",
+            "B0794VPVBH",
+            "B01IFL8X1S",
+            "B073VSFKKZ",
+            "B07PBWL353",
+            "B07CM1PHW1"
+          ],
+          "variants": [
+            {
+              "variant": "title_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "title_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_minus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B079JJXSSN",
+                "B01HVLWJ7M",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            },
+            {
+              "variant": "category_plus_10pct",
+              "leader_survived": true,
+              "top10_jaccard": 1.0,
+              "target_rank": 6,
+              "target_rank_delta": 0,
+              "top10": [
+                "B00F4O2QC2",
+                "B01HVLWJ7M",
+                "B079JJXSSN",
+                "B079JGHJN3",
+                "B09GT64JCG",
+                "B0794VPVBH",
+                "B01IFL8X1S",
+                "B073VSFKKZ",
+                "B07PBWL353",
+                "B07CM1PHW1"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

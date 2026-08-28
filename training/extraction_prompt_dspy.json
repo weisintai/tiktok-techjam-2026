@@ -1,0 +1,12 @@
+{
+  "optimizer": "BootstrapFewShot",
+  "metric_threshold": 0.75,
+  "train_cases_considered": 40,
+  "selected_case_ids": [
+    "freeform_0087",
+    "freeform_0086",
+    "freeform_0070",
+    "freeform_0084"
+  ],
+  "output": "training/extraction_prompt_dspy.txt"
+}

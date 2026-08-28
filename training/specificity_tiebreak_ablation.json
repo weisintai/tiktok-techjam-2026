@@ -1,0 +1,8 @@
+{
+  "promoted": false,
+  "status": "rejected",
+  "hypothesis": "Prefer longer titles only when more than 100 products tie on exact-card evidence.",
+  "baseline": {"public_technical_score": 0.95365, "stress_technical_score": 0.9516},
+  "experiment": {"public_technical_score": 0.9219, "stress_technical_score": 0.9192},
+  "reason": "The heuristic recovered the under-specified Buying target locally but reordered many legitimate exact ties and caused broad regressions."
+}

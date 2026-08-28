@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-08-28T13:52:36.625260+00:00",
+  "hardware": {
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "logical_cpus": 11
+  },
+  "rules": {
+    "cases": 200,
+    "exact_match": 0.0,
+    "micro_precision": 0.1111,
+    "micro_recall": 0.0395,
+    "micro_f1": 0.0583,
+    "exact_state_match": 0.0,
+    "state_micro_precision": 0.6946,
+    "state_micro_recall": 0.4817,
+    "state_micro_f1": 0.5689,
+    "false_addition_rate": 0.9545,
+    "sibling_preservation": 1.0,
+    "by_split": {
+      "development": {
+        "cases": 40,
+        "exact_state_match": 0.0,
+        "state_micro_precision": 0.6397,
+        "state_micro_recall": 0.4833,
+        "state_micro_f1": 0.5506,
+        "false_addition_rate": 0.8125,
+        "sibling_preservation": 1.0
+      },
+      "test": {
+        "cases": 40,
+        "exact_state_match": 0.0,
+        "state_micro_precision": 0.7226,
+        "state_micro_recall": 0.495,
+        "state_micro_f1": 0.5875,
+        "false_addition_rate": 1.0,
+        "sibling_preservation": 1.0
+      },
+      "train": {
+        "cases": 120,
+        "exact_state_match": 0.0,
+        "state_micro_precision": 0.7043,
+        "state_micro_recall": 0.4764,
+        "state_micro_f1": 0.5683,
+        "false_addition_rate": 1.0,
+        "sibling_preservation": 1.0
+      }
+    }
+  }
+}

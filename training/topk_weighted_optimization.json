@@ -1,0 +1,439 @@
+{
+  "trace_count": 400,
+  "scenario_weights": {
+    "buying": 0.4,
+    "browsing": 0.4,
+    "intent_override": 0.15,
+    "boundary": 0.05
+  },
+  "baseline": {
+    "sample_count": 400,
+    "hit_rate_at_10": 0.99,
+    "mrr": 0.958167,
+    "mttc": 2.7695,
+    "efficiency": 0.82305,
+    "technical_score": 0.94706
+  },
+  "leaders": [
+    {
+      "name": "gate_1_1_3_3_t7_n1_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        3
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_3_3_t7_n3_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        3
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_3_3_t7_n10_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        3
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_3_3_t7_n30_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        3
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_3_5_t7_n1_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        5
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_3_5_t7_n3_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        5
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_3_5_t7_n10_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        5
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_3_5_t7_n30_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        5
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_3_10_t7_n1_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        10
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_3_10_t7_n3_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        10
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_3_10_t7_n10_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        10
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_3_10_t7_n30_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        10
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "static_1_1_5_5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        5,
+        5,
+        5,
+        5
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_5_5_t7_n1_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        5,
+        5,
+        5,
+        5
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_5_5_t7_n3_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        5,
+        5,
+        5,
+        5
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_5_5_t7_n10_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        5,
+        5,
+        5,
+        5
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_5_5_t7_n30_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        5,
+        5,
+        5,
+        5
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_5_5_t7_n100_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        5,
+        5,
+        5,
+        5
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "static_1_1_5_10",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        5,
+        5,
+        5,
+        10
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    },
+    {
+      "name": "gate_1_1_5_10_t7_n1_k5",
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        5,
+        5,
+        5,
+        10
+      ],
+      "sample_count": 400,
+      "hit_rate_at_10": 0.99,
+      "mrr": 0.9796,
+      "mttc": 2.8585,
+      "efficiency": 0.81415,
+      "technical_score": 0.95171
+    }
+  ]
+}

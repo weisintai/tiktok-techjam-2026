@@ -1,0 +1,8 @@
+{
+  "promoted": false,
+  "status": "rejected",
+  "hypothesis": "Return five products per turn after an intent override.",
+  "baseline": {"public_technical_score": 0.95365, "stress_technical_score": 0.9516},
+  "experiment": {"public_technical_score": 0.95045, "stress_technical_score": 0.949425},
+  "reason": "Earlier hits arrived at lower ranks, reducing MRR more than the MTTC improvement was worth."
+}

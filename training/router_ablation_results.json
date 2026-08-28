@@ -1,0 +1,27 @@
+{
+  "attempted": true,
+  "flag": "--experimental-router",
+  "promoted": false,
+  "status": "rejected",
+  "reason": "Public TechnicalScore regressed from 0.95365 to 0.95355 because Browsing MTTC increased from 2.75 to 2.7625.",
+  "baseline": {
+    "public_technical_score": 0.95365,
+    "stress_technical_score": 0.9516
+  },
+  "router": {
+    "public_technical_score": 0.95355,
+    "stress_technical_score": 0.9516,
+    "public": {
+      "buying": {"hit_rate_at_10": 0.9875, "mrr": 0.98125, "mttc": 2.6},
+      "browsing": {"hit_rate_at_10": 1.0, "mrr": 1.0, "mttc": 2.7625},
+      "intent_override": {"hit_rate_at_10": 1.0, "mrr": 0.951111, "mttc": 4.266667},
+      "boundary": {"hit_rate_at_10": 1.0, "mrr": 1.0, "mttc": 3.8}
+    },
+    "stress": {
+      "buying": {"hit_rate_at_10": 0.9875, "mrr": 0.98125, "mttc": 2.6125},
+      "browsing": {"hit_rate_at_10": 1.0, "mrr": 0.98375, "mttc": 2.8},
+      "intent_override": {"hit_rate_at_10": 1.0, "mrr": 0.951111, "mttc": 4.133333},
+      "boundary": {"hit_rate_at_10": 1.0, "mrr": 1.0, "mttc": 3.8}
+    }
+  }
+}

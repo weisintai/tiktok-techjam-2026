@@ -1,0 +1,5462 @@
+{
+  "mutation_family": "independent_constraint_order",
+  "evaluated_sessions": 200,
+  "mutated_sessions": 189,
+  "state_equivalent_sessions": 189,
+  "rejected_state_divergences": 0,
+  "eligible_baseline": {
+    "sample_count": 189,
+    "hit_rate_at_10": 0.994709,
+    "mrr": 0.984303,
+    "mttc": 3.084656,
+    "technical_score": 0.950952
+  },
+  "eligible_mutated": {
+    "sample_count": 189,
+    "hit_rate_at_10": 0.994709,
+    "mrr": 0.984303,
+    "mttc": 3.084656,
+    "technical_score": 0.950952
+  },
+  "technical_score_delta": 0.0,
+  "cases": [
+    {
+      "sample_id": "public_0001",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Triple Moon Pentagram Symbol; The Triple Moon represents the Phases of the Moon which are linked to the three aspects of the Goddess and the phases of the Life of Women.The Pentagram representing the holistic r.",
+          "mutated": "For that, what matters is: The Triple Moon represents the Phases of the Moon which are linked to the three aspects of the Goddess and the phases of the Life of Women.The Pentagram representing the holistic r; Triple Moon Pentagram Symbol."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0002",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: leather; 100% Leather.",
+          "mutated": "For that, what matters is: 100% Leather; leather."
+        },
+        {
+          "turn": 4,
+          "original": "For that, what matters is: Imported; Buckle closure.",
+          "mutated": "For that, what matters is: Buckle closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 7,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 7,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0003",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Water Resistant; 3 Year Battery.",
+          "mutated": "For that, what matters is: 3 Year Battery; Water Resistant."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0004",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; Polyester,Cotton,Spandex.",
+          "mutated": "For that, what matters is: Polyester,Cotton,Spandex; polyester."
+        },
+        {
+          "turn": 4,
+          "original": "For that, what matters is: Quality soft cottonblend camisole, 95% cotton, 5% spandex, Neon Colors 57% cotton 38% polyester 5% spandex; Long torso camisole for extra coverage with spagetti adjustable strap for perfect fit.",
+          "mutated": "For that, what matters is: Long torso camisole for extra coverage with spagetti adjustable strap for perfect fit; Quality soft cottonblend camisole, 95% cotton, 5% spandex, Neon Colors 57% cotton 38% polyester 5% spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0005",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Rubber sole; Shaft measures approximately 8.37\" from arch.",
+          "mutated": "For that, what matters is: Shaft measures approximately 8.37\" from arch; Rubber sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0006",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 100% Polyester.",
+          "mutated": "For that, what matters is: 100% Polyester; polyester."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Drawstring closure; High quality mesh for maximum breathability to keep you cool.",
+          "mutated": "For that, what matters is: High quality mesh for maximum breathability to keep you cool; Drawstring closure."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0007",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 75% Polyester, 20% Rayon, 5% Spandex.",
+          "mutated": "For that, what matters is: 75% Polyester, 20% Rayon, 5% Spandex; polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0008",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 96% Nylon, 4% Spandex; Pull-On closure.",
+          "mutated": "For that, what matters is: Pull-On closure; 96% Nylon, 4% Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0009",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Soft Washed PU Leather with Convenient side Pockets; Imported.",
+          "mutated": "For that, what matters is: Imported; Soft Washed PU Leather with Convenient side Pockets."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0010",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Stretchy fabric: 95% modal, 5% spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; Stretchy fabric: 95% modal, 5% spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0011",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 100% Cotton.",
+          "mutated": "For that, what matters is: 100% Cotton; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; undershirts closure.",
+          "mutated": "For that, what matters is: undershirts closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0012",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 95% Polyester, 5% Spandex.",
+          "mutated": "For that, what matters is: 95% Polyester, 5% Spandex; polyester."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; Wrap closure.",
+          "mutated": "For that, what matters is: Wrap closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0013",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Rubber sole; Textile Upper. Textile Covered EVA Footbed. Rubber Outsole.",
+          "mutated": "For that, what matters is: Textile Upper. Textile Covered EVA Footbed. Rubber Outsole; Rubber sole."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Received APMA (American Podiatric Medical Association) Seal of Acceptance; YOUR NEW FAVORITE SLIPPERS: Slip into divine comfort with Gemma, a plush mule-style spa slipper with an adjustable hook-and-loop closure across the vamp.",
+          "mutated": "For that, what matters is: YOUR NEW FAVORITE SLIPPERS: Slip into divine comfort with Gemma, a plush mule-style spa slipper with an adjustable hook-and-loop closure across the vamp; Received APMA (American Podiatric Medical Association) Seal of Acceptance."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0014",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; Solids: 100% Cotton; heathers: 75% cotton, 25% polyester.",
+          "mutated": "For that, what matters is: heathers: 75% cotton, 25% polyester; Solids: 100% Cotton; cotton."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0015",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: fabric; Made in the USA or Imported.",
+          "mutated": "For that, what matters is: Made in the USA or Imported; fabric."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0016",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: leather; Imported.",
+          "mutated": "For that, what matters is: Imported; leather."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Rubber sole; Shaft measures approximately ankle-high from arch.",
+          "mutated": "For that, what matters is: Shaft measures approximately ankle-high from arch; Rubber sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0017",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: color: red; Leather.",
+          "mutated": "For that, what matters is: Leather; color: red."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0018",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Modal,Polyester,Cotton; Pull On closure.",
+          "mutated": "For that, what matters is: Pull On closure; Modal,Polyester,Cotton."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0019",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Rubber sole; Shaft measures approximately 5.5\" from arch.",
+          "mutated": "For that, what matters is: Shaft measures approximately 5.5\" from arch; Rubber sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0020",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: color: grey; Solid colors: 100% Cotton; Heather Grey: 90% Cotton, 10% Polyester; All Other Heathers: 50% Cotton, 50% Polyester.",
+          "mutated": "For that, what matters is: All Other Heathers: 50% Cotton, 50% Polyester; Heather Grey: 90% Cotton, 10% Polyester; Solid colors: 100% Cotton; color: grey."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": false,
+        "first_hit_turn": null,
+        "best_rank": null
+      },
+      "mutated_outcome": {
+        "hit": false,
+        "first_hit_turn": null,
+        "best_rank": null
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0021",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 98% Polyester, 2% Spandex.",
+          "mutated": "For that, what matters is: 98% Polyester, 2% Spandex; polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0022",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Fabric: 100% Cotton, Soft, Comfy, Breathable and keep you cool; Imported.",
+          "mutated": "For that, what matters is: Imported; Fabric: 100% Cotton, Soft, Comfy, Breathable and keep you cool."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0023",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Hand Wash Only; Item model number: G796.",
+          "mutated": "For that, what matters is: Item model number: G796; Hand Wash Only."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Department: Womens; Date First Available: March 19, 2021.",
+          "mutated": "For that, what matters is: Date First Available: March 19, 2021; Department: Womens."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0024",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100 rayon; Machine Wash.",
+          "mutated": "For that, what matters is: Machine Wash; 100 rayon."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0025",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: spandex; 65%Polyester30%Viscose5%Spandex.",
+          "mutated": "For that, what matters is: 65%Polyester30%Viscose5%Spandex; spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0026",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Imported; Rubber sole.",
+          "mutated": "For that, what matters is: Rubber sole; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0027",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 73% Cotton, 25% Polyester, 2% Spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; 73% Cotton, 25% Polyester, 2% Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0028",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: color: black; Leather.",
+          "mutated": "For that, what matters is: Leather; color: black."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0029",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Back for a second time, it's the ever comfy, ever stylish Yoga Sling 2 sandal from Sanuk\u00ae. A sandal that's a flexible as you\u2014win!; New lightweight, two-way stretch knit upper with sling comfort construction.",
+          "mutated": "For that, what matters is: New lightweight, two-way stretch knit upper with sling comfort construction; Back for a second time, it's the ever comfy, ever stylish Yoga Sling 2 sandal from Sanuk\u00ae. A sandal that's a flexible as you\u2014win!."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0030",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Polyester,Polar Fleece; Button closure.",
+          "mutated": "For that, what matters is: Button closure; Polyester,Polar Fleece."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0031",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 78% Cotton, 20% Polyester, 2% Elastane; Imported.",
+          "mutated": "For that, what matters is: Imported; 78% Cotton, 20% Polyester, 2% Elastane."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0032",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100% Cotton; Pull On closure.",
+          "mutated": "For that, what matters is: Pull On closure; 100% Cotton."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0033",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: fabric; Mesh Fabric.",
+          "mutated": "For that, what matters is: Mesh Fabric; fabric."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0034",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: leather; Rubber sole.",
+          "mutated": "For that, what matters is: Rubber sole; leather."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Cowhide Leather,Rubber Sole,Hand-Sewn Loafers for Women; Leather Loafers Women:can be bend and curled in 360\u00b0,soft and comfortable.",
+          "mutated": "For that, what matters is: Leather Loafers Women:can be bend and curled in 360\u00b0,soft and comfortable; Cowhide Leather,Rubber Sole,Hand-Sewn Loafers for Women."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0035",
+      "scenario_type": "boundary",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 3,
+          "original": "For that, what matters is: fabric; 100% Textile.",
+          "mutated": "For that, what matters is: 100% Textile; fabric."
+        },
+        {
+          "turn": 4,
+          "original": "For that, what matters is: Imported; Rubber sole.",
+          "mutated": "For that, what matters is: Rubber sole; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 5,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 5,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0036",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: leather; color: pink.",
+          "mutated": "For that, what matters is: color: pink; leather."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0037",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; Imported.",
+          "mutated": "For that, what matters is: Imported; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Pull On closure; Machine Wash.",
+          "mutated": "For that, what matters is: Machine Wash; Pull On closure."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0038",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Textile; Made in the USA or Imported.",
+          "mutated": "For that, what matters is: Made in the USA or Imported; Textile."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Synthetic sole; Lace Slip On Sneaker.",
+          "mutated": "For that, what matters is: Lace Slip On Sneaker; Synthetic sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0039",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 80% Polyester, 20% Spandex.",
+          "mutated": "For that, what matters is: 80% Polyester, 20% Spandex; polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0040",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; color: black.",
+          "mutated": "For that, what matters is: color: black; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: 100% Cotton; Imported.",
+          "mutated": "For that, what matters is: Imported; 100% Cotton."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0041",
+      "scenario_type": "boundary",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 3,
+          "original": "For that, what matters is: polyester; 3X women tops care: Hand wash or machine wash in gentle; Hang to dry; No ironing; No shrinkage.",
+          "mutated": "For that, what matters is: No shrinkage; No ironing; Hang to dry; 3X women tops care: Hand wash or machine wash in gentle; polyester."
+        },
+        {
+          "turn": 4,
+          "original": "For that, what matters is: \u8fdb\u53e3; Pull On closure.",
+          "mutated": "For that, what matters is: Pull On closure; \u8fdb\u53e3."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 5,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 5,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0042",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: color: green; Gold-tone 18mm stainless steel expansion band fits up to 8-inch wrist circumference.",
+          "mutated": "For that, what matters is: Gold-tone 18mm stainless steel expansion band fits up to 8-inch wrist circumference; color: green."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0043",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 60% Cotton, 23% Viscose, 16% Polyester, 1% Elastane.",
+          "mutated": "For that, what matters is: 60% Cotton, 23% Viscose, 16% Polyester, 1% Elastane; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; Zipper closure.",
+          "mutated": "For that, what matters is: Zipper closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0045",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 95% Polyester, 5% Spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; 95% Polyester, 5% Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0046",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: wool; 44% Acrylic, 28% Cotton, 20% Merino Wool, 8% Polyester.",
+          "mutated": "For that, what matters is: 44% Acrylic, 28% Cotton, 20% Merino Wool, 8% Polyester; wool."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; No Closure closure.",
+          "mutated": "For that, what matters is: No Closure closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0047",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; color: pink.",
+          "mutated": "For that, what matters is: color: pink; polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0048",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100% Synthetic; Rubber sole.",
+          "mutated": "For that, what matters is: Rubber sole; 100% Synthetic."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: FEATURES: Infinity style cleats are constructed from durable synthetic materials that are water resistant. Easily adjustable laces allow these shoes to easily form to your foot; RUGGED OUTSOLE: Our flexible rubber outsoles have a two tone design and feature rugged studs to aid with traction on turf and outdoor fields.",
+          "mutated": "For that, what matters is: RUGGED OUTSOLE: Our flexible rubber outsoles have a two tone design and feature rugged studs to aid with traction on turf and outdoor fields; FEATURES: Infinity style cleats are constructed from durable synthetic materials that are water resistant. Easily adjustable laces allow these shoes to easily form to your foot."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0049",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: leather; color: brown.",
+          "mutated": "For that, what matters is: color: brown; leather."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Rubber sole; \ud83d\udc5fBEST MATERIAL.These mens shoes casual slip on has premium microfiber leather upper,soft rubber sole.It's a good choice for outdoor all season.",
+          "mutated": "For that, what matters is: \ud83d\udc5fBEST MATERIAL.These mens shoes casual slip on has premium microfiber leather upper,soft rubber sole.It's a good choice for outdoor all season; Rubber sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0050",
+      "scenario_type": "boundary",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 3,
+          "original": "For that, what matters is: leather; 100% Leather.",
+          "mutated": "For that, what matters is: 100% Leather; leather."
+        },
+        {
+          "turn": 4,
+          "original": "For that, what matters is: EVA/Rubber sole; Shaft measures approximately 6inch from arch.",
+          "mutated": "For that, what matters is: Shaft measures approximately 6inch from arch; EVA/Rubber sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0051",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Rubber sole; Skechers Go Walk 5-True shoe is designed with high-rebound comfort pillar technology underfoot that reacts to your every step for the ultimate comfort.",
+          "mutated": "For that, what matters is: Skechers Go Walk 5-True shoe is designed with high-rebound comfort pillar technology underfoot that reacts to your every step for the ultimate comfort; Rubber sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0052",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 60% polyester.",
+          "mutated": "For that, what matters is: 60% polyester; polyester."
+        },
+        {
+          "turn": 4,
+          "original": "For that, what matters is: Button closure; Hand Wash Only.",
+          "mutated": "For that, what matters is: Hand Wash Only; Button closure."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0053",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: color: black; Leather lining.",
+          "mutated": "For that, what matters is: Leather lining; color: black."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0054",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Soft Fabric; Pull On closure.",
+          "mutated": "For that, what matters is: Pull On closure; Soft Fabric."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0055",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100% Croslite Foam; Imported.",
+          "mutated": "For that, what matters is: Imported; 100% Croslite Foam."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0056",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; Solids: 100% Cotton; Heathers: 60% Cotton, 40% Polyester.",
+          "mutated": "For that, what matters is: Heathers: 60% Cotton, 40% Polyester; Solids: 100% Cotton; cotton."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0057",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100% Croslite; Imported.",
+          "mutated": "For that, what matters is: Imported; 100% Croslite."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Ethylene Vinyl Acetate sole; Shaft measures approximately 0#inches from arch.",
+          "mutated": "For that, what matters is: Shaft measures approximately 0#inches from arch; Ethylene Vinyl Acetate sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0058",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100% Polyester; Imported.",
+          "mutated": "For that, what matters is: Imported; 100% Polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 5,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 5,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0059",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: nylon; 62.4% Nylon 37.6% Spandex.",
+          "mutated": "For that, what matters is: 62.4% Nylon 37.6% Spandex; nylon."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0060",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 55% Cotton, 45% Polyester.",
+          "mutated": "For that, what matters is: 55% Cotton, 45% Polyester; cotton."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0062",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: fabric; color: black.",
+          "mutated": "For that, what matters is: color: black; fabric."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Fabric: 70%Cotton, 28.5%Polyester, 1.5%Spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; Fabric: 70%Cotton, 28.5%Polyester, 1.5%Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0063",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; Body: 95% Polyester, 5% Spandex; Waist: 90% Polyester, 10% Spandex; Liner: 90% Polyester, 10% Spandex.",
+          "mutated": "For that, what matters is: Liner: 90% Polyester, 10% Spandex; Waist: 90% Polyester, 10% Spandex; Body: 95% Polyester, 5% Spandex; polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0064",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; cotton blend.",
+          "mutated": "For that, what matters is: cotton blend; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Pull On closure; Hand Wash Only.",
+          "mutated": "For that, what matters is: Hand Wash Only; Pull On closure."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0065",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100% Polyester; Imported.",
+          "mutated": "For that, what matters is: Imported; 100% Polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 5,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 5,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0066",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 96% Polyester, 4% Spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; 96% Polyester, 4% Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0068",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Imported; Rubber sole.",
+          "mutated": "For that, what matters is: Rubber sole; Imported."
+        },
+        {
+          "turn": 4,
+          "original": "For that, what matters is: Dual-density outsole with Hyper Pillar comfort technology; Lightweight and responsive Ultra Go midsole cushioning.",
+          "mutated": "For that, what matters is: Lightweight and responsive Ultra Go midsole cushioning; Dual-density outsole with Hyper Pillar comfort technology."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0069",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: \u3010FASHION DESIGN \u3011\u2014Acrylic mottled hoop earrings. Square and oval silhouette. Marbled Floral and Leopard design. Post back. Light-weight earrings. these acrylic earrings are the per; \u3010COMFORTABLE TO WEAR\u3011\u2014Acrylic Leopard dangle earring give a summer-ready feel to any look. Post back closures for pieced ears. Size: 2.5''in length weight 0.2oz a pair,Lightweight,.",
+          "mutated": "For that, what matters is: \u3010COMFORTABLE TO WEAR\u3011\u2014Acrylic Leopard dangle earring give a summer-ready feel to any look. Post back closures for pieced ears. Size: 2.5''in length weight 0.2oz a pair,Lightweight,; \u3010FASHION DESIGN \u3011\u2014Acrylic mottled hoop earrings. Square and oval silhouette. Marbled Floral and Leopard design. Post back. Light-weight earrings. these acrylic earrings are the per."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0070",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: nylon; \u2705 PERFECT FOR TRAVEL - COMFORTABLE, LIGHTWEIGHT, AND WATER RESISTANT PASSPORT AND VACCINE CARD HOLDER designed to offer you a safe and secure location to store valuables , passport.",
+          "mutated": "For that, what matters is: \u2705 PERFECT FOR TRAVEL - COMFORTABLE, LIGHTWEIGHT, AND WATER RESISTANT PASSPORT AND VACCINE CARD HOLDER designed to offer you a safe and secure location to store valuables , passport; nylon."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0071",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 90% Cotton, 10% Others.",
+          "mutated": "For that, what matters is: 90% Cotton, 10% Others; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; Pull On closure.",
+          "mutated": "For that, what matters is: Pull On closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0072",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Faux Fur; Drawstring closure.",
+          "mutated": "For that, what matters is: Drawstring closure; Faux Fur."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0073",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; \u2665\u3010Try RISK FREE\u3011: Wear COMFORTABLE or Your MONEY BACK! 30-day wear test! FREE shipping and returns.If for any reason you\u2019re unhappy with your purchase,feel free to contact us.",
+          "mutated": "For that, what matters is: \u2665\u3010Try RISK FREE\u3011: Wear COMFORTABLE or Your MONEY BACK! 30-day wear test! FREE shipping and returns.If for any reason you\u2019re unhappy with your purchase,feel free to contact us; polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0074",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: mesh; Imported.",
+          "mutated": "For that, what matters is: Imported; mesh."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Synthetic sole; Shaft measures approximately not_applicable from arch.",
+          "mutated": "For that, what matters is: Shaft measures approximately not_applicable from arch; Synthetic sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0075",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: leather; 100% Leather.",
+          "mutated": "For that, what matters is: 100% Leather; leather."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Genuine Leather,New Design for Exact Fit,Width 1 3/8\"; Ratchet closure.",
+          "mutated": "For that, what matters is: Ratchet closure; Genuine Leather,New Design for Exact Fit,Width 1 3/8\"."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0076",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; color: grey.",
+          "mutated": "For that, what matters is: color: grey; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Solid colors: 80% Cotton, 20% Polyester; Heather Grey: 78% Cotton, 22% Poly; Dark Heather: 50% Cotton, 50% Polyester; Imported.",
+          "mutated": "For that, what matters is: Imported; Dark Heather: 50% Cotton, 50% Polyester; Heather Grey: 78% Cotton, 22% Poly; Solid colors: 80% Cotton, 20% Polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 10,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 10,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0077",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 55% Cotton /45% Polyester Flannel.",
+          "mutated": "For that, what matters is: 55% Cotton /45% Polyester Flannel; cotton."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0078",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 78% Cotton, 21% Polyester, 1% Spandex.",
+          "mutated": "For that, what matters is: 78% Cotton, 21% Polyester, 1% Spandex; cotton."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0079",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; Rubber sole.",
+          "mutated": "For that, what matters is: Rubber sole; polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0080",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 60% Cotton, 40% Polyester.",
+          "mutated": "For that, what matters is: 60% Cotton, 40% Polyester; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; Button closure.",
+          "mutated": "For that, what matters is: Button closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 5,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 5,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0081",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 100% Cotton.",
+          "mutated": "For that, what matters is: 100% Cotton; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Pull On closure; Machine Wash.",
+          "mutated": "For that, what matters is: Machine Wash; Pull On closure."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0083",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100% Polyester; Imported.",
+          "mutated": "For that, what matters is: Imported; 100% Polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 10,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 10,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0084",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: nylon; 33% Elastic, 34% Nylon, 33% Polyester.",
+          "mutated": "For that, what matters is: 33% Elastic, 34% Nylon, 33% Polyester; nylon."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Hook and Loop closure; Hand Wash Only.",
+          "mutated": "For that, what matters is: Hand Wash Only; Hook and Loop closure."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0085",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Ethylene Vinyl Acetate sole; Heel measures approximately 1.57\".",
+          "mutated": "For that, what matters is: Heel measures approximately 1.57\"; Ethylene Vinyl Acetate sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0086",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Rubber sole; PRETTY ANKLE BOOTS - Cozy up the cold season with these attractive warm house slippers while luxe chenille knit styling adds a chic and cute touch to your comfort. Subtle scrunchin.",
+          "mutated": "For that, what matters is: PRETTY ANKLE BOOTS - Cozy up the cold season with these attractive warm house slippers while luxe chenille knit styling adds a chic and cute touch to your comfort. Subtle scrunchin; Rubber sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0087",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 100% Cotton.",
+          "mutated": "For that, what matters is: 100% Cotton; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; Button closure.",
+          "mutated": "For that, what matters is: Button closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 10,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 10,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0088",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 95% Cotton, 5% Spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; 95% Cotton, 5% Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0089",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: nylon; 100% Nylon.",
+          "mutated": "For that, what matters is: 100% Nylon; nylon."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0091",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: \u3010HIGH QUALITY\u3011This Sterling Silver Huggie Hoop Earring is made of 925 Sterling Silver post,Hypoallergenic.Best Choice for Sensitive Ears. Earrings Surface Mounted with Sparkling AA; color: white.",
+          "mutated": "For that, what matters is: color: white; \u3010HIGH QUALITY\u3011This Sterling Silver Huggie Hoop Earring is made of 925 Sterling Silver post,Hypoallergenic.Best Choice for Sensitive Ears. Earrings Surface Mounted with Sparkling AA."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0092",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 95% Polyester, 5% Spandex.",
+          "mutated": "For that, what matters is: 95% Polyester, 5% Spandex; polyester."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; Button closure.",
+          "mutated": "For that, what matters is: Button closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0093",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Solid: 100% Cotton; Heathers: 75% Cotton, 25% Polyester; Imported.",
+          "mutated": "For that, what matters is: Imported; Heathers: 75% Cotton, 25% Polyester; Solid: 100% Cotton."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0094",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Synthetic sole; Shaft measures approximately 8\" from arch.",
+          "mutated": "For that, what matters is: Shaft measures approximately 8\" from arch; Synthetic sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0095",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 75% Polyester, 25% Spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; 75% Polyester, 25% Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0096",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 95% Polyester, 5% Spandex.",
+          "mutated": "For that, what matters is: 95% Polyester, 5% Spandex; polyester."
+        },
+        {
+          "turn": 4,
+          "original": "For that, what matters is: Imported; Pull On closure.",
+          "mutated": "For that, what matters is: Pull On closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 9,
+        "best_rank": 3
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 9,
+        "best_rank": 3
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0097",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 92% Polyester; Elastic closure.",
+          "mutated": "For that, what matters is: Elastic closure; 92% Polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0098",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 100% Rubber.",
+          "mutated": "For that, what matters is: 100% Rubber; polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0099",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 60% Cotton, 40% Polyester.",
+          "mutated": "For that, what matters is: 60% Cotton, 40% Polyester; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; Drawstring closure.",
+          "mutated": "For that, what matters is: Drawstring closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0100",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: leather; 100% Leather.",
+          "mutated": "For that, what matters is: 100% Leather; leather."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Manmade sole; Platform measures approximately 0.5\".",
+          "mutated": "For that, what matters is: Platform measures approximately 0.5\"; Manmade sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0101",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: color: white; 65% Polyester, 35% Cotton.",
+          "mutated": "For that, what matters is: 65% Polyester, 35% Cotton; color: white."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0102",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Hand Wash Only; Push Up Bra, A/B/C cup 3 centimeters Thickness Pad inside. But noted that D cup is thin cup,lightly padded.",
+          "mutated": "For that, what matters is: Push Up Bra, A/B/C cup 3 centimeters Thickness Pad inside. But noted that D cup is thin cup,lightly padded; Hand Wash Only."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0103",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; color: white.",
+          "mutated": "For that, what matters is: color: white; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: 100% Cotton; Imported.",
+          "mutated": "For that, what matters is: Imported; 100% Cotton."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0104",
+      "scenario_type": "boundary",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 3,
+          "original": "For that, what matters is: leather; color: black.",
+          "mutated": "For that, what matters is: color: black; leather."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0105",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 77% Polyester, 23% Spandex.",
+          "mutated": "For that, what matters is: 77% Polyester, 23% Spandex; polyester."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; IUGA is a lifestyle brand that combines Style, Comfort and Performance. The High Quality Activewear is perfect for Fitness Enthusiasts and Everyday Athleisure as it is Affordable a.",
+          "mutated": "For that, what matters is: IUGA is a lifestyle brand that combines Style, Comfort and Performance. The High Quality Activewear is perfect for Fitness Enthusiasts and Everyday Athleisure as it is Affordable a; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0106",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Polyester,Cotton,Spandex; Machine Wash.",
+          "mutated": "For that, what matters is: Machine Wash; Polyester,Cotton,Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0107",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Shell 100% Cotton Lining 100% Polyester; Zipper closure.",
+          "mutated": "For that, what matters is: Zipper closure; Shell 100% Cotton Lining 100% Polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0108",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 54% Cotton, 36% Polyester, 10% Spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; 54% Cotton, 36% Polyester, 10% Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0109",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100% Other Fibers; Imported.",
+          "mutated": "For that, what matters is: Imported; 100% Other Fibers."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0110",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: wool; 35% wool, 29% cotton, 36% polyester.",
+          "mutated": "For that, what matters is: 35% wool, 29% cotton, 36% polyester; wool."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0111",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 60% Polyester, 35% Cotton, 5% Spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; 60% Polyester, 35% Cotton, 5% Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0112",
+      "scenario_type": "boundary",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 3,
+          "original": "For that, what matters is: leather; Leather sole.",
+          "mutated": "For that, what matters is: Leather sole; leather."
+        },
+        {
+          "turn": 4,
+          "original": "For that, what matters is: A Lightweight Sneaker, Which Is Suitable For Running, Sports, Hiking, Walking, Tourism And Climbing; Slip-on For Easy On And Off.",
+          "mutated": "For that, what matters is: Slip-on For Easy On And Off; A Lightweight Sneaker, Which Is Suitable For Running, Sports, Hiking, Walking, Tourism And Climbing."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0113",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Sherpa Fleece; Rubber sole.",
+          "mutated": "For that, what matters is: Rubber sole; Sherpa Fleece."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0114",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Great go-to shoes with multicolor choice and steady design suitable for all age; Take a natural step forward with a clean look, for sure go with your daily t-shirt and jeans, jackets,casual midi dress,any outfit you have.",
+          "mutated": "For that, what matters is: Take a natural step forward with a clean look, for sure go with your daily t-shirt and jeans, jackets,casual midi dress,any outfit you have; Great go-to shoes with multicolor choice and steady design suitable for all age."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0115",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: rayon; 95% Rayon, 5% Spandex.",
+          "mutated": "For that, what matters is: 95% Rayon, 5% Spandex; rayon."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; Machine Wash.",
+          "mutated": "For that, what matters is: Machine Wash; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0116",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Rubber sole; Cushioned Insole for added comfort.",
+          "mutated": "For that, what matters is: Cushioned Insole for added comfort; Rubber sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0117",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Mule-style slipper, adjustable strap with hook-and-loop closure, silvertone button detail; Terrycloth-covered EVA midsole absorbs shock, helping reduce stress on feet, ankles, and knees.",
+          "mutated": "For that, what matters is: Terrycloth-covered EVA midsole absorbs shock, helping reduce stress on feet, ankles, and knees; Mule-style slipper, adjustable strap with hook-and-loop closure, silvertone button detail."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0118",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Nylon,Spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; Nylon,Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0120",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: leather; color: red.",
+          "mutated": "For that, what matters is: color: red; leather."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Leather lining; Snap closure.",
+          "mutated": "For that, what matters is: Snap closure; Leather lining."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0121",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: nylon; color: black.",
+          "mutated": "For that, what matters is: color: black; nylon."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0122",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 75% Cotton, 17% Polyester, 8% Spandex.",
+          "mutated": "For that, what matters is: 75% Cotton, 17% Polyester, 8% Spandex; cotton."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0123",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: wool; 65% Polyester, 35% Wool.",
+          "mutated": "For that, what matters is: 65% Polyester, 35% Wool; wool."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0124",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 52% Polyester, 32% Nylon, 10% EVA, 2% POM, 2% Cotton, 2% Metal; Made in the USA.",
+          "mutated": "For that, what matters is: Made in the USA; 52% Polyester, 32% Nylon, 10% EVA, 2% POM, 2% Cotton, 2% Metal."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0125",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100% Acrylic; Hook and Loop closure.",
+          "mutated": "For that, what matters is: Hook and Loop closure; 100% Acrylic."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: PREMIUM QUALITY: Take your outfit to the next level with our 100% acrylic 6 panels mid-profile structured baseball hat that provides maximum comfort. Fits men and women!; HOOK & LOOP CLOSURE: Our hats for women and men feature a strap closure in the back letting you easily adjust the size for a perfect fit.",
+          "mutated": "For that, what matters is: HOOK & LOOP CLOSURE: Our hats for women and men feature a strap closure in the back letting you easily adjust the size for a perfect fit; PREMIUM QUALITY: Take your outfit to the next level with our 100% acrylic 6 panels mid-profile structured baseball hat that provides maximum comfort. Fits men and women!."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0126",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 95% Polyester, 5% Spandex.",
+          "mutated": "For that, what matters is: 95% Polyester, 5% Spandex; polyester."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; Pull On closure.",
+          "mutated": "For that, what matters is: Pull On closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 7,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 7,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0127",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; color: black.",
+          "mutated": "For that, what matters is: color: black; polyester."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: 100% Polyester; Imported.",
+          "mutated": "For that, what matters is: Imported; 100% Polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0128",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: \u272618K GOLD VERMEIL\u2726 A premium offering of our best selling styles, our vermeil jewelry is made with a solid s925 sterling silver base and plated in 18K gold that is 10x thicker than; color: yellow.",
+          "mutated": "For that, what matters is: color: yellow; \u272618K GOLD VERMEIL\u2726 A premium offering of our best selling styles, our vermeil jewelry is made with a solid s925 sterling silver base and plated in 18K gold that is 10x thicker than."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0130",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 95% Cotton, 5% Spandex.",
+          "mutated": "For that, what matters is: 95% Cotton, 5% Spandex; cotton."
+        },
+        {
+          "turn": 4,
+          "original": "For that, what matters is: Imported; Hand Wash or Machine Wash with laundry bag (30\u00b0C Max).",
+          "mutated": "For that, what matters is: Hand Wash or Machine Wash with laundry bag (30\u00b0C Max); Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0131",
+      "scenario_type": "boundary",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 3,
+          "original": "For that, what matters is: cotton; Thigh high socks: 20% Stretchy Yarn, 80% cotton.",
+          "mutated": "For that, what matters is: Thigh high socks: 20% Stretchy Yarn, 80% cotton; cotton."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0132",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 80% Cotton, 20% Polyester; Imported.",
+          "mutated": "For that, what matters is: Imported; 80% Cotton, 20% Polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0133",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: color: gray; Polycarbonate frame.",
+          "mutated": "For that, what matters is: Polycarbonate frame; color: gray."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0135",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100% Polyester; Imported.",
+          "mutated": "For that, what matters is: Imported; 100% Polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0136",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 92% Polyester, 8% Spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; 92% Polyester, 8% Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0137",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 60% Cotton, 40% Polyester.",
+          "mutated": "For that, what matters is: 60% Cotton, 40% Polyester; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Zipper closure; Machine Wash.",
+          "mutated": "For that, what matters is: Machine Wash; Zipper closure."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0138",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: rayon; 95% Rayon, 5% Spandex.",
+          "mutated": "For that, what matters is: 95% Rayon, 5% Spandex; rayon."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Machine Wash; Standard US Size: S(US 4-6), M(US 8-10), L(US 12-14), XL(US 16-18), XXL(US 20-22), 3XL(US 24-26). This women's casual loose dress is available in a variety of solid colors and prin.",
+          "mutated": "For that, what matters is: Standard US Size: S(US 4-6), M(US 8-10), L(US 12-14), XL(US 16-18), XXL(US 20-22), 3XL(US 24-26). This women's casual loose dress is available in a variety of solid colors and prin; Machine Wash."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0139",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: fabric; Fabric: 35%Rayon,60% Polyester and 5% Spandex,very soft and comfortable for spring and summer.",
+          "mutated": "For that, what matters is: Fabric: 35%Rayon,60% Polyester and 5% Spandex,very soft and comfortable for spring and summer; fabric."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0140",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; Polyester,Spandex.",
+          "mutated": "For that, what matters is: Polyester,Spandex; polyester."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Polyester lining; Button closure.",
+          "mutated": "For that, what matters is: Button closure; Polyester lining."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0141",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: You will receive 6 Pcs silver nose studs, coming with one free gift velvet bag. Can be used as nose rings, nose piercings, nose rings studs, nose piercing jewelry, nostril piercing; color: red.",
+          "mutated": "For that, what matters is: color: red; You will receive 6 Pcs silver nose studs, coming with one free gift velvet bag. Can be used as nose rings, nose piercings, nose rings studs, nose piercing jewelry, nostril piercing."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0142",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Stainless Steel Bike Bracelet: Handcrafted with high quality material, 100% HYPOALLERGENIC, Lead & Nickel Free, Stronger and very LOW MAINTENANCE Metal, long lasting IP vacuum Plat; color: black.",
+          "mutated": "For that, what matters is: color: black; Stainless Steel Bike Bracelet: Handcrafted with high quality material, 100% HYPOALLERGENIC, Lead & Nickel Free, Stronger and very LOW MAINTENANCE Metal, long lasting IP vacuum Plat."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Unique Design: Inspire from Royal Knight, high polished bright chain links, with strong fold-over clasp, personalized colors match can highlights the low-key but noble quality and; Bracelet Size: Length-8.34 inch, width-0.4 inch, weight: 54g. smooth chain, lightweight and comfortable to wear, perfect for bike enthusiasts etc.",
+          "mutated": "For that, what matters is: Bracelet Size: Length-8.34 inch, width-0.4 inch, weight: 54g. smooth chain, lightweight and comfortable to wear, perfect for bike enthusiasts etc; Unique Design: Inspire from Royal Knight, high polished bright chain links, with strong fold-over clasp, personalized colors match can highlights the low-key but noble quality and."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0143",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 65% Rayon, 30% Cotton, 5% Spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; 65% Rayon, 30% Cotton, 5% Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0144",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 100% Polyester.",
+          "mutated": "For that, what matters is: 100% Polyester; polyester."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; Zipper closure.",
+          "mutated": "For that, what matters is: Zipper closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 7,
+        "best_rank": 5
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 7,
+        "best_rank": 5
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0145",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: color: black; Cotton.",
+          "mutated": "For that, what matters is: Cotton; color: black."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 7,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 7,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0146",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 50%Rayon+45%Polyester+5%Spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; 50%Rayon+45%Polyester+5%Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0147",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 95% Combed Cotton, 5% Spandex of Women's 4-PACK High Waisted Underwear. Machine Wash with laundry bag (30\u00b0C).",
+          "mutated": "For that, what matters is: 95% Combed Cotton, 5% Spandex of Women's 4-PACK High Waisted Underwear. Machine Wash with laundry bag (30\u00b0C); cotton."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0148",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 50% Cotton, 50% Polyester; Imported.",
+          "mutated": "For that, what matters is: Imported; 50% Cotton, 50% Polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0149",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: color: black; PU.",
+          "mutated": "For that, what matters is: PU; color: black."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0150",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 65% Polyester, 35% Cotton.",
+          "mutated": "For that, what matters is: 65% Polyester, 35% Cotton; polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0151",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: leather; Imported.",
+          "mutated": "For that, what matters is: Imported; leather."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Rubber sole; Shaft measures approximately Ankle from arch.",
+          "mutated": "For that, what matters is: Shaft measures approximately Ankle from arch; Rubber sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0152",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: color: brown; Gold-tone watch in stainless steel featuring black two-step dial with date window at 3 o'clock and croco-embossed leather band. Case diameter : 36 mm.",
+          "mutated": "For that, what matters is: Gold-tone watch in stainless steel featuring black two-step dial with date window at 3 o'clock and croco-embossed leather band. Case diameter : 36 mm; color: brown."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0153",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: leather; PU Leather.",
+          "mutated": "For that, what matters is: PU Leather; leather."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0154",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: color: white; Hand Wash Only.",
+          "mutated": "For that, what matters is: Hand Wash Only; color: white."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0155",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100% Polyester; Imported.",
+          "mutated": "For that, what matters is: Imported; 100% Polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0157",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Nylon; Rubber sole.",
+          "mutated": "For that, what matters is: Rubber sole; Nylon."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0158",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Roomy enough to fit any adult.You can see through the nostrils or the mouth; Made from 100% natural latex, environmental friendly and non-toxic. We offer a range of quality choices with the best price.",
+          "mutated": "For that, what matters is: Made from 100% natural latex, environmental friendly and non-toxic. We offer a range of quality choices with the best price; Roomy enough to fit any adult.You can see through the nostrils or the mouth."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0159",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 60% Cotton, 40% Polyester; Imported.",
+          "mutated": "For that, what matters is: Imported; 60% Cotton, 40% Polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0160",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: color: black; Double zipper pulls make opening/closing simple and fast.",
+          "mutated": "For that, what matters is: Double zipper pulls make opening/closing simple and fast; color: black."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0161",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton blend; Imported.",
+          "mutated": "For that, what matters is: Imported; cotton blend."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0162",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: silk; Satin.",
+          "mutated": "For that, what matters is: Satin; silk."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0163",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Rubber sole; 1.Mesh Fabric + Air Cushion sole.",
+          "mutated": "For that, what matters is: 1.Mesh Fabric + Air Cushion sole; Rubber sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0164",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: leather; color: black.",
+          "mutated": "For that, what matters is: color: black; leather."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0165",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Watch Band Material: Made of good quality crazy-horse leather, they are durable that they may take some breaking in when you first start get them. But once you start wearing them,; Vintage Design: Equipped with classic buckle, neat stitching and proper padding, creating a simple yet charming look, adding a retro vibe to any occasion. Please avoid soaking the.",
+          "mutated": "For that, what matters is: Vintage Design: Equipped with classic buckle, neat stitching and proper padding, creating a simple yet charming look, adding a retro vibe to any occasion. Please avoid soaking the; Watch Band Material: Made of good quality crazy-horse leather, they are durable that they may take some breaking in when you first start get them. But once you start wearing them,."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0166",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100% waterproof women's boots are suitable for any season and any outdoor activity; color: black.",
+          "mutated": "For that, what matters is: color: black; 100% waterproof women's boots are suitable for any season and any outdoor activity."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Lightweight and breathable mesh lining keeps feet well ventilated for long-wearing dryness; comfort rated from subfreezing to 65 \u00b0F/18 \u00b0C; Women's-specific last is designed to match the contours of women's feet.",
+          "mutated": "For that, what matters is: Women's-specific last is designed to match the contours of women's feet; comfort rated from subfreezing to 65 \u00b0F/18 \u00b0C; Lightweight and breathable mesh lining keeps feet well ventilated for long-wearing dryness."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0167",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Imported; Pull-On closure.",
+          "mutated": "For that, what matters is: Pull-On closure; Imported."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Machine Wash; Wicking for moisture management.",
+          "mutated": "For that, what matters is: Wicking for moisture management; Machine Wash."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0169",
+      "scenario_type": "boundary",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 3,
+          "original": "For that, what matters is: cotton; 57% Cotton, 26% Polyester, 10% Other Fibers, 7% Elastane.",
+          "mutated": "For that, what matters is: 57% Cotton, 26% Polyester, 10% Other Fibers, 7% Elastane; cotton."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0170",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: leather; 100% Leather.",
+          "mutated": "For that, what matters is: 100% Leather; leather."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Made in the USA or Imported; Rubber sole.",
+          "mutated": "For that, what matters is: Rubber sole; Made in the USA or Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0171",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Elastic; Imported.",
+          "mutated": "For that, what matters is: Imported; Elastic."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0172",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 100% Cotton.",
+          "mutated": "For that, what matters is: 100% Cotton; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; Synthetic sole.",
+          "mutated": "For that, what matters is: Synthetic sole; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0173",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: fabric; Rubber sole.",
+          "mutated": "For that, what matters is: Rubber sole; fabric."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Comfortable feeling: Super lightweight and flexible just like socks,breathable and smooth fabric provide great freedom and comfortable feeling. Let you enjoy your your beach trip o; Convenience: Quick-dry water shoes, ultra light weight smooth stretchy fabrics and easy slip-on design make it convenient to wear and take off. Lightweight and compressible, easy t.",
+          "mutated": "For that, what matters is: Convenience: Quick-dry water shoes, ultra light weight smooth stretchy fabrics and easy slip-on design make it convenient to wear and take off. Lightweight and compressible, easy t; Comfortable feeling: Super lightweight and flexible just like socks,breathable and smooth fabric provide great freedom and comfortable feeling. Let you enjoy your your beach trip o."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0174",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100% Polyester; Imported.",
+          "mutated": "For that, what matters is: Imported; 100% Polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 7,
+        "best_rank": 2
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 7,
+        "best_rank": 2
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0175",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; 100% Cotton.",
+          "mutated": "For that, what matters is: 100% Cotton; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; Zipper closure.",
+          "mutated": "For that, what matters is: Zipper closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 5,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 5,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0176",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 93% Polyester, 3% Natural Latex Rubber, 2% Spandex, 2% Nylon.",
+          "mutated": "For that, what matters is: 93% Polyester, 3% Natural Latex Rubber, 2% Spandex, 2% Nylon; polyester."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0177",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: cotton; Cotton, Rayon.",
+          "mutated": "For that, what matters is: Cotton, Rayon; cotton."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Imported; Button closure.",
+          "mutated": "For that, what matters is: Button closure; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0178",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: color: red; 100% Cotton.",
+          "mutated": "For that, what matters is: 100% Cotton; color: red."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0179",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 5% spandex; Made in the USA.",
+          "mutated": "For that, what matters is: Made in the USA; 5% spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0180",
+      "scenario_type": "boundary",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 3,
+          "original": "For that, what matters is: 100% Mesh; Imported.",
+          "mutated": "For that, what matters is: Imported; 100% Mesh."
+        },
+        {
+          "turn": 4,
+          "original": "For that, what matters is: Rubber sole; GRID, Injection EVA.",
+          "mutated": "For that, what matters is: GRID, Injection EVA; Rubber sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0181",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; Drawstring closure.",
+          "mutated": "For that, what matters is: Drawstring closure; polyester."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Hand Wash Only; Casual 2 piece active sweatsuit pant set.",
+          "mutated": "For that, what matters is: Casual 2 piece active sweatsuit pant set; Hand Wash Only."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0182",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: UPDATED ALUMINUM WALLET with high quality aluminum materials and Environmentally friendly plastic(ABS) clasp closure; color: black.",
+          "mutated": "For that, what matters is: color: black; UPDATED ALUMINUM WALLET with high quality aluminum materials and Environmentally friendly plastic(ABS) clasp closure."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0183",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: polyester; 100% Polyester.",
+          "mutated": "For that, what matters is: 100% Polyester; polyester."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Button closure; Hand Wash Only.",
+          "mutated": "For that, what matters is: Hand Wash Only; Button closure."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 5,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 5,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0184",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: nylon; color: black.",
+          "mutated": "For that, what matters is: color: black; nylon."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Composite/Plastic Frame; Imported.",
+          "mutated": "For that, what matters is: Imported; Composite/Plastic Frame."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0185",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 92%Cotton/8%Spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; 92%Cotton/8%Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0186",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 100% Synthetic; Rubber sole.",
+          "mutated": "For that, what matters is: Rubber sole; 100% Synthetic."
+        },
+        {
+          "turn": 4,
+          "original": "For that, what matters is: AmpliFoam Midsole: Engineered to maintain durability at softer densities, providing better flexibility, comfort, and platform adaptability ideal for natural running; Ortholite Sockliner: Moisture management (Ortholite is a registered trademark of O2 Partners LLC).",
+          "mutated": "For that, what matters is: Ortholite Sockliner: Moisture management (Ortholite is a registered trademark of O2 Partners LLC); AmpliFoam Midsole: Engineered to maintain durability at softer densities, providing better flexibility, comfort, and platform adaptability ideal for natural running."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0187",
+      "scenario_type": "boundary",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 3,
+          "original": "For that, what matters is: leather; 100% Leather.",
+          "mutated": "For that, what matters is: 100% Leather; leather."
+        },
+        {
+          "turn": 4,
+          "original": "For that, what matters is: Leather sole; Leather slip-on featuring dual gore panels at entry and padded collar.",
+          "mutated": "For that, what matters is: Leather slip-on featuring dual gore panels at entry and padded collar; Leather sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0188",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Artificial Leather,Leather,Pu Leather; Imported.",
+          "mutated": "For that, what matters is: Imported; Artificial Leather,Leather,Pu Leather."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0189",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: color: black; 100% Cotton.",
+          "mutated": "For that, what matters is: 100% Cotton; color: black."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0190",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 94% Polyester, 6% Spandex; Imported.",
+          "mutated": "For that, what matters is: Imported; 94% Polyester, 6% Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0191",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Polyamide,Mesh; Machine Wash.",
+          "mutated": "For that, what matters is: Machine Wash; Polyamide,Mesh."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0192",
+      "scenario_type": "boundary",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 3,
+          "original": "For that, what matters is: 100% Textile Synthetics; color: pink.",
+          "mutated": "For that, what matters is: color: pink; 100% Textile Synthetics."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0194",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: 95% Rayon, 5% Spandex; Pull On closure.",
+          "mutated": "For that, what matters is: Pull On closure; 95% Rayon, 5% Spandex."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 6,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 6,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0195",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: rayon; 100% Rayon.",
+          "mutated": "For that, what matters is: 100% Rayon; rayon."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Pull On closure; 100%Rayon.",
+          "mutated": "For that, what matters is: 100%Rayon; Pull On closure."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0196",
+      "scenario_type": "browsing",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Rubber sole; Design in USA.",
+          "mutated": "For that, what matters is: Design in USA; Rubber sole."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0197",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: What is in the package?EFIXTK watch band tool kit comes with a watch band link pin remover with 6 extra tips, a plastic watch holder, a dual head hammer, 4 pin punches,20pcs cotter; Easy to use: Size your watch band yourself with this small, simple tool effectively without wiggling.",
+          "mutated": "For that, what matters is: Easy to use: Size your watch band yourself with this small, simple tool effectively without wiggling; What is in the package?EFIXTK watch band tool kit comes with a watch band link pin remover with 6 extra tips, a plastic watch holder, a dual head hammer, 4 pin punches,20pcs cotter."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: Fit for different sizes,Fit bands up to 30mm wide ,6 replacement pins and an adjustable base allow for use with different band thicknesses; VALUE KIT FOR MONEY SAVING - This watch band link remover is great for removing and inserting spring bars straps, and widely used in up to 30mm wide watch band replace, watch repai.",
+          "mutated": "For that, what matters is: VALUE KIT FOR MONEY SAVING - This watch band link remover is great for removing and inserting spring bars straps, and widely used in up to 30mm wide watch band replace, watch repai; Fit for different sizes,Fit bands up to 30mm wide ,6 replacement pins and an adjustable base allow for use with different band thicknesses."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0198",
+      "scenario_type": "intent_override",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: leather; color: black.",
+          "mutated": "For that, what matters is: color: black; leather."
+        },
+        {
+          "turn": 3,
+          "original": "For that, what matters is: PU; Imported.",
+          "mutated": "For that, what matters is: Imported; PU."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 4,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0199",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Imported; Machine Wash.",
+          "mutated": "For that, what matters is: Machine Wash; Imported."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 3,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    },
+    {
+      "sample_id": "public_0200",
+      "scenario_type": "buying",
+      "mutation_family": "independent_constraint_order",
+      "state_equivalent": true,
+      "first_divergent_turn": null,
+      "mutated_turns": [
+        {
+          "turn": 2,
+          "original": "For that, what matters is: Heel measures approximately 2.3 centimeters; \u3010Concise Style\u3011Diamond pattern and raised design, pure color, casual style are quite suitable for home and any other casual occasion.",
+          "mutated": "For that, what matters is: \u3010Concise Style\u3011Diamond pattern and raised design, pure color, casual style are quite suitable for home and any other casual occasion; Heel measures approximately 2.3 centimeters."
+        }
+      ],
+      "first_state_divergence_turn": null,
+      "first_output_divergence_turn": null,
+      "baseline_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "mutated_outcome": {
+        "hit": true,
+        "first_hit_turn": 2,
+        "best_rank": 1
+      },
+      "reciprocal_rank_delta": 0.0
+    }
+  ]
+}

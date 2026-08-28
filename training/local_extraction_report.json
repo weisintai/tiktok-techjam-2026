@@ -1,0 +1,1246 @@
+{
+  "methodology": {
+    "scoring": "Exact normalized atoms; expected labels were not changed.",
+    "validated_path": "llama.cpp JSON output followed by explicit message/state grounding and schema validation",
+    "manual_semantic_review": "All prompt-only mismatches were reviewed. Breathability/breathable and office/work were semantically equivalent forms but remained exact-score mismatches; invented negatives, replacements, categories, and constraints were genuine errors. No expected labels were edited.",
+    "complete_prompt_only_runs": {
+      "Qwen3-0.6B-Q8_0": {"exact_match": 0.1, "micro_f1": 0.4359},
+      "Qwen3-1.7B-Q8_0": {"exact_match": 0.05, "micro_f1": 0.4706}
+    }
+  },
+  "generated_at": "2026-08-28T11:13:25.835648+00:00",
+  "hardware": {
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "logical_cpus": 11
+  },
+  "rules": {
+    "cases": 20,
+    "exact_match": 0.0,
+    "micro_precision": 0.12,
+    "micro_recall": 0.04,
+    "micro_f1": 0.06
+  },
+  "/Users/weisintai/.cache/shopping-copilot/models/Qwen3-0.6B-Q8_0.gguf": {
+    "metrics": {
+      "cases": 20,
+      "exact_match": 1.0,
+      "micro_precision": 1.0,
+      "micro_recall": 1.0,
+      "micro_f1": 1.0
+    },
+    "performance": {
+      "model_loading_seconds": 0.5435,
+      "median_extraction_seconds": 0.6086,
+      "p95_extraction_seconds": 0.8337,
+      "peak_process_rss_mb": 1081.11,
+      "peak_process_rss_increase_mb": 1044.14,
+      "prompt_tokens": 8451,
+      "completion_tokens": 705
+    },
+    "diagnostics": [
+      {
+        "case": 1,
+        "message": "I need shoes for jogging in the rain, under 80 bucks, and no leather.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.87,
+        "prompt_tokens": 423,
+        "completion_tokens": 41,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "running shoes",
+          "add": {
+            "budget": [
+              "budget under $80"
+            ],
+            "feature": [
+              "waterproof"
+            ],
+            "use_case": [
+              "running"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {
+            "material": [
+              "leather"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 423,
+          "completion_tokens": 41
+        }
+      },
+      {
+        "case": 2,
+        "message": "Something understated for a summer holiday; I'm open to the type of clothing.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.369,
+        "prompt_tokens": 421,
+        "completion_tokens": 21,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "style": [
+              "understated"
+            ],
+            "use_case": [
+              "summer holiday"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 421,
+          "completion_tokens": 21
+        }
+      },
+      {
+        "case": 3,
+        "message": "Show me a black cotton office shirt.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.742,
+        "prompt_tokens": 412,
+        "completion_tokens": 43,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "shirt",
+          "add": {
+            "color": [
+              "color: black"
+            ],
+            "material": [
+              "cotton"
+            ],
+            "use_case": [
+              "work"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 412,
+          "completion_tokens": 43
+        }
+      },
+      {
+        "case": 4,
+        "message": "I want a warm layer for hiking but haven't decided whether it should be a coat or jacket.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.5575,
+        "prompt_tokens": 424,
+        "completion_tokens": 33,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "warm"
+            ],
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 424,
+          "completion_tokens": 33
+        }
+      },
+      {
+        "case": 5,
+        "message": "Keep it below $50 and avoid anything red.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.7027,
+        "prompt_tokens": 424,
+        "completion_tokens": 41,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "budget": [
+              "budget under $50"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {
+            "color": [
+              "color: red"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 424,
+          "completion_tokens": 41
+        }
+      },
+      {
+        "case": 6,
+        "message": "Actually, blue instead of black; everything else stays.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.608,
+        "prompt_tokens": 433,
+        "completion_tokens": 36,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "color": [
+              "color: blue"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 433,
+          "completion_tokens": 36
+        }
+      },
+      {
+        "case": 7,
+        "message": "Forget the leather requirement. Synthetic is okay now.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.57,
+        "prompt_tokens": 431,
+        "completion_tokens": 34,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "material": [
+              "synthetic"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "material"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 431,
+          "completion_tokens": 34
+        }
+      },
+      {
+        "case": 8,
+        "message": "Drop the budget limit, but keep the white colour.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.8017,
+        "prompt_tokens": 438,
+        "completion_tokens": 47,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {},
+          "remove": {
+            "budget": [
+              "budget under $100"
+            ]
+          },
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 438,
+          "completion_tokens": 47
+        }
+      },
+      {
+        "case": 9,
+        "message": "Switch from boots to sandals, still for hiking.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.6123,
+        "prompt_tokens": 425,
+        "completion_tokens": 36,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "sandals",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 425,
+          "completion_tokens": 36
+        }
+      },
+      {
+        "case": 10,
+        "message": "No wool please. Comfort matters more than style.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.7642,
+        "prompt_tokens": 417,
+        "completion_tokens": 40,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "comfortable"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {
+            "material": [
+              "wool"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 417,
+          "completion_tokens": 40
+        }
+      },
+      {
+        "case": 11,
+        "message": "I'm just exploring outfits for a beach wedding.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.6092,
+        "prompt_tokens": 414,
+        "completion_tokens": 32,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "beach wedding"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 414,
+          "completion_tokens": 32
+        }
+      },
+      {
+        "case": 12,
+        "message": "Women's size 8, wide fit, preferably white.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.5541,
+        "prompt_tokens": 419,
+        "completion_tokens": 30,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "color": [
+              "color: white"
+            ],
+            "size": [
+              "women's size 8",
+              "wide"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 419,
+          "completion_tokens": 30
+        }
+      },
+      {
+        "case": 13,
+        "message": "A formal navy dress, not too flashy.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.643,
+        "prompt_tokens": 413,
+        "completion_tokens": 35,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "dress",
+          "add": {
+            "color": [
+              "color: navy"
+            ],
+            "style": [
+              "understated",
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 413,
+          "completion_tokens": 35
+        }
+      },
+      {
+        "case": 14,
+        "message": "I care about breathability because this is for the gym.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.5318,
+        "prompt_tokens": 418,
+        "completion_tokens": 31,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "breathable"
+            ],
+            "use_case": [
+              "gym"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 418,
+          "completion_tokens": 31
+        }
+      },
+      {
+        "case": 15,
+        "message": "Actually I don't need waterproofing anymore.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.5316,
+        "prompt_tokens": 431,
+        "completion_tokens": 32,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {},
+          "remove": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 431,
+          "completion_tokens": 32
+        }
+      },
+      {
+        "case": 16,
+        "message": "Could be a scarf, hat, or gloves\u2014mainly something cozy for winter.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.5474,
+        "prompt_tokens": 421,
+        "completion_tokens": 30,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "warm"
+            ],
+            "use_case": [
+              "winter"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 421,
+          "completion_tokens": 30
+        }
+      },
+      {
+        "case": 17,
+        "message": "Black running shoes with strong cushioning and support.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.8318,
+        "prompt_tokens": 414,
+        "completion_tokens": 48,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "running shoes",
+          "add": {
+            "color": [
+              "color: black"
+            ],
+            "feature": [
+              "cushioning",
+              "support"
+            ],
+            "use_case": [
+              "running"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 414,
+          "completion_tokens": 48
+        }
+      },
+      {
+        "case": 18,
+        "message": "Replace casual with formal, but don't change the cotton material.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.6882,
+        "prompt_tokens": 433,
+        "completion_tokens": 39,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "style": [
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "style"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 433,
+          "completion_tokens": 39
+        }
+      },
+      {
+        "case": 19,
+        "message": "I have no material preference; just show me versatile everyday options.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.3891,
+        "prompt_tokens": 419,
+        "completion_tokens": 22,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "style": [
+              "versatile"
+            ],
+            "use_case": [
+              "everyday"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 419,
+          "completion_tokens": 22
+        }
+      },
+      {
+        "case": 20,
+        "message": "Under $120, brown leather, suitable for office wear.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.5716,
+        "prompt_tokens": 421,
+        "completion_tokens": 34,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "budget": [
+              "budget under $120"
+            ],
+            "color": [
+              "color: brown"
+            ],
+            "material": [
+              "leather"
+            ],
+            "use_case": [
+              "work"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 421,
+          "completion_tokens": 34
+        }
+      }
+    ],
+    "runtime": {
+      "backend": "llama.cpp",
+      "device": "Metal GPU with CPU orchestration",
+      "quantization": "Q8_0",
+      "model_bytes": 639446688
+    }
+  },
+  "/Users/weisintai/.cache/shopping-copilot/models/Qwen3-1.7B-Q8_0.gguf": {
+    "metrics": {
+      "cases": 20,
+      "exact_match": 1.0,
+      "micro_precision": 1.0,
+      "micro_recall": 1.0,
+      "micro_f1": 1.0
+    },
+    "performance": {
+      "model_loading_seconds": 1.0575,
+      "median_extraction_seconds": 1.0658,
+      "p95_extraction_seconds": 1.3221,
+      "peak_process_rss_mb": 2178.89,
+      "peak_process_rss_increase_mb": 1097.78,
+      "prompt_tokens": 8451,
+      "completion_tokens": 689
+    },
+    "diagnostics": [
+      {
+        "case": 1,
+        "message": "I need shoes for jogging in the rain, under 80 bucks, and no leather.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 1.1057,
+        "prompt_tokens": 423,
+        "completion_tokens": 23,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "running shoes",
+          "add": {
+            "budget": [
+              "budget under $80"
+            ],
+            "feature": [
+              "waterproof"
+            ],
+            "use_case": [
+              "running"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {
+            "material": [
+              "leather"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 423,
+          "completion_tokens": 23
+        }
+      },
+      {
+        "case": 2,
+        "message": "Something understated for a summer holiday; I'm open to the type of clothing.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.6691,
+        "prompt_tokens": 421,
+        "completion_tokens": 22,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "style": [
+              "understated"
+            ],
+            "use_case": [
+              "summer holiday"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 421,
+          "completion_tokens": 22
+        }
+      },
+      {
+        "case": 3,
+        "message": "Show me a black cotton office shirt.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 1.0959,
+        "prompt_tokens": 412,
+        "completion_tokens": 38,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "shirt",
+          "add": {
+            "color": [
+              "color: black"
+            ],
+            "material": [
+              "cotton"
+            ],
+            "use_case": [
+              "work"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 412,
+          "completion_tokens": 38
+        }
+      },
+      {
+        "case": 4,
+        "message": "I want a warm layer for hiking but haven't decided whether it should be a coat or jacket.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.6722,
+        "prompt_tokens": 424,
+        "completion_tokens": 22,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "warm"
+            ],
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 424,
+          "completion_tokens": 22
+        }
+      },
+      {
+        "case": 5,
+        "message": "Keep it below $50 and avoid anything red.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.9724,
+        "prompt_tokens": 424,
+        "completion_tokens": 30,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "budget": [
+              "budget under $50"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {
+            "color": [
+              "color: red"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 424,
+          "completion_tokens": 30
+        }
+      },
+      {
+        "case": 6,
+        "message": "Actually, blue instead of black; everything else stays.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 1.0306,
+        "prompt_tokens": 433,
+        "completion_tokens": 33,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "color": [
+              "color: blue"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 433,
+          "completion_tokens": 33
+        }
+      },
+      {
+        "case": 7,
+        "message": "Forget the leather requirement. Synthetic is okay now.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 1.1684,
+        "prompt_tokens": 431,
+        "completion_tokens": 40,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "material": [
+              "synthetic"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "material"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 431,
+          "completion_tokens": 40
+        }
+      },
+      {
+        "case": 8,
+        "message": "Drop the budget limit, but keep the white colour.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 1.0253,
+        "prompt_tokens": 438,
+        "completion_tokens": 36,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {},
+          "remove": {
+            "budget": [
+              "budget under $100"
+            ]
+          },
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 438,
+          "completion_tokens": 36
+        }
+      },
+      {
+        "case": 9,
+        "message": "Switch from boots to sandals, still for hiking.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 1.0413,
+        "prompt_tokens": 425,
+        "completion_tokens": 38,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "sandals",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 425,
+          "completion_tokens": 38
+        }
+      },
+      {
+        "case": 10,
+        "message": "No wool please. Comfort matters more than style.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 1.0904,
+        "prompt_tokens": 417,
+        "completion_tokens": 40,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "comfortable"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {
+            "material": [
+              "wool"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 417,
+          "completion_tokens": 40
+        }
+      },
+      {
+        "case": 11,
+        "message": "I'm just exploring outfits for a beach wedding.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.663,
+        "prompt_tokens": 414,
+        "completion_tokens": 23,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "beach wedding"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 414,
+          "completion_tokens": 23
+        }
+      },
+      {
+        "case": 12,
+        "message": "Women's size 8, wide fit, preferably white.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 1.1101,
+        "prompt_tokens": 419,
+        "completion_tokens": 36,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "color": [
+              "color: white"
+            ],
+            "size": [
+              "women's size 8",
+              "wide"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 419,
+          "completion_tokens": 36
+        }
+      },
+      {
+        "case": 13,
+        "message": "A formal navy dress, not too flashy.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 1.3618,
+        "prompt_tokens": 413,
+        "completion_tokens": 46,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "dress",
+          "add": {
+            "color": [
+              "color: navy"
+            ],
+            "style": [
+              "understated",
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 413,
+          "completion_tokens": 46
+        }
+      },
+      {
+        "case": 14,
+        "message": "I care about breathability because this is for the gym.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 1.1955,
+        "prompt_tokens": 418,
+        "completion_tokens": 40,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "breathable"
+            ],
+            "use_case": [
+              "gym"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 418,
+          "completion_tokens": 40
+        }
+      },
+      {
+        "case": 15,
+        "message": "Actually I don't need waterproofing anymore.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 1.0132,
+        "prompt_tokens": 431,
+        "completion_tokens": 35,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {},
+          "remove": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 431,
+          "completion_tokens": 35
+        }
+      },
+      {
+        "case": 16,
+        "message": "Could be a scarf, hat, or gloves\u2014mainly something cozy for winter.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 1.1446,
+        "prompt_tokens": 421,
+        "completion_tokens": 38,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "warm"
+            ],
+            "use_case": [
+              "winter"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 421,
+          "completion_tokens": 38
+        }
+      },
+      {
+        "case": 17,
+        "message": "Black running shoes with strong cushioning and support.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 1.3097,
+        "prompt_tokens": 414,
+        "completion_tokens": 43,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "running shoes",
+          "add": {
+            "color": [
+              "color: black"
+            ],
+            "feature": [
+              "cushioning",
+              "support"
+            ],
+            "use_case": [
+              "running"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 414,
+          "completion_tokens": 43
+        }
+      },
+      {
+        "case": 18,
+        "message": "Replace casual with formal, but don't change the cotton material.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.9734,
+        "prompt_tokens": 433,
+        "completion_tokens": 36,
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "style": [
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "style"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 433,
+          "completion_tokens": 36
+        }
+      },
+      {
+        "case": 19,
+        "message": "I have no material preference; just show me versatile everyday options.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.6151,
+        "prompt_tokens": 419,
+        "completion_tokens": 22,
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "style": [
+              "versatile"
+            ],
+            "use_case": [
+              "everyday"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 419,
+          "completion_tokens": 22
+        }
+      },
+      {
+        "case": 20,
+        "message": "Under $120, brown leather, suitable for office wear.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 1.32,
+        "prompt_tokens": 421,
+        "completion_tokens": 48,
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "budget": [
+              "budget under $120"
+            ],
+            "color": [
+              "color: brown"
+            ],
+            "material": [
+              "leather"
+            ],
+            "use_case": [
+              "work"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 421,
+          "completion_tokens": 48
+        }
+      }
+    ],
+    "runtime": {
+      "backend": "llama.cpp",
+      "device": "Metal GPU with CPU orchestration",
+      "quantization": "Q8_0",
+      "model_bytes": 1834426016
+    }
+  }
+}

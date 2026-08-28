@@ -1,0 +1,3667 @@
+{
+  "samples": [
+    {
+      "sample_id": "public_0020",
+      "scenario_type": "buying",
+      "target": "B08P4SSFX4",
+      "target_title": "Funny Saying Novelty Gift ideas - My Favorite People Call Me Grandma Long Sleeve T-Shirt",
+      "turns": [
+        {
+          "turn": 1,
+          "user_message": "I'm looking for Novelty Women. A key requirement is: cotton.",
+          "extracted_category": "Novelty Women",
+          "extracted_slots": {
+            "material": [
+              "cotton",
+              "Solid colors: 100% Cotton",
+              "Heather Grey: 90% Cotton, 10% Polyester",
+              "All Other Heathers: 50% Cotton, 50% Polyester"
+            ],
+            "color": [
+              "color: grey"
+            ],
+            "feature": [
+              "Imported"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 17,
+          "target_exact_card_match_count": 1,
+          "target_final_internal_rank": 15,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 8179,
+          "exact_tie_count": 8147,
+          "complete_match_count": 8147,
+          "recommendations": [
+            "B01JOTZKE8"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 1,
+            "exact_card_characters": 6,
+            "bm25_rank": 17,
+            "title_category_term_matches": 1
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B01JOTZKE8",
+              "title": "CafePress - Its A Hamilton Thing Pajamas - Womens Novelty Cotton Pajama Set, Comfortable PJ Sleepwear",
+              "internal_rank": 1,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 1,
+                "exact_card_characters": 6,
+                "bm25_rank": 1,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B00LIO1UM4",
+              "title": "CafePress Star Trek Quotes (Insignia) Men's Dark Pajamas Unisex Novelty Cotton Pajama Set, Comfortable PJ Sleepwear",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 1,
+                "exact_card_characters": 6,
+                "bm25_rank": 2,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B077QM3PGY",
+              "title": "Cats Make Me Happy You Not So Much T-Shirt Kitten Lover Gift",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 1,
+                "exact_card_characters": 6,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01KVT25A2",
+              "title": "Sunshine Sun Yellow Spiral T-Shirt Novelty Graphic Tee Shirt",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 1,
+                "exact_card_characters": 6,
+                "bm25_rank": 4,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B074S36RH8",
+              "title": "Funny 50th Birthday Joke Gift 50 Years Old Novelty Gag Shirt",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 1,
+                "exact_card_characters": 6,
+                "bm25_rank": 6,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 2,
+          "user_message": "For that, what matters is: color: grey; Solid colors: 100% Cotton; Heather Grey: 90% Cotton, 10% Polyester; All Other Heathers: 50% Cotton, 50% Polyester.",
+          "extracted_category": "Novelty Women",
+          "extracted_slots": {
+            "material": [
+              "cotton",
+              "Solid colors: 100% Cotton",
+              "Heather Grey: 90% Cotton, 10% Polyester",
+              "All Other Heathers: 50% Cotton, 50% Polyester"
+            ],
+            "color": [
+              "color: grey"
+            ],
+            "feature": [
+              "Imported"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 269,
+          "target_exact_card_match_count": 2,
+          "target_final_internal_rank": 256,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 8891,
+          "exact_tie_count": 694,
+          "complete_match_count": 0,
+          "recommendations": [
+            "B01GJ0LYCM"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 2,
+            "exact_card_characters": 17,
+            "bm25_rank": 269,
+            "title_category_term_matches": 1
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B01GJ0LYCM",
+              "title": "Judo Because You Might Run Out of Ammo T Shirt",
+              "internal_rank": 1,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 17,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B077QM3PGY",
+              "title": "Cats Make Me Happy You Not So Much T-Shirt Kitten Lover Gift",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 17,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B073RNZ1XP",
+              "title": "Funny \"Lucky Fishing Shirt Do Not Wash\" Fisherman Gift Tee",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 17,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01N55AG7L",
+              "title": "World's Greatest Tio T Shirt -Best Uncle Ever Award Gift Tee",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 17,
+                "bm25_rank": 4,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B06XK73TN8",
+              "title": "Bachelor Party Shirt Groom With Bow Tie Light",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 17,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 3,
+          "user_message": "For that, what matters is: Imported.",
+          "extracted_category": "Novelty Women",
+          "extracted_slots": {
+            "material": [
+              "cotton",
+              "Solid colors: 100% Cotton",
+              "Heather Grey: 90% Cotton, 10% Polyester",
+              "All Other Heathers: 50% Cotton, 50% Polyester"
+            ],
+            "color": [
+              "color: grey"
+            ],
+            "feature": [
+              "Imported"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 269,
+          "target_exact_card_match_count": 3,
+          "target_final_internal_rank": 256,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "complete_match_count": 0,
+          "recommendations": [
+            "B077QM3PGY"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 3,
+            "exact_card_characters": 25,
+            "bm25_rank": 269,
+            "title_category_term_matches": 1
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B01GJ0LYCM",
+              "title": "Judo Because You Might Run Out of Ammo T Shirt",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B077QM3PGY",
+              "title": "Cats Make Me Happy You Not So Much T-Shirt Kitten Lover Gift",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B073RNZ1XP",
+              "title": "Funny \"Lucky Fishing Shirt Do Not Wash\" Fisherman Gift Tee",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01N55AG7L",
+              "title": "World's Greatest Tio T Shirt -Best Uncle Ever Award Gift Tee",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 4,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B06XK73TN8",
+              "title": "Bachelor Party Shirt Groom With Bow Tie Light",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 4,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Novelty Women",
+          "extracted_slots": {
+            "material": [
+              "cotton",
+              "Solid colors: 100% Cotton",
+              "Heather Grey: 90% Cotton, 10% Polyester",
+              "All Other Heathers: 50% Cotton, 50% Polyester"
+            ],
+            "color": [
+              "color: grey"
+            ],
+            "feature": [
+              "Imported"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 269,
+          "target_exact_card_match_count": 3,
+          "target_final_internal_rank": 256,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "complete_match_count": 0,
+          "recommendations": [
+            "B073RNZ1XP"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 3,
+            "exact_card_characters": 25,
+            "bm25_rank": 269,
+            "title_category_term_matches": 1
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B01GJ0LYCM",
+              "title": "Judo Because You Might Run Out of Ammo T Shirt",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B077QM3PGY",
+              "title": "Cats Make Me Happy You Not So Much T-Shirt Kitten Lover Gift",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B073RNZ1XP",
+              "title": "Funny \"Lucky Fishing Shirt Do Not Wash\" Fisherman Gift Tee",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01N55AG7L",
+              "title": "World's Greatest Tio T Shirt -Best Uncle Ever Award Gift Tee",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 4,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B06XK73TN8",
+              "title": "Bachelor Party Shirt Groom With Bow Tie Light",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 5,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Novelty Women",
+          "extracted_slots": {
+            "material": [
+              "cotton",
+              "Solid colors: 100% Cotton",
+              "Heather Grey: 90% Cotton, 10% Polyester",
+              "All Other Heathers: 50% Cotton, 50% Polyester"
+            ],
+            "color": [
+              "color: grey"
+            ],
+            "feature": [
+              "Imported"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 269,
+          "target_exact_card_match_count": 3,
+          "target_final_internal_rank": 256,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "complete_match_count": 0,
+          "recommendations": [
+            "B01N55AG7L"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 3,
+            "exact_card_characters": 25,
+            "bm25_rank": 269,
+            "title_category_term_matches": 1
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B01GJ0LYCM",
+              "title": "Judo Because You Might Run Out of Ammo T Shirt",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B077QM3PGY",
+              "title": "Cats Make Me Happy You Not So Much T-Shirt Kitten Lover Gift",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B073RNZ1XP",
+              "title": "Funny \"Lucky Fishing Shirt Do Not Wash\" Fisherman Gift Tee",
+              "internal_rank": 3,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01N55AG7L",
+              "title": "World's Greatest Tio T Shirt -Best Uncle Ever Award Gift Tee",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 4,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B06XK73TN8",
+              "title": "Bachelor Party Shirt Groom With Bow Tie Light",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 6,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Novelty Women",
+          "extracted_slots": {
+            "material": [
+              "cotton",
+              "Solid colors: 100% Cotton",
+              "Heather Grey: 90% Cotton, 10% Polyester",
+              "All Other Heathers: 50% Cotton, 50% Polyester"
+            ],
+            "color": [
+              "color: grey"
+            ],
+            "feature": [
+              "Imported"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 269,
+          "target_exact_card_match_count": 3,
+          "target_final_internal_rank": 256,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "complete_match_count": 0,
+          "recommendations": [
+            "B06XK73TN8"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 3,
+            "exact_card_characters": 25,
+            "bm25_rank": 269,
+            "title_category_term_matches": 1
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B01GJ0LYCM",
+              "title": "Judo Because You Might Run Out of Ammo T Shirt",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B077QM3PGY",
+              "title": "Cats Make Me Happy You Not So Much T-Shirt Kitten Lover Gift",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B073RNZ1XP",
+              "title": "Funny \"Lucky Fishing Shirt Do Not Wash\" Fisherman Gift Tee",
+              "internal_rank": 3,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01N55AG7L",
+              "title": "World's Greatest Tio T Shirt -Best Uncle Ever Award Gift Tee",
+              "internal_rank": 4,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 4,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B06XK73TN8",
+              "title": "Bachelor Party Shirt Groom With Bow Tie Light",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 7,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Novelty Women",
+          "extracted_slots": {
+            "material": [
+              "cotton",
+              "Solid colors: 100% Cotton",
+              "Heather Grey: 90% Cotton, 10% Polyester",
+              "All Other Heathers: 50% Cotton, 50% Polyester"
+            ],
+            "color": [
+              "color: grey"
+            ],
+            "feature": [
+              "Imported"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 269,
+          "target_exact_card_match_count": 3,
+          "target_final_internal_rank": 256,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "complete_match_count": 0,
+          "recommendations": [
+            "B01NCZJA3N",
+            "B01N989YEM",
+            "B077D111YP"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 3,
+            "exact_card_characters": 25,
+            "bm25_rank": 269,
+            "title_category_term_matches": 1
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B01GJ0LYCM",
+              "title": "Judo Because You Might Run Out of Ammo T Shirt",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B077QM3PGY",
+              "title": "Cats Make Me Happy You Not So Much T-Shirt Kitten Lover Gift",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B073RNZ1XP",
+              "title": "Funny \"Lucky Fishing Shirt Do Not Wash\" Fisherman Gift Tee",
+              "internal_rank": 3,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01N55AG7L",
+              "title": "World's Greatest Tio T Shirt -Best Uncle Ever Award Gift Tee",
+              "internal_rank": 4,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 4,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B06XK73TN8",
+              "title": "Bachelor Party Shirt Groom With Bow Tie Light",
+              "internal_rank": 5,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 8,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Novelty Women",
+          "extracted_slots": {
+            "material": [
+              "cotton",
+              "Solid colors: 100% Cotton",
+              "Heather Grey: 90% Cotton, 10% Polyester",
+              "All Other Heathers: 50% Cotton, 50% Polyester"
+            ],
+            "color": [
+              "color: grey"
+            ],
+            "feature": [
+              "Imported"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 269,
+          "target_exact_card_match_count": 3,
+          "target_final_internal_rank": 256,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "complete_match_count": 0,
+          "recommendations": [
+            "B0748JCM4K",
+            "B06XW3CVPV",
+            "B071RTD6WK"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 3,
+            "exact_card_characters": 25,
+            "bm25_rank": 269,
+            "title_category_term_matches": 1
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B01GJ0LYCM",
+              "title": "Judo Because You Might Run Out of Ammo T Shirt",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B077QM3PGY",
+              "title": "Cats Make Me Happy You Not So Much T-Shirt Kitten Lover Gift",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B073RNZ1XP",
+              "title": "Funny \"Lucky Fishing Shirt Do Not Wash\" Fisherman Gift Tee",
+              "internal_rank": 3,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01N55AG7L",
+              "title": "World's Greatest Tio T Shirt -Best Uncle Ever Award Gift Tee",
+              "internal_rank": 4,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 4,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B06XK73TN8",
+              "title": "Bachelor Party Shirt Groom With Bow Tie Light",
+              "internal_rank": 5,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 9,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Novelty Women",
+          "extracted_slots": {
+            "material": [
+              "cotton",
+              "Solid colors: 100% Cotton",
+              "Heather Grey: 90% Cotton, 10% Polyester",
+              "All Other Heathers: 50% Cotton, 50% Polyester"
+            ],
+            "color": [
+              "color: grey"
+            ],
+            "feature": [
+              "Imported"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 269,
+          "target_exact_card_match_count": 3,
+          "target_final_internal_rank": 256,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "complete_match_count": 0,
+          "recommendations": [
+            "B01CAKBX30",
+            "B016OUFYTG",
+            "B01LXQ05CY"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 3,
+            "exact_card_characters": 25,
+            "bm25_rank": 269,
+            "title_category_term_matches": 1
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B01GJ0LYCM",
+              "title": "Judo Because You Might Run Out of Ammo T Shirt",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B077QM3PGY",
+              "title": "Cats Make Me Happy You Not So Much T-Shirt Kitten Lover Gift",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B073RNZ1XP",
+              "title": "Funny \"Lucky Fishing Shirt Do Not Wash\" Fisherman Gift Tee",
+              "internal_rank": 3,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01N55AG7L",
+              "title": "World's Greatest Tio T Shirt -Best Uncle Ever Award Gift Tee",
+              "internal_rank": 4,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 4,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B06XK73TN8",
+              "title": "Bachelor Party Shirt Groom With Bow Tie Light",
+              "internal_rank": 5,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 10,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Novelty Women",
+          "extracted_slots": {
+            "material": [
+              "cotton",
+              "Solid colors: 100% Cotton",
+              "Heather Grey: 90% Cotton, 10% Polyester",
+              "All Other Heathers: 50% Cotton, 50% Polyester"
+            ],
+            "color": [
+              "color: grey"
+            ],
+            "feature": [
+              "Imported"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 269,
+          "target_exact_card_match_count": 3,
+          "target_final_internal_rank": 256,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 19195,
+          "exact_tie_count": 530,
+          "complete_match_count": 0,
+          "recommendations": [
+            "B071CVKC4M",
+            "B076J95B7F",
+            "B06XCNCZ2J",
+            "B01MFBYLCA",
+            "B071CZCXVW",
+            "B0170P0174",
+            "B071DPGH71",
+            "B01EW382K0",
+            "B01BD4MHHK",
+            "B072BH1NWG"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 3,
+            "exact_card_characters": 25,
+            "bm25_rank": 269,
+            "title_category_term_matches": 1
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B01GJ0LYCM",
+              "title": "Judo Because You Might Run Out of Ammo T Shirt",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B077QM3PGY",
+              "title": "Cats Make Me Happy You Not So Much T-Shirt Kitten Lover Gift",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B073RNZ1XP",
+              "title": "Funny \"Lucky Fishing Shirt Do Not Wash\" Fisherman Gift Tee",
+              "internal_rank": 3,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01N55AG7L",
+              "title": "World's Greatest Tio T Shirt -Best Uncle Ever Award Gift Tee",
+              "internal_rank": 4,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 4,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B06XK73TN8",
+              "title": "Bachelor Party Shirt Groom With Bow Tie Light",
+              "internal_rank": 5,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 25,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample_id": "public_0096",
+      "scenario_type": "intent_override",
+      "target": "B074K2QX3M",
+      "target_title": "Zeagoo Women's Polka Dots Shirt Striped 3/4 Sleeve Casual Scoop Neck Tops Tee S-XXXL",
+      "turns": [
+        {
+          "turn": 1,
+          "user_message": "I'm looking for Tees & Blouses T-Shirts. Pull On closure",
+          "extracted_category": "Tees & Blouses T-Shirts",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "95% Polyester, 5% Spandex"
+            ],
+            "feature": [
+              "Imported",
+              "Pull On closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": null,
+          "target_exact_card_match_count": 0,
+          "target_final_internal_rank": null,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 500,
+          "exact_tie_count": 500,
+          "complete_match_count": 0,
+          "recommendations": [
+            "B09WCMPTN6"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 0,
+            "exact_card_characters": 0,
+            "bm25_rank": null,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B09WCMPTN6",
+              "title": "Summer 3/4 Sleeve Shirts for Women Comfy Soft Round Neck Blouses Casual Print Loose Fit Pullover Tops",
+              "internal_rank": 1,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 0,
+                "exact_card_characters": 0,
+                "bm25_rank": 1,
+                "title_category_term_matches": 2
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B09TRNVPWP",
+              "title": "DESKABLY Cute Summer Tops for Women Plus Size Tops O-Neck Print Short Sleeve T-Shirt Tops Casual Loose Blouse Tops",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 0,
+                "exact_card_characters": 0,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B09Z9H8ZM5",
+              "title": "Summer Women Cotton Linen Tshirt Tops Trendy Floral Casual Loose Fit Tunic Tees Short Sleeve Plus Size Button Blouses",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 0,
+                "exact_card_characters": 0,
+                "bm25_rank": 3,
+                "title_category_term_matches": 2
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B09B93J25N",
+              "title": "FABIURT Halloween Womens Summer Tops,Womens Tops and Blouses Summer Casual Tees Long Sleeve Loose Fit Tshirts Workout Exercise Orange",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 0,
+                "exact_card_characters": 0,
+                "bm25_rank": 4,
+                "title_category_term_matches": 2
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0C1BT5862",
+              "title": "Capri Pants for Women Summer Casual Plus Size Cotton Linen Pants Drawstring Knee Length Trousers with Pockets",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 0,
+                "exact_card_characters": 0,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 2,
+          "user_message": "For that, what matters is: polyester; 95% Polyester, 5% Spandex.",
+          "extracted_category": "Tees & Blouses T-Shirts",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "95% Polyester, 5% Spandex"
+            ],
+            "feature": [
+              "Imported",
+              "Pull On closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 69,
+          "target_exact_card_match_count": 2,
+          "target_final_internal_rank": 34,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 7386,
+          "exact_tie_count": 335,
+          "complete_match_count": 335,
+          "recommendations": [
+            "B096NVSN1L"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 2,
+            "exact_card_characters": 34,
+            "bm25_rank": 69,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B096NVSN1L",
+              "title": "ELESOL Women's Long Sleeve V Neck T Shirt Front Twist Tunic Tops Casual Loose Fitted Black XXL",
+              "internal_rank": 1,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 34,
+                "bm25_rank": 4,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B097BL6G7S",
+              "title": "Zecilbo Women's Solid Color Brief Studded Detail Multi-Strap Tank Tops Racerback Sleeveless Shirts",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 34,
+                "bm25_rank": 6,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B08CDJDJXL",
+              "title": "LUOUSE Toddler Girls Casual Round Neck Short Sleeve T-Shirts Tee 2-Pack (3T - 12T)",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 34,
+                "bm25_rank": 9,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07TZPFQ9N",
+              "title": "Biucly Women's Casual V Neck Tops 3/4 Sleeve Tie Knot Chiffon Blouses Button Down Shirts",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 34,
+                "bm25_rank": 10,
+                "title_category_term_matches": 2
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0B4RW6DF2",
+              "title": "Zeagoo Women's Long Puff Sleeve Square Neck Top Velvet Tops Slim Fit Crop Cropped Top Blouse Sweatshirt S-XXXL",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 34,
+                "bm25_rank": 13,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 3,
+          "user_message": "Actually, ignore my earlier preference. What I need is: polyester.",
+          "extracted_category": "Tees & Blouses T-Shirts",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "95% Polyester, 5% Spandex"
+            ],
+            "feature": [
+              "Imported",
+              "Pull On closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": true,
+          "target_bm25_rank": 69,
+          "target_exact_card_match_count": 2,
+          "target_final_internal_rank": 34,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 7386,
+          "exact_tie_count": 335,
+          "complete_match_count": 335,
+          "recommendations": [
+            "B096NVSN1L"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 2,
+            "exact_card_characters": 34,
+            "bm25_rank": 69,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B096NVSN1L",
+              "title": "ELESOL Women's Long Sleeve V Neck T Shirt Front Twist Tunic Tops Casual Loose Fitted Black XXL",
+              "internal_rank": 1,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 34,
+                "bm25_rank": 4,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B097BL6G7S",
+              "title": "Zecilbo Women's Solid Color Brief Studded Detail Multi-Strap Tank Tops Racerback Sleeveless Shirts",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 34,
+                "bm25_rank": 6,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B08CDJDJXL",
+              "title": "LUOUSE Toddler Girls Casual Round Neck Short Sleeve T-Shirts Tee 2-Pack (3T - 12T)",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 34,
+                "bm25_rank": 9,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07TZPFQ9N",
+              "title": "Biucly Women's Casual V Neck Tops 3/4 Sleeve Tie Knot Chiffon Blouses Button Down Shirts",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 34,
+                "bm25_rank": 10,
+                "title_category_term_matches": 2
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0B4RW6DF2",
+              "title": "Zeagoo Women's Long Puff Sleeve Square Neck Top Velvet Tops Slim Fit Crop Cropped Top Blouse Sweatshirt S-XXXL",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 34,
+                "bm25_rank": 13,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 4,
+          "user_message": "For that, what matters is: Imported; Pull On closure.",
+          "extracted_category": "Tees & Blouses T-Shirts",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "95% Polyester, 5% Spandex"
+            ],
+            "feature": [
+              "Imported",
+              "Pull On closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 28,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 12,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 21530,
+          "exact_tie_count": 50,
+          "complete_match_count": 50,
+          "recommendations": [
+            "B087B4KKX7"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 57,
+            "bm25_rank": 28,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B087B4KKX7",
+              "title": "BLENCOT Womens 3/4 Bell Sleeve V Neck Lace Patchwork Blouse Casual Loose Shirt Tops",
+              "internal_rank": 1,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01KKQLXW2",
+              "title": "Calvin Klein Women's S/l Metallic Top W/Angle Bottom",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07TZPFQ9N",
+              "title": "Biucly Women's Casual V Neck Tops 3/4 Sleeve Tie Knot Chiffon Blouses Button Down Shirts",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 5,
+                "title_category_term_matches": 2
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0B4RW6DF2",
+              "title": "Zeagoo Women's Long Puff Sleeve Square Neck Top Velvet Tops Slim Fit Crop Cropped Top Blouse Sweatshirt S-XXXL",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 6,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0953H3TZT",
+              "title": "WIHOLL Womens Tank Tops V Neck Casual Summer Sleeveless Tops Button Up Solid Color Shirts",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 10,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 5,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Tees & Blouses T-Shirts",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "95% Polyester, 5% Spandex"
+            ],
+            "feature": [
+              "Imported",
+              "Pull On closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 28,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 12,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 21530,
+          "exact_tie_count": 50,
+          "complete_match_count": 50,
+          "recommendations": [
+            "B01KKQLXW2"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 57,
+            "bm25_rank": 28,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B087B4KKX7",
+              "title": "BLENCOT Womens 3/4 Bell Sleeve V Neck Lace Patchwork Blouse Casual Loose Shirt Tops",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01KKQLXW2",
+              "title": "Calvin Klein Women's S/l Metallic Top W/Angle Bottom",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07TZPFQ9N",
+              "title": "Biucly Women's Casual V Neck Tops 3/4 Sleeve Tie Knot Chiffon Blouses Button Down Shirts",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 5,
+                "title_category_term_matches": 2
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0B4RW6DF2",
+              "title": "Zeagoo Women's Long Puff Sleeve Square Neck Top Velvet Tops Slim Fit Crop Cropped Top Blouse Sweatshirt S-XXXL",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 6,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0953H3TZT",
+              "title": "WIHOLL Womens Tank Tops V Neck Casual Summer Sleeveless Tops Button Up Solid Color Shirts",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 10,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 6,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Tees & Blouses T-Shirts",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "95% Polyester, 5% Spandex"
+            ],
+            "feature": [
+              "Imported",
+              "Pull On closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 28,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 12,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 21530,
+          "exact_tie_count": 50,
+          "complete_match_count": 50,
+          "recommendations": [
+            "B07TZPFQ9N"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 57,
+            "bm25_rank": 28,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B087B4KKX7",
+              "title": "BLENCOT Womens 3/4 Bell Sleeve V Neck Lace Patchwork Blouse Casual Loose Shirt Tops",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01KKQLXW2",
+              "title": "Calvin Klein Women's S/l Metallic Top W/Angle Bottom",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07TZPFQ9N",
+              "title": "Biucly Women's Casual V Neck Tops 3/4 Sleeve Tie Knot Chiffon Blouses Button Down Shirts",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 5,
+                "title_category_term_matches": 2
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0B4RW6DF2",
+              "title": "Zeagoo Women's Long Puff Sleeve Square Neck Top Velvet Tops Slim Fit Crop Cropped Top Blouse Sweatshirt S-XXXL",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 6,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0953H3TZT",
+              "title": "WIHOLL Womens Tank Tops V Neck Casual Summer Sleeveless Tops Button Up Solid Color Shirts",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 10,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 7,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Tees & Blouses T-Shirts",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "95% Polyester, 5% Spandex"
+            ],
+            "feature": [
+              "Imported",
+              "Pull On closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 28,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 12,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 21530,
+          "exact_tie_count": 50,
+          "complete_match_count": 50,
+          "recommendations": [
+            "B0B4RW6DF2",
+            "B0953H3TZT",
+            "B07W4W6QNM"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 57,
+            "bm25_rank": 28,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B087B4KKX7",
+              "title": "BLENCOT Womens 3/4 Bell Sleeve V Neck Lace Patchwork Blouse Casual Loose Shirt Tops",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01KKQLXW2",
+              "title": "Calvin Klein Women's S/l Metallic Top W/Angle Bottom",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07TZPFQ9N",
+              "title": "Biucly Women's Casual V Neck Tops 3/4 Sleeve Tie Knot Chiffon Blouses Button Down Shirts",
+              "internal_rank": 3,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 5,
+                "title_category_term_matches": 2
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0B4RW6DF2",
+              "title": "Zeagoo Women's Long Puff Sleeve Square Neck Top Velvet Tops Slim Fit Crop Cropped Top Blouse Sweatshirt S-XXXL",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 6,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0953H3TZT",
+              "title": "WIHOLL Womens Tank Tops V Neck Casual Summer Sleeveless Tops Button Up Solid Color Shirts",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 10,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 8,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Tees & Blouses T-Shirts",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "95% Polyester, 5% Spandex"
+            ],
+            "feature": [
+              "Imported",
+              "Pull On closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 28,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 12,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 21530,
+          "exact_tie_count": 50,
+          "complete_match_count": 50,
+          "recommendations": [
+            "B0BWD9T482",
+            "B07QXYGFRP",
+            "B0BZ4TC8C6"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 57,
+            "bm25_rank": 28,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B087B4KKX7",
+              "title": "BLENCOT Womens 3/4 Bell Sleeve V Neck Lace Patchwork Blouse Casual Loose Shirt Tops",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01KKQLXW2",
+              "title": "Calvin Klein Women's S/l Metallic Top W/Angle Bottom",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07TZPFQ9N",
+              "title": "Biucly Women's Casual V Neck Tops 3/4 Sleeve Tie Knot Chiffon Blouses Button Down Shirts",
+              "internal_rank": 3,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 5,
+                "title_category_term_matches": 2
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0B4RW6DF2",
+              "title": "Zeagoo Women's Long Puff Sleeve Square Neck Top Velvet Tops Slim Fit Crop Cropped Top Blouse Sweatshirt S-XXXL",
+              "internal_rank": 4,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 6,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0953H3TZT",
+              "title": "WIHOLL Womens Tank Tops V Neck Casual Summer Sleeveless Tops Button Up Solid Color Shirts",
+              "internal_rank": 5,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 10,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 9,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Tees & Blouses T-Shirts",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "95% Polyester, 5% Spandex"
+            ],
+            "feature": [
+              "Imported",
+              "Pull On closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 28,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 12,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": 3,
+          "candidate_count": 21530,
+          "exact_tie_count": 50,
+          "complete_match_count": 50,
+          "recommendations": [
+            "B07BRVF979",
+            "B08YR5M6C4",
+            "B074K2QX3M"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 57,
+            "bm25_rank": 28,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B087B4KKX7",
+              "title": "BLENCOT Womens 3/4 Bell Sleeve V Neck Lace Patchwork Blouse Casual Loose Shirt Tops",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01KKQLXW2",
+              "title": "Calvin Klein Women's S/l Metallic Top W/Angle Bottom",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07TZPFQ9N",
+              "title": "Biucly Women's Casual V Neck Tops 3/4 Sleeve Tie Knot Chiffon Blouses Button Down Shirts",
+              "internal_rank": 3,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 5,
+                "title_category_term_matches": 2
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0B4RW6DF2",
+              "title": "Zeagoo Women's Long Puff Sleeve Square Neck Top Velvet Tops Slim Fit Crop Cropped Top Blouse Sweatshirt S-XXXL",
+              "internal_rank": 4,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 6,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0953H3TZT",
+              "title": "WIHOLL Womens Tank Tops V Neck Casual Summer Sleeveless Tops Button Up Solid Color Shirts",
+              "internal_rank": 5,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 57,
+                "bm25_rank": 10,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample_id": "public_0144",
+      "scenario_type": "intent_override",
+      "target": "B08LMMDYV7",
+      "target_title": "URBAN REPUBLIC Women's Winter Jacket - Heavyweight Water Resistant Expedition Faux-Fur Lined Parka Jacket",
+      "turns": [
+        {
+          "turn": 1,
+          "user_message": "I'm looking for Jackets & Vests Down Jackets & Parkas. Zipper closure",
+          "extracted_category": "Jackets & Vests Down Jackets & Parkas",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "100% Polyester"
+            ],
+            "feature": [
+              "Imported",
+              "Zipper closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 104,
+          "target_exact_card_match_count": 0,
+          "target_final_internal_rank": 104,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 500,
+          "exact_tie_count": 500,
+          "complete_match_count": 0,
+          "recommendations": [
+            "B07XLNJXDW"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 0,
+            "exact_card_characters": 0,
+            "bm25_rank": 104,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B07XLNJXDW",
+              "title": "Jessica Simpson Women's Outerwear - Thickened Down Winter Bubble Puffer Jacket with Sherpa Fur Lined Hood, Size Small, Navy",
+              "internal_rank": 1,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 0,
+                "exact_card_characters": 0,
+                "bm25_rank": 1,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01LYCJSER",
+              "title": "Alpinetek Women\u2019s Long Down Parka Coat (Medium, Black)",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 0,
+                "exact_card_characters": 0,
+                "bm25_rank": 2,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07D8W778T",
+              "title": "SUSIELADY Womens Winter Jacket Parkas Thicken Outerwear Solid Hooded Coats Short Slim Cotton Padded Basic Tops Beige Large",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 0,
+                "exact_card_characters": 0,
+                "bm25_rank": 3,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07Y8VL8QH",
+              "title": "Lands' End Womens Long Down Winter Coat Dark Stone Heather Regular Medium",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 0,
+                "exact_card_characters": 0,
+                "bm25_rank": 4,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0123YHODG",
+              "title": "ZSHOW Women's Outwear Down Coat Lightweight Packable Pillow Down Jackets, US X-Small, Acid Blue",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 0,
+                "exact_card_characters": 0,
+                "bm25_rank": 5,
+                "title_category_term_matches": 2
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 2,
+          "user_message": "For that, what matters is: polyester; 100% Polyester.",
+          "extracted_category": "Jackets & Vests Down Jackets & Parkas",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "100% Polyester"
+            ],
+            "feature": [
+              "Imported",
+              "Zipper closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 100,
+          "target_exact_card_match_count": 2,
+          "target_final_internal_rank": 19,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 7470,
+          "exact_tie_count": 2359,
+          "complete_match_count": 2359,
+          "recommendations": [
+            "B07BR2J71F"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 2,
+            "exact_card_characters": 23,
+            "bm25_rank": 100,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B07BR2J71F",
+              "title": "U.S. Polo Assn. Women's Quilted Moto Puffer Jacket",
+              "internal_rank": 1,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 23,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07CZGMNML",
+              "title": "LONDON FOG Women's Plus Size Long Mitred Quilt Down with Faux Fur Trim Hd",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 23,
+                "bm25_rank": 2,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B00DDFK0DQ",
+              "title": "U.S. Polo Assn. Junior's Basic Puffer Jacket with Hood",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 23,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B076TTCM7S",
+              "title": "Columbia Women's Breitenbush\u2122 Parka Outerwear, -black, S",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 23,
+                "bm25_rank": 7,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B09D112TGF",
+              "title": "Steve Madden Women's Puffer",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 2,
+                "exact_card_characters": 23,
+                "bm25_rank": 8,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 3,
+          "user_message": "For that, what matters is: Imported; Zipper closure.",
+          "extracted_category": "Jackets & Vests Down Jackets & Parkas",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "100% Polyester"
+            ],
+            "feature": [
+              "Imported",
+              "Zipper closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 91,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 8,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 19038,
+          "exact_tie_count": 186,
+          "complete_match_count": 186,
+          "recommendations": [
+            "B07CZGMNML"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 45,
+            "bm25_rank": 91,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B07BR2J71F",
+              "title": "U.S. Polo Assn. Women's Quilted Moto Puffer Jacket",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07CZGMNML",
+              "title": "LONDON FOG Women's Plus Size Long Mitred Quilt Down with Faux Fur Trim Hd",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 2,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B088Y6BN67",
+              "title": "Jones New York Women's Packable Parka Coat",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B09D112TGF",
+              "title": "Steve Madden Women's Puffer",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 6,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01GHS9PUE",
+              "title": "Tribal Women's Fashion Icon Long Puffer Coat with Faux Fur Trim",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 10,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 4,
+          "user_message": "Actually, ignore my earlier preference. What I need is: polyester.",
+          "extracted_category": "Jackets & Vests Down Jackets & Parkas",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "100% Polyester"
+            ],
+            "feature": [
+              "Imported",
+              "Zipper closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": true,
+          "target_bm25_rank": 91,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 8,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 19038,
+          "exact_tie_count": 186,
+          "complete_match_count": 186,
+          "recommendations": [
+            "B07BR2J71F"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 45,
+            "bm25_rank": 91,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B07BR2J71F",
+              "title": "U.S. Polo Assn. Women's Quilted Moto Puffer Jacket",
+              "internal_rank": 1,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07CZGMNML",
+              "title": "LONDON FOG Women's Plus Size Long Mitred Quilt Down with Faux Fur Trim Hd",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 2,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B088Y6BN67",
+              "title": "Jones New York Women's Packable Parka Coat",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B09D112TGF",
+              "title": "Steve Madden Women's Puffer",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 6,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01GHS9PUE",
+              "title": "Tribal Women's Fashion Icon Long Puffer Coat with Faux Fur Trim",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 10,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 5,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Jackets & Vests Down Jackets & Parkas",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "100% Polyester"
+            ],
+            "feature": [
+              "Imported",
+              "Zipper closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 91,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 8,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 19038,
+          "exact_tie_count": 186,
+          "complete_match_count": 186,
+          "recommendations": [
+            "B07CZGMNML"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 45,
+            "bm25_rank": 91,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B07BR2J71F",
+              "title": "U.S. Polo Assn. Women's Quilted Moto Puffer Jacket",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07CZGMNML",
+              "title": "LONDON FOG Women's Plus Size Long Mitred Quilt Down with Faux Fur Trim Hd",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 2,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B088Y6BN67",
+              "title": "Jones New York Women's Packable Parka Coat",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B09D112TGF",
+              "title": "Steve Madden Women's Puffer",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 6,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01GHS9PUE",
+              "title": "Tribal Women's Fashion Icon Long Puffer Coat with Faux Fur Trim",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 10,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 6,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Jackets & Vests Down Jackets & Parkas",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "100% Polyester"
+            ],
+            "feature": [
+              "Imported",
+              "Zipper closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 91,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 8,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 19038,
+          "exact_tie_count": 186,
+          "complete_match_count": 186,
+          "recommendations": [
+            "B088Y6BN67"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 45,
+            "bm25_rank": 91,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B07BR2J71F",
+              "title": "U.S. Polo Assn. Women's Quilted Moto Puffer Jacket",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07CZGMNML",
+              "title": "LONDON FOG Women's Plus Size Long Mitred Quilt Down with Faux Fur Trim Hd",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 2,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B088Y6BN67",
+              "title": "Jones New York Women's Packable Parka Coat",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B09D112TGF",
+              "title": "Steve Madden Women's Puffer",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 6,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01GHS9PUE",
+              "title": "Tribal Women's Fashion Icon Long Puffer Coat with Faux Fur Trim",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 10,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 7,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Jackets & Vests Down Jackets & Parkas",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "100% Polyester"
+            ],
+            "feature": [
+              "Imported",
+              "Zipper closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 91,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 8,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": 5,
+          "candidate_count": 19038,
+          "exact_tie_count": 186,
+          "complete_match_count": 186,
+          "recommendations": [
+            "B09D112TGF",
+            "B01GHS9PUE",
+            "B09JX1Q6RY",
+            "B0BCK59834",
+            "B08LMMDYV7"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 45,
+            "bm25_rank": 91,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B07BR2J71F",
+              "title": "U.S. Polo Assn. Women's Quilted Moto Puffer Jacket",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07CZGMNML",
+              "title": "LONDON FOG Women's Plus Size Long Mitred Quilt Down with Faux Fur Trim Hd",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 2,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B088Y6BN67",
+              "title": "Jones New York Women's Packable Parka Coat",
+              "internal_rank": 3,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B09D112TGF",
+              "title": "Steve Madden Women's Puffer",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 6,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01GHS9PUE",
+              "title": "Tribal Women's Fashion Icon Long Puffer Coat with Faux Fur Trim",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 45,
+                "bm25_rank": 10,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sample_id": "public_0174",
+      "scenario_type": "buying",
+      "target": "B0794VPVBH",
+      "target_title": "NY Threads Luxurious Mens Shawl Collar Fleece Bathrobe Spa Robe",
+      "turns": [
+        {
+          "turn": 1,
+          "user_message": "I'm looking for Sleep & Lounge Robes. A key requirement is: polyester.",
+          "extracted_category": "Sleep & Lounge Robes",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "100% Polyester"
+            ],
+            "feature": [
+              "Imported",
+              "Tie closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 150,
+          "target_exact_card_match_count": 1,
+          "target_final_internal_rank": 69,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 7403,
+          "exact_tie_count": 7159,
+          "complete_match_count": 7159,
+          "recommendations": [
+            "B08FZZ68T2"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 1,
+            "exact_card_characters": 9,
+            "bm25_rank": 150,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B08FZZ68T2",
+              "title": "SAPJON Womens Pajama Flannel Long Robes Zip Bathrobes Soft Fleece Winter Housecoats Nightgown Sleepwear Brown",
+              "internal_rank": 1,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 1,
+                "exact_card_characters": 9,
+                "bm25_rank": 1,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01LDELSIO",
+              "title": "Admireme Women Satin Kimono Robes Wedding Getting Ready Bride Robe Party Sleepwear",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 1,
+                "exact_card_characters": 9,
+                "bm25_rank": 2,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B075697T3J",
+              "title": "MISSFASHION Women\u2019s Lounge wear Satin Kimono Robe Peacock Pajamas for Women",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 1,
+                "exact_card_characters": 9,
+                "bm25_rank": 3,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0756C4C1R",
+              "title": "MISSFASHION Women\u2019s Lounge wear Satin Kimono Robe Peacock Pajamas for Women",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 1,
+                "exact_card_characters": 9,
+                "bm25_rank": 4,
+                "title_category_term_matches": 1
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B07T5K299W",
+              "title": "Women Plus Size Tunic Tops Loose Shirt",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 1,
+                "exact_card_characters": 9,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 2,
+          "user_message": "For that, what matters is: 100% Polyester; Imported.",
+          "extracted_category": "Sleep & Lounge Robes",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "100% Polyester"
+            ],
+            "feature": [
+              "Imported",
+              "Tie closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 87,
+          "target_exact_card_match_count": 3,
+          "target_final_internal_rank": 16,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 18175,
+          "exact_tie_count": 1165,
+          "complete_match_count": 1165,
+          "recommendations": [
+            "B015HQH8II"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 3,
+            "exact_card_characters": 31,
+            "bm25_rank": 87,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B015HQH8II",
+              "title": "N Natori Women's Turkish Jewel Robe",
+              "internal_rank": 1,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 31,
+                "bm25_rank": 2,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B00F4O2QC2",
+              "title": "Dearfoams Women's faux sherpa Shawl Collar Long Solid Robe",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 31,
+                "bm25_rank": 3,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B0CCNK8JP9",
+              "title": "ZIJEFA Women's Sleepwear 4 Piece set Floral Lace Trim Satin Cami Pajama Set with Robe",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 31,
+                "bm25_rank": 4,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B00HZHTXZE",
+              "title": "Casual Moments Women's Textured Fleece Robe",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 31,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B010O2S2JO",
+              "title": "Intimo Men's Plush Robe",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 3,
+                "exact_card_characters": 31,
+                "bm25_rank": 6,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 3,
+          "user_message": "For that, what matters is: Tie closure.",
+          "extracted_category": "Sleep & Lounge Robes",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "100% Polyester"
+            ],
+            "feature": [
+              "Imported",
+              "Tie closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 63,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 6,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 18384,
+          "exact_tie_count": 27,
+          "complete_match_count": 27,
+          "recommendations": [
+            "B00F4O2QC2"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 42,
+            "bm25_rank": 63,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B00F4O2QC2",
+              "title": "Dearfoams Women's faux sherpa Shawl Collar Long Solid Robe",
+              "internal_rank": 1,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01HVLWJ7M",
+              "title": "St. Eve Women's Plush Robe",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B079JJXSSN",
+              "title": "Amazon Brand - Arabella Women's Printed Plush Robe",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 7,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B079JGHJN3",
+              "title": "Amazon Brand - Arabella Women's Shaggy Plush Short Robe",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 8,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B09GT64JCG",
+              "title": "Van Heusen mens Comfort Soft Fleece Robe",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 42,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 4,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Sleep & Lounge Robes",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "100% Polyester"
+            ],
+            "feature": [
+              "Imported",
+              "Tie closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 63,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 6,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 18384,
+          "exact_tie_count": 27,
+          "complete_match_count": 27,
+          "recommendations": [
+            "B01HVLWJ7M"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 42,
+            "bm25_rank": 63,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B00F4O2QC2",
+              "title": "Dearfoams Women's faux sherpa Shawl Collar Long Solid Robe",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01HVLWJ7M",
+              "title": "St. Eve Women's Plush Robe",
+              "internal_rank": 2,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B079JJXSSN",
+              "title": "Amazon Brand - Arabella Women's Printed Plush Robe",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 7,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B079JGHJN3",
+              "title": "Amazon Brand - Arabella Women's Shaggy Plush Short Robe",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 8,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B09GT64JCG",
+              "title": "Van Heusen mens Comfort Soft Fleece Robe",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 42,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 5,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Sleep & Lounge Robes",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "100% Polyester"
+            ],
+            "feature": [
+              "Imported",
+              "Tie closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 63,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 6,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 18384,
+          "exact_tie_count": 27,
+          "complete_match_count": 27,
+          "recommendations": [
+            "B079JJXSSN"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 42,
+            "bm25_rank": 63,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B00F4O2QC2",
+              "title": "Dearfoams Women's faux sherpa Shawl Collar Long Solid Robe",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01HVLWJ7M",
+              "title": "St. Eve Women's Plush Robe",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B079JJXSSN",
+              "title": "Amazon Brand - Arabella Women's Printed Plush Robe",
+              "internal_rank": 3,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 7,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B079JGHJN3",
+              "title": "Amazon Brand - Arabella Women's Shaggy Plush Short Robe",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 8,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B09GT64JCG",
+              "title": "Van Heusen mens Comfort Soft Fleece Robe",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 42,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 6,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Sleep & Lounge Robes",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "100% Polyester"
+            ],
+            "feature": [
+              "Imported",
+              "Tie closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 63,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 6,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": null,
+          "candidate_count": 18384,
+          "exact_tie_count": 27,
+          "complete_match_count": 27,
+          "recommendations": [
+            "B079JGHJN3"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 42,
+            "bm25_rank": 63,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B00F4O2QC2",
+              "title": "Dearfoams Women's faux sherpa Shawl Collar Long Solid Robe",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01HVLWJ7M",
+              "title": "St. Eve Women's Plush Robe",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B079JJXSSN",
+              "title": "Amazon Brand - Arabella Women's Printed Plush Robe",
+              "internal_rank": 3,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 7,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B079JGHJN3",
+              "title": "Amazon Brand - Arabella Women's Shaggy Plush Short Robe",
+              "internal_rank": 4,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 8,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B09GT64JCG",
+              "title": "Van Heusen mens Comfort Soft Fleece Robe",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 42,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        },
+        {
+          "turn": 7,
+          "user_message": "I don't have an additional preference for other.",
+          "extracted_category": "Sleep & Lounge Robes",
+          "extracted_slots": {
+            "material": [
+              "polyester",
+              "100% Polyester"
+            ],
+            "feature": [
+              "Imported",
+              "Tie closure"
+            ]
+          },
+          "negative_constraints": [],
+          "override_applied_this_turn": false,
+          "target_bm25_rank": 63,
+          "target_exact_card_match_count": 4,
+          "target_final_internal_rank": 6,
+          "target_removed_as_already_shown": false,
+          "target_output_rank": 2,
+          "candidate_count": 18384,
+          "exact_tie_count": 27,
+          "complete_match_count": 27,
+          "recommendations": [
+            "B09GT64JCG",
+            "B0794VPVBH",
+            "B01IFL8X1S"
+          ],
+          "ask_attribute": "other",
+          "target_evidence": {
+            "negative_matches": 0,
+            "exact_card_matches": 4,
+            "exact_card_characters": 42,
+            "bm25_rank": 63,
+            "title_category_term_matches": 0
+          },
+          "top_competitors": [
+            {
+              "parent_asin": "B00F4O2QC2",
+              "title": "Dearfoams Women's faux sherpa Shawl Collar Long Solid Robe",
+              "internal_rank": 1,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 1,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B01HVLWJ7M",
+              "title": "St. Eve Women's Plush Robe",
+              "internal_rank": 2,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 5,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B079JJXSSN",
+              "title": "Amazon Brand - Arabella Women's Printed Plush Robe",
+              "internal_rank": 3,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 7,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B079JGHJN3",
+              "title": "Amazon Brand - Arabella Women's Shaggy Plush Short Robe",
+              "internal_rank": 4,
+              "already_shown": true,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 8,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            },
+            {
+              "parent_asin": "B09GT64JCG",
+              "title": "Van Heusen mens Comfort Soft Fleece Robe",
+              "internal_rank": 5,
+              "already_shown": false,
+              "evidence": {
+                "negative_matches": 0,
+                "exact_card_matches": 4,
+                "exact_card_characters": 42,
+                "bm25_rank": 42,
+                "title_category_term_matches": 0
+              },
+              "why_it_outranked_target": "higher BM25 rank after the exact-card tie"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

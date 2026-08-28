@@ -1,0 +1,56 @@
+{
+  "baseline": {
+    "public_technical_score": 0.95365,
+    "stress_technical_score": 0.9516
+  },
+  "trace_report": "training/outlier_trace_report.json",
+  "buying_miss": {
+    "sample_id": "public_0020",
+    "target": "B08P4SSFX4",
+    "target_title": "Funny Saying Novelty Gift ideas - My Favorite People Call Me Grandma Long Sleeve T-Shirt",
+    "disclosed_category": "Novelty Women",
+    "disclosed_constraints": [
+      "cotton",
+      "color: grey",
+      "Solid colors: 100% Cotton; Heather Grey: 90% Cotton, 10% Polyester; All Other Heathers: 50% Cotton, 50% Polyester",
+      "Imported"
+    ],
+    "target_rank_after_full_disclosure": 256,
+    "best_exact_tie_count": 530,
+    "conclusion": "The distinguishing Grandma/title intent is never disclosed; the supplied category and card constraints are shared by hundreds of novelty shirts, so a target-specific rerank would overfit the public label."
+  },
+  "intent_override_rank_losses": [
+    {
+      "sample_id": "public_0096",
+      "target": "B074K2QX3M",
+      "full_state_target_rank": 12,
+      "hit_turn": 9,
+      "hit_rank": 3,
+      "complete_match_ties": 50
+    },
+    {
+      "sample_id": "public_0144",
+      "target": "B08LMMDYV7",
+      "full_state_target_rank": 8,
+      "hit_turn": 7,
+      "hit_rank": 5,
+      "complete_match_ties": 186
+    }
+  ],
+  "buying_rank_loss": {
+    "sample_id": "public_0174",
+    "target": "B0794VPVBH",
+    "full_state_target_rank": 6,
+    "hit_turn": 7,
+    "hit_rank": 2,
+    "complete_match_ties": 27,
+    "conclusion": "All disclosed constraints are represented correctly. Five complete matches have higher BM25 ranks; earlier Top-1 recommendations remove four of them before the turn-7 Top-3 output, placing the target second."
+  },
+  "rejected_general_tiebreaks": [
+    "Title specificity reduced public TechnicalScore to 0.9219 and stress to 0.9192.",
+    "Profile-aware quality signals reduced public TechnicalScore to 0.894029.",
+    "Popularity-only tie-breaking improved MTTC to 2.895 but reduced MRR to 0.978667 and public TechnicalScore to 0.9532."
+  ],
+  "conclusion": "All four outliers are caused by under-specified exact-card ties or the validated Top-K exploration schedule, not category, slot, negative-constraint, numeric-budget, or override-state errors. No ranking experiment passed the promotion gates, so the scorer-proven ranker remains unchanged.",
+  "next_experiment": "Do not tune further against the four public labels; prioritize the deterministic router story and final presentation unless new independently labeled retrieval data becomes available."
+}

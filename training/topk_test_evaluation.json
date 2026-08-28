@@ -1,0 +1,40 @@
+{
+  "trace_count": 400,
+  "baseline": {
+    "sample_count": 400,
+    "hit_rate_at_10": 0.98,
+    "mrr": 0.960833,
+    "mttc": 3.09,
+    "efficiency": 0.791,
+    "technical_score": 0.93645
+  },
+  "selected_policy": {
+    "name": "gate_1_1_3_3_t7_n100_k5",
+    "schedule": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      3,
+      3,
+      3,
+      3
+    ],
+    "sample_count": 400,
+    "hit_rate_at_10": 0.99,
+    "mrr": 0.977583,
+    "mttc": 3.24,
+    "efficiency": 0.776,
+    "technical_score": 0.943475
+  },
+  "selected_score": {
+    "sample_count": 400,
+    "hit_rate_at_10": 0.98,
+    "mrr": 0.970792,
+    "mttc": 3.1525,
+    "efficiency": 0.78475,
+    "technical_score": 0.938188
+  }
+}

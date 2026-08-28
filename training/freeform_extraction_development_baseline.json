@@ -1,0 +1,2456 @@
+{
+  "generated_at": "2026-08-28T13:58:20.339383+00:00",
+  "hardware": {
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "logical_cpus": 11
+  },
+  "rules": {
+    "cases": 40,
+    "exact_match": 0.0,
+    "micro_precision": 0.125,
+    "micro_recall": 0.0437,
+    "micro_f1": 0.0648,
+    "exact_state_match": 0.0,
+    "state_micro_precision": 0.6397,
+    "state_micro_recall": 0.4833,
+    "state_micro_f1": 0.5506,
+    "false_addition_rate": 0.8125,
+    "sibling_preservation": 1.0,
+    "by_split": {
+      "development": {
+        "cases": 40,
+        "exact_state_match": 0.0,
+        "state_micro_precision": 0.6397,
+        "state_micro_recall": 0.4833,
+        "state_micro_f1": 0.5506,
+        "false_addition_rate": 0.8125,
+        "sibling_preservation": 1.0
+      }
+    }
+  },
+  "/Users/weisintai/.cache/shopping-copilot/models/Qwen3-0.6B-Q8_0.gguf": {
+    "metrics": {
+      "cases": 40,
+      "exact_match": 0.075,
+      "micro_precision": 0.5542,
+      "micro_recall": 0.2875,
+      "micro_f1": 0.3786,
+      "exact_state_match": 0.075,
+      "state_micro_precision": 0.7211,
+      "state_micro_recall": 0.5889,
+      "state_micro_f1": 0.6483,
+      "false_addition_rate": 0.6286,
+      "sibling_preservation": 0.975
+    },
+    "prompt_only_metrics": {
+      "cases": 40,
+      "exact_match": 0.1,
+      "micro_precision": 0.4458,
+      "micro_recall": 0.4625,
+      "micro_f1": 0.454,
+      "exact_state_match": 0.1,
+      "state_micro_precision": 0.6871,
+      "state_micro_recall": 0.5611,
+      "state_micro_f1": 0.6177,
+      "false_addition_rate": 0.7193,
+      "sibling_preservation": 0.75
+    },
+    "performance": {
+      "model_loading_seconds": 0.5865,
+      "median_extraction_seconds": 0.5704,
+      "p95_extraction_seconds": 0.8096,
+      "peak_process_rss_mb": 1077.95,
+      "peak_process_rss_increase_mb": 1041.53,
+      "prompt_tokens": 17176,
+      "completion_tokens": 1424
+    },
+    "diagnostics": [
+      {
+        "case": 1,
+        "case_id": "freeform_0121",
+        "split": "development",
+        "message": "Make the shirt formal instead of casual, without changing cotton or white.",
+        "exact_match": false,
+        "missing": [
+          "add:style=formal",
+          "override",
+          "replace=style"
+        ],
+        "extra": [
+          "negative:material=cotton"
+        ],
+        "latency_seconds": 0.8082,
+        "prompt_tokens": 443,
+        "completion_tokens": 40,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "color": [
+              "color: white"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {
+            "material": [
+              "cotton"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 443,
+          "completion_tokens": 40
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {
+            "material": [
+              "cotton"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 443,
+          "completion_tokens": 40
+        },
+        "state_missing": [
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "negative:material=cotton",
+          "slot:style=casual"
+        ]
+      },
+      {
+        "case": 2,
+        "case_id": "freeform_0122",
+        "split": "development",
+        "message": "Replace casual with formal and preserve every other detail.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.544,
+        "prompt_tokens": 439,
+        "completion_tokens": 34,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "style": [
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "style"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 439,
+          "completion_tokens": 34
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "style": [
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "style"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 439,
+          "completion_tokens": 34
+        },
+        "state_missing": [],
+        "state_extra": []
+      },
+      {
+        "case": 3,
+        "case_id": "freeform_0123",
+        "split": "development",
+        "message": "I've decided against a casual style; formal is what I need.",
+        "exact_match": false,
+        "missing": [
+          "add:style=formal",
+          "override",
+          "replace=style"
+        ],
+        "extra": [
+          "add:use_case=formal"
+        ],
+        "latency_seconds": 0.3661,
+        "prompt_tokens": 443,
+        "completion_tokens": 22,
+        "prompt_only_predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 443,
+          "completion_tokens": 22
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 443,
+          "completion_tokens": 22
+        },
+        "state_missing": [
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:style=casual",
+          "slot:use_case=formal"
+        ]
+      },
+      {
+        "case": 4,
+        "case_id": "freeform_0124",
+        "split": "development",
+        "message": "Only the style changes: use formal now.",
+        "exact_match": false,
+        "missing": [
+          "override",
+          "replace=style"
+        ],
+        "extra": [],
+        "latency_seconds": 0.5483,
+        "prompt_tokens": 438,
+        "completion_tokens": 34,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "style": [
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "style"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 438,
+          "completion_tokens": 34
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "style": [
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 438,
+          "completion_tokens": 34
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:style=casual"
+        ]
+      },
+      {
+        "case": 5,
+        "case_id": "freeform_0125",
+        "split": "development",
+        "message": "Keep the white cotton shirt, but switch it to formal.",
+        "exact_match": false,
+        "missing": [
+          "add:style=formal",
+          "replace=style"
+        ],
+        "extra": [
+          "add:color=color formal",
+          "replace=color"
+        ],
+        "latency_seconds": 0.6589,
+        "prompt_tokens": 441,
+        "completion_tokens": 40,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "color": [
+              "color: formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {
+            "material": [
+              "cotton"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 441,
+          "completion_tokens": 40
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "color": [
+              "color: formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 441,
+          "completion_tokens": 40
+        },
+        "state_missing": [
+          "slot:color=color white",
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:color=color formal",
+          "slot:style=casual"
+        ]
+      },
+      {
+        "case": 6,
+        "case_id": "freeform_0126",
+        "split": "development",
+        "message": "Formal should replace my earlier casual preference.",
+        "exact_match": false,
+        "missing": [
+          "add:style=formal",
+          "intent=buying",
+          "override",
+          "replace=style"
+        ],
+        "extra": [
+          "intent=unknown"
+        ],
+        "latency_seconds": 0.5738,
+        "prompt_tokens": 438,
+        "completion_tokens": 35,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "color": [
+              "color: white"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 438,
+          "completion_tokens": 35
+        },
+        "predicted": {
+          "intent": "unknown",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 438,
+          "completion_tokens": 35
+        },
+        "state_missing": [
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:style=casual"
+        ]
+      },
+      {
+        "case": 7,
+        "case_id": "freeform_0127",
+        "split": "development",
+        "message": "Update the style from casual to formal, leaving material and colour alone.",
+        "exact_match": false,
+        "missing": [
+          "override",
+          "replace=style"
+        ],
+        "extra": [],
+        "latency_seconds": 0.5555,
+        "prompt_tokens": 443,
+        "completion_tokens": 34,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "style": [
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "style"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 443,
+          "completion_tokens": 34
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "style": [
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 443,
+          "completion_tokens": 34
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:style=casual"
+        ]
+      },
+      {
+        "case": 8,
+        "case_id": "freeform_0128",
+        "split": "development",
+        "message": "The shirt needs to be formal after all, not casual.",
+        "exact_match": false,
+        "missing": [
+          "add:style=formal",
+          "intent=buying",
+          "override",
+          "replace=style"
+        ],
+        "extra": [
+          "intent=unknown"
+        ],
+        "latency_seconds": 0.6817,
+        "prompt_tokens": 441,
+        "completion_tokens": 40,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "color": [
+              "color: black"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {
+            "material": [
+              "cotton"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 441,
+          "completion_tokens": 40
+        },
+        "predicted": {
+          "intent": "unknown",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 441,
+          "completion_tokens": 40
+        },
+        "state_missing": [
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:style=casual"
+        ]
+      },
+      {
+        "case": 9,
+        "case_id": "freeform_0129",
+        "split": "development",
+        "message": "Correction: formal style; don't alter the cotton or white requirements.",
+        "exact_match": false,
+        "missing": [
+          "add:style=formal",
+          "override",
+          "replace=style"
+        ],
+        "extra": [
+          "add:color=white",
+          "add:material=cotton"
+        ],
+        "latency_seconds": 0.7368,
+        "prompt_tokens": 443,
+        "completion_tokens": 43,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "material": [
+              "cotton"
+            ],
+            "color": [
+              "white"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {
+            "material": [
+              "cotton"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 443,
+          "completion_tokens": 43
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "material": [
+              "cotton"
+            ],
+            "color": [
+              "white"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 443,
+          "completion_tokens": 43
+        },
+        "state_missing": [
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:color=white",
+          "slot:style=casual"
+        ]
+      },
+      {
+        "case": 10,
+        "case_id": "freeform_0130",
+        "split": "development",
+        "message": "Swap the casual look for a formal one.",
+        "exact_match": false,
+        "missing": [
+          "override",
+          "replace=style"
+        ],
+        "extra": [],
+        "latency_seconds": 0.5598,
+        "prompt_tokens": 438,
+        "completion_tokens": 34,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "style": [
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "style"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 438,
+          "completion_tokens": 34
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "style": [
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 438,
+          "completion_tokens": 34
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:style=casual"
+        ]
+      },
+      {
+        "case": 11,
+        "case_id": "freeform_0131",
+        "split": "development",
+        "message": "I don't need waterproofing anymore, but warmth still matters.",
+        "exact_match": false,
+        "missing": [
+          "intent=buying",
+          "override",
+          "remove:feature=waterproof"
+        ],
+        "extra": [
+          "intent=unknown"
+        ],
+        "latency_seconds": 0.7299,
+        "prompt_tokens": 439,
+        "completion_tokens": 36,
+        "prompt_only_predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "feature"
+          ],
+          "negative": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 439,
+          "completion_tokens": 36
+        },
+        "predicted": {
+          "intent": "unknown",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 439,
+          "completion_tokens": 36
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:feature=waterproof"
+        ]
+      },
+      {
+        "case": 12,
+        "case_id": "freeform_0132",
+        "split": "development",
+        "message": "Remove waterproof from the jacket requirements.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.567,
+        "prompt_tokens": 433,
+        "completion_tokens": 35,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {},
+          "remove": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "replace_slots": [
+            "feature"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 433,
+          "completion_tokens": 35
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {},
+          "remove": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 433,
+          "completion_tokens": 35
+        },
+        "state_missing": [],
+        "state_extra": []
+      },
+      {
+        "case": 13,
+        "case_id": "freeform_0133",
+        "split": "development",
+        "message": "Forget the rain protection; keep it warm for hiking.",
+        "exact_match": false,
+        "missing": [
+          "override",
+          "remove:feature=waterproof"
+        ],
+        "extra": [
+          "add:feature=warm"
+        ],
+        "latency_seconds": 0.6564,
+        "prompt_tokens": 437,
+        "completion_tokens": 40,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "feature": [
+              "warm"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "feature"
+          ],
+          "negative": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 437,
+          "completion_tokens": 40
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "warm"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 437,
+          "completion_tokens": 40
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:feature=waterproof"
+        ]
+      },
+      {
+        "case": 14,
+        "case_id": "freeform_0134",
+        "split": "development",
+        "message": "Waterproof can go, while the other features should remain.",
+        "exact_match": false,
+        "missing": [
+          "override",
+          "remove:feature=waterproof"
+        ],
+        "extra": [
+          "add:feature=waterproof"
+        ],
+        "latency_seconds": 0.6522,
+        "prompt_tokens": 438,
+        "completion_tokens": 39,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "feature"
+          ],
+          "negative": {
+            "feature": [
+              "warm"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 438,
+          "completion_tokens": 39
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 438,
+          "completion_tokens": 39
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:feature=waterproof"
+        ]
+      },
+      {
+        "case": 15,
+        "case_id": "freeform_0135",
+        "split": "development",
+        "message": "Drop my waterproof requirement and preserve the rest.",
+        "exact_match": false,
+        "missing": [
+          "intent=buying",
+          "override",
+          "remove:feature=waterproof"
+        ],
+        "extra": [
+          "intent=unknown"
+        ],
+        "latency_seconds": 0.6479,
+        "prompt_tokens": 435,
+        "completion_tokens": 39,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "feature": [
+              "warm"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "feature"
+          ],
+          "negative": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 435,
+          "completion_tokens": 39
+        },
+        "predicted": {
+          "intent": "unknown",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 435,
+          "completion_tokens": 39
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:feature=waterproof"
+        ]
+      },
+      {
+        "case": 16,
+        "case_id": "freeform_0136",
+        "split": "development",
+        "message": "It no longer has to resist rain.",
+        "exact_match": false,
+        "missing": [
+          "intent=buying",
+          "override",
+          "remove:feature=waterproof"
+        ],
+        "extra": [
+          "intent=unknown"
+        ],
+        "latency_seconds": 0.5555,
+        "prompt_tokens": 434,
+        "completion_tokens": 34,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "feature"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 434,
+          "completion_tokens": 34
+        },
+        "predicted": {
+          "intent": "unknown",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 434,
+          "completion_tokens": 34
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:feature=waterproof"
+        ]
+      },
+      {
+        "case": 17,
+        "case_id": "freeform_0137",
+        "split": "development",
+        "message": "Take waterproofing off the list without changing warmth or hiking use.",
+        "exact_match": false,
+        "missing": [
+          "override",
+          "remove:feature=waterproof"
+        ],
+        "extra": [
+          "add:feature=waterproof",
+          "negative:feature=warm"
+        ],
+        "latency_seconds": 0.6496,
+        "prompt_tokens": 439,
+        "completion_tokens": 39,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "feature"
+          ],
+          "negative": {
+            "feature": [
+              "warm"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 439,
+          "completion_tokens": 39
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {
+            "feature": [
+              "warm"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 439,
+          "completion_tokens": 39
+        },
+        "state_missing": [],
+        "state_extra": [
+          "negative:feature=warm",
+          "slot:feature=waterproof"
+        ]
+      },
+      {
+        "case": 18,
+        "case_id": "freeform_0138",
+        "split": "development",
+        "message": "I'm retracting the need for a waterproof jacket.",
+        "exact_match": false,
+        "missing": [
+          "intent=buying",
+          "override",
+          "remove:feature=waterproof"
+        ],
+        "extra": [
+          "intent=unknown"
+        ],
+        "latency_seconds": 0.5608,
+        "prompt_tokens": 437,
+        "completion_tokens": 34,
+        "prompt_only_predicted": {
+          "intent": "browsing",
+          "override": true,
+          "category": "",
+          "add": {},
+          "remove": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "replace_slots": [
+            "feature"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 437,
+          "completion_tokens": 34
+        },
+        "predicted": {
+          "intent": "unknown",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 437,
+          "completion_tokens": 34
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:feature=waterproof"
+        ]
+      },
+      {
+        "case": 19,
+        "case_id": "freeform_0139",
+        "split": "development",
+        "message": "The rainproof condition isn't necessary now.",
+        "exact_match": false,
+        "missing": [
+          "intent=buying",
+          "override",
+          "remove:feature=waterproof"
+        ],
+        "extra": [
+          "intent=unknown"
+        ],
+        "latency_seconds": 0.525,
+        "prompt_tokens": 435,
+        "completion_tokens": 32,
+        "prompt_only_predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "use_case"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 435,
+          "completion_tokens": 32
+        },
+        "predicted": {
+          "intent": "unknown",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 435,
+          "completion_tokens": 32
+        },
+        "state_missing": [],
+        "state_extra": [
+          "slot:feature=waterproof"
+        ]
+      },
+      {
+        "case": 20,
+        "case_id": "freeform_0140",
+        "split": "development",
+        "message": "Please remove only waterproof from my preferences.",
+        "exact_match": true,
+        "missing": [],
+        "extra": [],
+        "latency_seconds": 0.5749,
+        "prompt_tokens": 434,
+        "completion_tokens": 35,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {},
+          "remove": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "replace_slots": [
+            "feature"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 434,
+          "completion_tokens": 35
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {},
+          "remove": {
+            "feature": [
+              "waterproof"
+            ]
+          },
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 434,
+          "completion_tokens": 35
+        },
+        "state_missing": [],
+        "state_extra": []
+      },
+      {
+        "case": 21,
+        "case_id": "freeform_0141",
+        "split": "development",
+        "message": "I need something warm for hiking, perhaps a coat or jacket, but I haven't decided.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=warm"
+        ],
+        "extra": [],
+        "latency_seconds": 0.5461,
+        "prompt_tokens": 423,
+        "completion_tokens": 33,
+        "prompt_only_predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color",
+            "material"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 423,
+          "completion_tokens": 33
+        },
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 423,
+          "completion_tokens": 33
+        },
+        "state_missing": [
+          "slot:feature=warm"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 22,
+        "case_id": "freeform_0142",
+        "split": "development",
+        "message": "I'm exploring warm hiking layers and am open to the exact type.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=warm"
+        ],
+        "extra": [],
+        "latency_seconds": 0.512,
+        "prompt_tokens": 418,
+        "completion_tokens": 31,
+        "prompt_only_predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "style"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 418,
+          "completion_tokens": 31
+        },
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 418,
+          "completion_tokens": 31
+        },
+        "state_missing": [
+          "slot:feature=warm"
+        ],
+        "state_extra": []
+      },
+      {
+        "case": 23,
+        "case_id": "freeform_0143",
+        "split": "development",
+        "message": "Could you suggest something warm for the trail? The category is still flexible.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=warm",
+          "add:use_case=hiking",
+          "intent=browsing"
+        ],
+        "extra": [
+          "add:use_case=trail",
+          "intent=buying"
+        ],
+        "latency_seconds": 0.3556,
+        "prompt_tokens": 419,
+        "completion_tokens": 21,
+        "prompt_only_predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "trail"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 419,
+          "completion_tokens": 21
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "trail"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 419,
+          "completion_tokens": 21
+        },
+        "state_missing": [
+          "intent=browsing",
+          "slot:feature=warm",
+          "slot:use_case=hiking"
+        ],
+        "state_extra": [
+          "intent=buying",
+          "slot:use_case=trail"
+        ]
+      },
+      {
+        "case": 24,
+        "case_id": "freeform_0144",
+        "split": "development",
+        "message": "A coat, jacket, or another layer could work if it's warm enough for hiking.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=warm",
+          "intent=browsing"
+        ],
+        "extra": [
+          "intent=buying"
+        ],
+        "latency_seconds": 0.5872,
+        "prompt_tokens": 422,
+        "completion_tokens": 36,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "use_case"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 422,
+          "completion_tokens": 36
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 422,
+          "completion_tokens": 36
+        },
+        "state_missing": [
+          "intent=browsing",
+          "slot:feature=warm"
+        ],
+        "state_extra": [
+          "intent=buying"
+        ]
+      },
+      {
+        "case": 25,
+        "case_id": "freeform_0145",
+        "split": "development",
+        "message": "I haven't chosen what item to buy; warmth for hiking is the goal.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=warm",
+          "intent=browsing"
+        ],
+        "extra": [
+          "intent=buying"
+        ],
+        "latency_seconds": 0.3761,
+        "prompt_tokens": 420,
+        "completion_tokens": 22,
+        "prompt_only_predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 420,
+          "completion_tokens": 22
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 420,
+          "completion_tokens": 22
+        },
+        "state_missing": [
+          "intent=browsing",
+          "slot:feature=warm"
+        ],
+        "state_extra": [
+          "intent=buying"
+        ]
+      },
+      {
+        "case": 26,
+        "case_id": "freeform_0146",
+        "split": "development",
+        "message": "Show me warm options for hiking without locking the search to one category.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=warm",
+          "intent=browsing"
+        ],
+        "extra": [
+          "intent=buying"
+        ],
+        "latency_seconds": 0.5246,
+        "prompt_tokens": 418,
+        "completion_tokens": 32,
+        "prompt_only_predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "use_case"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 418,
+          "completion_tokens": 32
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 418,
+          "completion_tokens": 32
+        },
+        "state_missing": [
+          "intent=browsing",
+          "slot:feature=warm"
+        ],
+        "state_extra": [
+          "intent=buying"
+        ]
+      },
+      {
+        "case": 27,
+        "case_id": "freeform_0147",
+        "split": "development",
+        "message": "I'm browsing outer layers for a hike and need warmth.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=warm",
+          "add:use_case=hiking"
+        ],
+        "extra": [
+          "add:use_case=hike"
+        ],
+        "latency_seconds": 0.5084,
+        "prompt_tokens": 416,
+        "completion_tokens": 31,
+        "prompt_only_predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hike"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 416,
+          "completion_tokens": 31
+        },
+        "predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hike"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 416,
+          "completion_tokens": 31
+        },
+        "state_missing": [
+          "slot:feature=warm",
+          "slot:use_case=hiking"
+        ],
+        "state_extra": [
+          "slot:use_case=hike"
+        ]
+      },
+      {
+        "case": 28,
+        "case_id": "freeform_0148",
+        "split": "development",
+        "message": "The use is hiking and the key feature is warmth, but the product type is undecided.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=warm",
+          "intent=browsing"
+        ],
+        "extra": [
+          "intent=buying"
+        ],
+        "latency_seconds": 0.3786,
+        "prompt_tokens": 422,
+        "completion_tokens": 22,
+        "prompt_only_predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 422,
+          "completion_tokens": 22
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 422,
+          "completion_tokens": 22
+        },
+        "state_missing": [
+          "intent=browsing",
+          "slot:feature=warm"
+        ],
+        "state_extra": [
+          "intent=buying"
+        ]
+      },
+      {
+        "case": 29,
+        "case_id": "freeform_0149",
+        "split": "development",
+        "message": "Help me explore something warm to wear hiking.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=warm",
+          "intent=browsing"
+        ],
+        "extra": [
+          "intent=buying"
+        ],
+        "latency_seconds": 0.5143,
+        "prompt_tokens": 413,
+        "completion_tokens": 31,
+        "prompt_only_predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 413,
+          "completion_tokens": 31
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 413,
+          "completion_tokens": 31
+        },
+        "state_missing": [
+          "intent=browsing",
+          "slot:feature=warm"
+        ],
+        "state_extra": [
+          "intent=buying"
+        ]
+      },
+      {
+        "case": 30,
+        "case_id": "freeform_0150",
+        "split": "development",
+        "message": "No firm category yet\u2014just a warm hiking option.",
+        "exact_match": false,
+        "missing": [
+          "add:feature=warm",
+          "add:use_case=hiking",
+          "intent=browsing"
+        ],
+        "extra": [
+          "intent=unknown"
+        ],
+        "latency_seconds": 0.5286,
+        "prompt_tokens": 415,
+        "completion_tokens": 32,
+        "prompt_only_predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "hiking"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "use_case"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 415,
+          "completion_tokens": 32
+        },
+        "predicted": {
+          "intent": "unknown",
+          "override": false,
+          "category": "",
+          "add": {},
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 415,
+          "completion_tokens": 32
+        },
+        "state_missing": [
+          "intent=browsing",
+          "slot:feature=warm",
+          "slot:use_case=hiking"
+        ],
+        "state_extra": [
+          "intent=unknown"
+        ]
+      },
+      {
+        "case": 31,
+        "case_id": "freeform_0151",
+        "split": "development",
+        "message": "Find a formal navy dress under $120 that isn't silk.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $120",
+          "add:color=color navy",
+          "add:style=formal",
+          "category=dress",
+          "negative:material=silk"
+        ],
+        "extra": [
+          "add:material=silk"
+        ],
+        "latency_seconds": 0.8018,
+        "prompt_tokens": 419,
+        "completion_tokens": 44,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "material": [
+              "silk"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "material"
+          ],
+          "negative": {
+            "budget": [
+              "under $120"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 419,
+          "completion_tokens": 44
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "material": [
+              "silk"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 419,
+          "completion_tokens": 44
+        },
+        "state_missing": [
+          "category=dress",
+          "negative:material=silk",
+          "slot:budget=budget under $120",
+          "slot:color=color navy",
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:material=silk"
+        ]
+      },
+      {
+        "case": 32,
+        "case_id": "freeform_0152",
+        "split": "development",
+        "message": "I need a navy formal dress, no silk, with a $120 ceiling.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $120",
+          "add:color=color navy",
+          "add:style=formal",
+          "category=dress"
+        ],
+        "extra": [
+          "add:color=navy"
+        ],
+        "latency_seconds": 0.6911,
+        "prompt_tokens": 422,
+        "completion_tokens": 40,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "color": [
+              "navy"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {
+            "material": [
+              "silk"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 422,
+          "completion_tokens": 40
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "color": [
+              "navy"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {
+            "material": [
+              "silk"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 422,
+          "completion_tokens": 40
+        },
+        "state_missing": [
+          "category=dress",
+          "slot:budget=budget under $120",
+          "slot:color=color navy",
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:color=navy"
+        ]
+      },
+      {
+        "case": 33,
+        "case_id": "freeform_0153",
+        "split": "development",
+        "message": "Show me formal dresses in navy below one hundred twenty dollars, excluding silk.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $120",
+          "add:color=color navy",
+          "add:style=formal",
+          "category=dress",
+          "negative:material=silk"
+        ],
+        "extra": [
+          "add:color=navy"
+        ],
+        "latency_seconds": 0.6667,
+        "prompt_tokens": 419,
+        "completion_tokens": 39,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "color": [
+              "navy"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {
+            "material": [
+              "silk"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 419,
+          "completion_tokens": 39
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "color": [
+              "navy"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 419,
+          "completion_tokens": 39
+        },
+        "state_missing": [
+          "category=dress",
+          "negative:material=silk",
+          "slot:budget=budget under $120",
+          "slot:color=color navy",
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:color=navy"
+        ]
+      },
+      {
+        "case": 34,
+        "case_id": "freeform_0154",
+        "split": "development",
+        "message": "The dress should be navy and formal, cost less than $120, and contain no silk.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $120",
+          "add:color=color navy",
+          "add:style=formal",
+          "category=dress"
+        ],
+        "extra": [
+          "add:color=navy"
+        ],
+        "latency_seconds": 0.881,
+        "prompt_tokens": 425,
+        "completion_tokens": 52,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "color": [
+              "navy"
+            ],
+            "budget": [
+              "under $120"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color",
+            "budget"
+          ],
+          "negative": {
+            "material": [
+              "silk"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 425,
+          "completion_tokens": 52
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "color": [
+              "navy"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {
+            "material": [
+              "silk"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 425,
+          "completion_tokens": 52
+        },
+        "state_missing": [
+          "category=dress",
+          "slot:budget=budget under $120",
+          "slot:color=color navy",
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:color=navy"
+        ]
+      },
+      {
+        "case": 35,
+        "case_id": "freeform_0155",
+        "split": "development",
+        "message": "I'm buying a formal navy dress on a sub-$120 budget; avoid silk.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $120",
+          "add:color=color navy",
+          "add:style=formal",
+          "category=dress",
+          "negative:material=silk"
+        ],
+        "extra": [
+          "add:material=navy",
+          "negative:color=silk"
+        ],
+        "latency_seconds": 0.8359,
+        "prompt_tokens": 423,
+        "completion_tokens": 49,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "material": [
+              "navy"
+            ],
+            "budget": [
+              "under $120"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "material",
+            "budget"
+          ],
+          "negative": {
+            "color": [
+              "silk"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 423,
+          "completion_tokens": 49
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "material": [
+              "navy"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {
+            "color": [
+              "silk"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 423,
+          "completion_tokens": 49
+        },
+        "state_missing": [
+          "category=dress",
+          "slot:budget=budget under $120",
+          "slot:color=color navy",
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:material=navy"
+        ]
+      },
+      {
+        "case": 36,
+        "case_id": "freeform_0156",
+        "split": "development",
+        "message": "No silk dresses. I want navy, formal, and under $120.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $120",
+          "add:color=color navy",
+          "add:style=formal",
+          "category=dress",
+          "negative:material=silk"
+        ],
+        "extra": [
+          "add:color=navy"
+        ],
+        "latency_seconds": 0.5511,
+        "prompt_tokens": 421,
+        "completion_tokens": 34,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "color": [
+              "navy"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 421,
+          "completion_tokens": 34
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "color": [
+              "navy"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 421,
+          "completion_tokens": 34
+        },
+        "state_missing": [
+          "category=dress",
+          "negative:material=silk",
+          "slot:budget=budget under $120",
+          "slot:color=color navy",
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:color=navy"
+        ]
+      },
+      {
+        "case": 37,
+        "case_id": "freeform_0157",
+        "split": "development",
+        "message": "Please find a navy dress for a formal event, capped at $120 and made without silk.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $120",
+          "add:color=color navy",
+          "add:style=formal",
+          "category=dress",
+          "negative:material=silk"
+        ],
+        "extra": [
+          "add:color=navy"
+        ],
+        "latency_seconds": 0.5491,
+        "prompt_tokens": 425,
+        "completion_tokens": 34,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "color": [
+              "navy"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 425,
+          "completion_tokens": 34
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "color": [
+              "navy"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 425,
+          "completion_tokens": 34
+        },
+        "state_missing": [
+          "category=dress",
+          "negative:material=silk",
+          "slot:budget=budget under $120",
+          "slot:color=color navy",
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:color=navy"
+        ]
+      },
+      {
+        "case": 38,
+        "case_id": "freeform_0158",
+        "split": "development",
+        "message": "My requirements are a formal navy dress below $120, but silk won't work.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $120",
+          "add:color=color navy",
+          "add:style=formal",
+          "category=dress",
+          "negative:material=silk"
+        ],
+        "extra": [
+          "add:material=silk"
+        ],
+        "latency_seconds": 0.7418,
+        "prompt_tokens": 423,
+        "completion_tokens": 44,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "material": [
+              "silk"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "material"
+          ],
+          "negative": {
+            "budget": [
+              "under $120"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 423,
+          "completion_tokens": 44
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "material": [
+              "silk"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 423,
+          "completion_tokens": 44
+        },
+        "state_missing": [
+          "category=dress",
+          "negative:material=silk",
+          "slot:budget=budget under $120",
+          "slot:color=color navy",
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:material=silk"
+        ]
+      },
+      {
+        "case": 39,
+        "case_id": "freeform_0159",
+        "split": "development",
+        "message": "A navy formal dress is the target; keep the price under $120 and exclude silk.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $120",
+          "add:color=color navy",
+          "add:style=formal",
+          "category=dress",
+          "negative:material=silk"
+        ],
+        "extra": [
+          "add:budget=under $120"
+        ],
+        "latency_seconds": 0.732,
+        "prompt_tokens": 424,
+        "completion_tokens": 43,
+        "prompt_only_predicted": {
+          "intent": "buying",
+          "override": true,
+          "category": "",
+          "add": {
+            "budget": [
+              "under $120"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "budget"
+          ],
+          "negative": {
+            "material": [
+              "navy"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 424,
+          "completion_tokens": 43
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "budget": [
+              "under $120"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 424,
+          "completion_tokens": 43
+        },
+        "state_missing": [
+          "category=dress",
+          "negative:material=silk",
+          "slot:budget=budget under $120",
+          "slot:color=color navy",
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:budget=under $120"
+        ]
+      },
+      {
+        "case": 40,
+        "case_id": "freeform_0160",
+        "split": "development",
+        "message": "Look for formal navy dresses that aren't silk and stay within $120.",
+        "exact_match": false,
+        "missing": [
+          "add:budget=budget under $120",
+          "add:color=color navy",
+          "add:style=formal",
+          "category=dress",
+          "negative:material=silk"
+        ],
+        "extra": [
+          "add:use_case=formal"
+        ],
+        "latency_seconds": 0.5814,
+        "prompt_tokens": 421,
+        "completion_tokens": 35,
+        "prompt_only_predicted": {
+          "intent": "browsing",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [
+            "color"
+          ],
+          "negative": {
+            "material": [
+              "silk"
+            ]
+          },
+          "confidence": 0.95,
+          "prompt_tokens": 421,
+          "completion_tokens": 35
+        },
+        "predicted": {
+          "intent": "buying",
+          "override": false,
+          "category": "",
+          "add": {
+            "use_case": [
+              "formal"
+            ]
+          },
+          "remove": {},
+          "replace_slots": [],
+          "negative": {},
+          "confidence": 0.95,
+          "prompt_tokens": 421,
+          "completion_tokens": 35
+        },
+        "state_missing": [
+          "category=dress",
+          "negative:material=silk",
+          "slot:budget=budget under $120",
+          "slot:color=color navy",
+          "slot:style=formal"
+        ],
+        "state_extra": [
+          "slot:use_case=formal"
+        ]
+      }
+    ],
+    "runtime": {
+      "backend": "llama.cpp",
+      "device": "Metal GPU with CPU orchestration",
+      "quantization": "Q8_0",
+      "model_bytes": 639446688
+    }
+  }
+}

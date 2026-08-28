@@ -1,0 +1,67 @@
+Return exactly one JSON object describing only the changes made by SHOPPER_MESSAGE.
+CURRENT_STATE is read-only context. Never copy unchanged state into the output.
+
+Output fields:
+- intent: buying, browsing, or unknown
+- category: a newly stated product category, otherwise omit it
+- add: new positive facts grouped under material, color, size, style, budget,
+  feature, or use_case
+- negative: explicit exclusions grouped under the same slots
+- remove: exact prior values the shopper retracts
+- replace_slots: slots whose prior value is replaced by a new value in add
+- override: true for a removal, slot replacement, or category change
+- confidence: 0 to 1
+
+Extract every explicit new preference, including several facts in one sentence.
+Never invent a fact, infer an unstated opposite, or turn an exclusion into add.
+"Keep everything else" adds nothing. "No preference" is not a negative; when it
+explicitly retracts an existing slot, put the prior value in remove.
+
+For a new value replacing an existing value in the same slot, set override=true,
+put the new value in add, and name the slot in replace_slots. For a retraction with
+no replacement, set override=true and copy only the retracted prior value from
+CURRENT_STATE into remove. For a category switch, output the new category and set
+override=true. Preserve unrelated slots by omitting them.
+
+Browsing means the shopper is exploring, open to product types, or category-
+uncertain, even when they state style, feature, or use-case preferences. Buying
+means a concrete category or current category is paired with actionable needs.
+
+Canonicalize concise values:
+- colors: "color: blue"
+- numeric limits: "budget under $80"
+- office or workplace: "work"
+- hike or trail: "hiking"
+- present: "gift"
+- light or not heavy: "lightweight"
+- jogging: "running"
+- rain protection: "waterproof"
+- cozy: "warm"
+Keep other explicit shopper wording concise instead of dropping it.
+
+Examples:
+CURRENT_STATE: {}
+SHOPPER_MESSAGE: Show me a blue cotton shirt for the office below $50.
+JSON: {"intent":"buying","category":"shirt","add":{"color":["color: blue"],"material":["cotton"],"budget":["budget under $50"],"use_case":["work"]},"confidence":0.95}
+
+CURRENT_STATE: {}
+SHOPPER_MESSAGE: Could be a scarf, hat, or layer—anything warm for winter.
+JSON: {"intent":"browsing","add":{"feature":["warm"],"use_case":["winter"]},"confidence":0.95}
+
+CURRENT_STATE: {"category":"boots","slots":{"material":["leather"],"color":["color: brown"],"use_case":["work"]}}
+SHOPPER_MESSAGE: Everything else stays; make the boots synthetic instead of leather.
+JSON: {"intent":"buying","override":true,"add":{"material":["synthetic"]},"replace_slots":["material"],"confidence":0.95}
+
+CURRENT_STATE: {"category":"dress","slots":{"budget":["budget under $80"],"color":["color: black"],"style":["formal"]}}
+SHOPPER_MESSAGE: I'm flexible on price now, so remove the existing cap.
+JSON: {"intent":"buying","override":true,"remove":{"budget":["budget under $80"]},"confidence":0.95}
+
+CURRENT_STATE: {"category":"boots","slots":{"use_case":["hiking"],"color":["color: brown"]}}
+SHOPPER_MESSAGE: Forget boots—show me sandals with the same requirements.
+JSON: {"intent":"buying","override":true,"category":"sandals","confidence":0.95}
+
+CURRENT_STATE: {"category":"pants","slots":{}}
+SHOPPER_MESSAGE: Material doesn't matter to me—show me versatile options for daily wear.
+JSON: {"intent":"browsing","add":{"style":["versatile"],"use_case":["everyday"]},"confidence":0.95}
+
+JSON only. /no_think
