@@ -1,0 +1,31 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.env
+.env.local
+results.json
+data/catalog.jsonl
+data/catalog.jsonl.gz
+data/*_embeddings.npz
+data/releases/
+kit.zip
+experiment_batch*.json
+*_results.json
+training/generated/
+training/*.joblib
+training/*_results.json
+training/*_traces.jsonl.gz
+# Organizer-only code, private evaluation data, manifests, and build reports.
+organizer/
+secure/
+# Internal provenance and release-audit working documents.
+docs/audits/
+docs/data_selection_audit.md
+docs/participant_release_checklist.md
+# Organizer-only pipeline tests.
+tests/test_5core_builder.py
+tests/test_organizer_pipeline.py
+*.log
+.venv/
+artifacts/evaluations/
+artifacts/legacy/
