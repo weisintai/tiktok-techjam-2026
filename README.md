@@ -61,18 +61,25 @@ conversion-aware recommendation gating.
 
 | Evaluation | Hit@10 | MRR | MTTC | TechnicalScore |
 |---|---:|---:|---:|---:|
-| Official public set, 200 sessions | 0.995 | 0.985167 | 2.97 | 0.95365 |
-| Deterministic paraphrase stress set | 0.995 | 0.978667 | 2.975 | 0.95160 |
-| Unseen-ASIN synthetic validation, 400 sessions | 0.990 | 0.977583 | 3.24 | 0.943475 |
-| Untouched synthetic test, 400 sessions | 0.980 | 0.970792 | 3.1525 | 0.938188 |
+| Official public set, 200 sessions | **0.995** | **0.905875** | **2.805** | **0.933163** |
+
+Scenario breakdown from the same run:
+
+| Scenario | Sessions | Hit@10 | MRR | MTTC |
+|---|---:|---:|---:|---:|
+| Boundary | 10 | 1.0000 | 0.574167 | 3.30 |
+| Browsing | 80 | 1.0000 | 0.922292 | 2.4875 |
+| Buying | 80 | 0.9875 | 0.928542 | 2.3875 |
+| Intent override | 30 | 1.0000 | 0.912222 | 4.60 |
 
 The released BM25 starter achieved Hit@10 `0.125`, MRR `0.068034`, and MTTC
-`9.81`. The reported official result reaches Hit@10 `0.995`, MRR `0.985167`, and
-MTTC `2.97` without changing the official evaluator, catalog, labels, or
-protocol. The current workspace has independently reproduced the later
-confidence-stopping checkpoint at TechnicalScore `0.933163`; see the experiment
-log for provenance and caveats. The default evaluator pipeline makes zero
-external model calls.
+`9.81`. This branch reaches Hit@10 `0.995`, MRR `0.905875`, and MTTC `2.805`
+without changing the official evaluator, catalog, labels, or protocol. These
+figures were reproduced from commit `5897124` on branch `shwe-experiment` with
+`PYTHONHASHSEED=1`. The output is stored locally at
+`results/shwe_experiment_public.json`. The stress and synthetic datasets are not
+present in this workspace, so no stress or synthetic scores are claimed. The
+default evaluator pipeline makes zero external model calls.
 
 See `docs/how_it_works.md` for an end-to-end explanation of the runtime pipeline.
 See `docs/project_reference.md` for the consolidated Track 4 brief, architecture,

@@ -19,3 +19,7 @@ PYTHONHASHSEED=1 PYTHONPATH=. python3 experiments/train_pairwise_reranker.py
 
 The benchmark summary and provenance notes are maintained in
 `docs/experiment_log.md` and the root `README.md`.
+
+The current `shwe-experiment` public result is generated as
+`results/shwe_experiment_public.json`: Hit@10 `0.995`, MRR `0.905875`, MTTC
+`2.805`, and TechnicalScore `0.933163` over 200 sessions.

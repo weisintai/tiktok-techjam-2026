@@ -181,7 +181,7 @@ identical metrics.
 
 ## Current Verified Result
 
-Public evaluator result from `results/results_systematic_intent_bounded.json`:
+Public evaluator result from `results/shwe_experiment_public.json`:
 
 | Metric | Result |
 |---|---:|

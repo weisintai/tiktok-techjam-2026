@@ -143,14 +143,6 @@ At the current checkpoint, private-set generalization is a larger concern than
 public recall. New experiments should use grouped validation and should avoid
 hardcoding public ASINs or simulator messages.
 
-## Unverified Historical Checkpoint
-
-An earlier user-provided project summary reported TechnicalScore `0.95365`,
-Hit@10 `0.995`, MRR `0.985167`, MTTC `2.97`, stress TechnicalScore `0.95160`,
-and 21 passing tests. That implementation and stress dataset were not present in
-this workspace when the current work began, so these numbers are retained only
-as historical context and are not claimed as locally reproduced results.
-
 ## Next Experiments
 
 - Confidence-based gating instead of fixed turn-based withholding.
