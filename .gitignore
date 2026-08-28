@@ -3,6 +3,8 @@ __pycache__/
 .DS_Store
 .env
 results.json
+results_*.json
+experiments/stopping_replay.json
 data/catalog.jsonl
 data/releases/
 # Organizer-only code, private evaluation data, manifests, and build reports.
