@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "schedule": [1, 1, 1, 1, 1, 1, 3, 3, 3, 10],
+  "ambiguity_gate": {
+    "start_turn": 7,
+    "diagnostic": "complete_match_count",
+    "threshold_exclusive": 100,
+    "output_k": 5
+  },
+  "selection": {
+    "validation_technical_score": 0.943475,
+    "untouched_test_technical_score": 0.938188,
+    "official_weighted_validation_technical_score": 0.95145,
+    "official_weighted_test_technical_score": 0.94505,
+    "public_technical_score": 0.95365,
+    "stress_technical_score": 0.9516
+  },
+  "note": "Final-turn Top-10 strictly preserves earlier ranks while recovering possible deep-tie misses."
+}

@@ -1,0 +1,58 @@
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+
+from evaluator.local_evaluator import catalog_index, evaluate, load_jsonl
+from solution.agent import Agent
+from solution.extraction import LlamaCppExtractor, TimeoutExtractor, TransformersLocalExtractor
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--catalog", default="data/catalog.jsonl")
+    parser.add_argument("--dataset", default="data/public_set.jsonl")
+    parser.add_argument("--output", default="solution_results.json")
+    parser.add_argument("--dense", action="store_true")
+    parser.add_argument("--cross-encoder", action="store_true")
+    parser.add_argument("--adaptive-questions", action="store_true")
+    parser.add_argument("--profile-tiebreak", action="store_true")
+    parser.add_argument("--experimental-router", action="store_true")
+    parser.add_argument(
+        "--extractor-model",
+        help="Local Hugging Face causal model path/name, e.g. Qwen/Qwen3-0.6B",
+    )
+    parser.add_argument("--extractor-gguf", help="Local GGUF model for llama.cpp extraction")
+    parser.add_argument("--extraction-min-confidence", type=float, default=0.55)
+    parser.add_argument("--extraction-timeout", type=float, default=3.0)
+    args = parser.parse_args()
+
+    samples = load_jsonl(args.dataset)
+    ids, categories, products = catalog_index(args.catalog)
+    if args.extractor_gguf and args.extractor_model:
+        parser.error("choose only one of --extractor-gguf and --extractor-model")
+    extractor = None
+    if args.extractor_gguf:
+        extractor = LlamaCppExtractor(args.extractor_gguf)
+    elif args.extractor_model:
+        extractor = TransformersLocalExtractor(args.extractor_model)
+    if extractor is not None:
+        extractor = TimeoutExtractor(extractor, args.extraction_timeout)
+    agent = Agent(
+        args.catalog,
+        model_name="sentence-transformers/all-MiniLM-L6-v2" if args.dense or args.experimental_router else None,
+        cross_encoder_name="cross-encoder/ms-marco-MiniLM-L6-v2" if args.cross_encoder else None,
+        adaptive_questions=args.adaptive_questions,
+        profile_tiebreak=args.profile_tiebreak,
+        structured_extractor=extractor,
+        extraction_min_confidence=args.extraction_min_confidence,
+        experimental_router=args.experimental_router,
+    )
+    result = evaluate(agent, samples, ids, categories, products)
+    Path(args.output).write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({key: value for key, value in result.items() if key != "sessions"}, indent=2))
+
+
+if __name__ == "__main__":
+    main()

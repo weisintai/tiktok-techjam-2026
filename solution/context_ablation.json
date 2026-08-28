@@ -1,0 +1,41 @@
+{
+  "baseline": {
+    "public_technical_score": 0.95365,
+    "stress_technical_score": 0.9516
+  },
+  "retained": {
+    "typed_slot_rewriting_v2": {
+      "public_technical_score": 0.95365,
+      "stress_technical_score": 0.9516,
+      "reason": "Equivalent override values confirm rather than erase sibling constraints."
+    },
+    "adaptive_multi_facet_prompt": {
+      "public_technical_score": 0.95365,
+      "stress_technical_score": 0.9516,
+      "reason": "Candidate entropy and profile tags personalize prose while the broad other contract field preserves simulator recall."
+    },
+    "confidence_gated_local_extractor": {
+      "public_technical_score": 0.95365,
+      "public_extractor_calls": 0,
+      "freeform_rule_micro_f1": 0.06,
+      "status": "experimental",
+      "reason": "Free-form JSON extraction is schema-validated and failure-safe, while released templates stay on the deterministic fast path. Model quality awaits representative-hardware benchmarking."
+    }
+  },
+  "rejected": {
+    "naive_slot_erasure": {
+      "public_technical_score": 0.94545,
+      "stress_technical_score": 0.92895
+    },
+    "attribute_specific_questions": {
+      "public_technical_score": 0.94625
+    },
+    "profile_based_reranking": {
+      "public_technical_score": 0.894029
+    },
+    "weighted_threshold_1_policy": {
+      "public_technical_score": 0.952625,
+      "stress_technical_score": 0.950575
+    }
+  }
+}

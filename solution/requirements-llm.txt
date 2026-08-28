@@ -1,0 +1,2 @@
+# Optional CPU-optimized backend for --extractor-gguf.
+llama-cpp-python==0.3.35
