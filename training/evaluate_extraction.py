@@ -14,8 +14,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from solution.agent import Agent, OVERRIDE_RE, _constraint_slot, _quarantine_structured_turn
-from solution.extraction import LlamaCppExtractor, StructuredTurn, TransformersLocalExtractor
+from solution.agent import Agent, _constraint_slot, _quarantine_structured_turn
+from solution.extraction import (
+    LlamaCppExtractor,
+    StructuredTurn,
+    TransformersLocalExtractor,
+    extract_deterministic_turn,
+)
 
 
 SPLITS = {"train", "development", "test"}
@@ -41,23 +46,7 @@ def load_cases(path: str | Path) -> list[dict[str, Any]]:
 
 
 def rule_extract(message: str, state: dict[str, Any]) -> StructuredTurn:
-    category, _ = Agent._extract_initial(message)
-    constraints = Agent._extract_constraints(message)
-    add: dict[str, list[str]] = {}
-    for value in constraints:
-        add.setdefault(_constraint_slot(value), []).append(value)
-    negative: dict[str, list[str]] = {}
-    for value in Agent._extract_negative_constraints(message):
-        negative.setdefault(_constraint_slot(value), []).append(value)
-    override = bool(OVERRIDE_RE.search(message))
-    return StructuredTurn(
-        intent="buying" if category or constraints else "unknown",
-        override=override,
-        category=category,
-        add=add,
-        negative=negative,
-        confidence=1.0 if category or constraints or negative else 0.0,
-    )
+    return extract_deterministic_turn(message, state)
 
 
 def normalized(value: str) -> str:

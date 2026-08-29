@@ -4,11 +4,58 @@ import unittest
 from time import sleep
 
 from solution.agent import Agent, OVERRIDE_RE, _constraint_variants, _quarantine_structured_turn
-from solution.extraction import StructuredTurn, TimeoutExtractor, _first_json_object
+from solution.extraction import (
+    StructuredTurn,
+    TimeoutExtractor,
+    _first_json_object,
+    extract_deterministic_turn,
+)
 from stress_eval import transform_message
 
 
 class SolutionParsingTest(unittest.TestCase):
+    def test_natural_browsing_turn_tracks_preferences_and_dialogue_state(self) -> None:
+        turn = extract_deterministic_turn(
+            "I want a bag. I do not have a design preference. Black would be nice. "
+            "I have a budget, but show me the options first.",
+            {},
+        )
+
+        self.assertEqual(turn.intent, "browsing")
+        self.assertEqual(turn.category, "bag")
+        self.assertEqual(turn.add["color"], ["color: black"])
+        self.assertEqual(turn.no_preference, ("style",))
+        self.assertEqual(turn.unresolved, ("budget",))
+        self.assertTrue(turn.show_options_first)
+
+    def test_natural_operations_are_evidence_grounded(self) -> None:
+        replacement = extract_deterministic_turn("Blue instead of black, still waterproof.", {})
+        self.assertEqual(replacement.add["color"], ["color: blue"])
+        self.assertEqual(replacement.add["feature"], ["waterproof"])
+        self.assertEqual(replacement.replace_slots, ("color",))
+
+        removal = extract_deterministic_turn("Forget leather.", {})
+        self.assertEqual(removal.remove, {"material": ["leather"]})
+        self.assertFalse(removal.add)
+
+        exclusion = extract_deterministic_turn("No leather.", {})
+        self.assertEqual(exclusion.negative, {"material": ["leather"]})
+        self.assertFalse(exclusion.add)
+
+    def test_explicit_value_clears_an_old_no_preference_marker(self) -> None:
+        state = {
+            "slots": {},
+            "constraints": [],
+            "negative_constraints": [],
+            "no_preference": {"color"},
+        }
+        Agent._apply_structured_turn(
+            state,
+            StructuredTurn(add={"color": ["color: black"]}),
+        )
+        self.assertNotIn("color", state["no_preference"])
+
+
     def test_plain_language_demo_flow_returns_products_and_updates_slots(self) -> None:
         agent = Agent("data/catalog.jsonl")
         agent.reset("demo", {})
@@ -199,6 +246,7 @@ class SolutionParsingTest(unittest.TestCase):
         messages = [
             ("I'm looking for Women's Shoes. I prefer a lightweight design.", []),
             ("I'm looking for Women's Shoes, but I'm still exploring.", []),
+            ("Help me find Women's Shoes, though I haven't settled on the details.", []),
             ("For that, what matters is: cotton; color: black.", ["cotton", "color: black"]),
             ("I don't have a preference for material; please use your judgment.", []),
             ("I don't have an additional preference for style.", []),

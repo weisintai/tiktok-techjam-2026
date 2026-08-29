@@ -35,3 +35,44 @@ no runtime dependency and passed 30 tests, including isolation coverage.
 Decision: rejected and removed from runtime. Narrow attribute questions delayed
 useful broad disclosure under the simulator and did not improve candidate
 ranking. The untouched synthetic test was not evaluated.
+
+## Evidence-Grounded Deterministic Delta
+
+A deterministic fallback was added behind main's existing confidence check. It
+activates only when the established official and paraphrase parsers are not
+confident. The fallback extracts explicit apparel categories and facets plus
+add, replace, remove, exclude, no-preference, unresolved-budget, and
+show-options-first operations. All state changes still pass through the existing
+`StructuredTurn` application boundary. No LLM, network call, or runtime
+dependency was added.
+
+Free-form extraction results over the frozen 200-case corpus:
+
+| Metric | Baseline | Candidate | Delta |
+|---|---:|---:|---:|
+| Raw delta micro-F1 | 0.0583 | 0.7046 | +0.6463 |
+| Applied-state micro-F1 | 0.5689 | 0.8388 | +0.2699 |
+| Applied-state precision | 0.6946 | 0.8411 | +0.1465 |
+| Applied-state recall | 0.4817 | 0.8366 | +0.3549 |
+| False-addition rate | 0.9545 | 0.3172 | -0.6373 |
+| Sibling preservation | 1.0000 | 0.9900 | -0.0100 |
+
+The frozen 40-case free-form test split reached applied-state F1 `0.8782`, above
+development F1 `0.7945`. This does not establish broad natural-language
+generalization, but it reduces the risk that the aggregate gain comes only from
+the training families.
+
+End-to-end gates:
+
+| Evaluation | Baseline | Candidate | Delta |
+|---|---:|---:|---:|
+| Public TechnicalScore | 0.953650 | 0.953650 | 0.000000 |
+| Stress TechnicalScore | 0.951600 | 0.951600 | 0.000000 |
+| Validation TechnicalScore | 0.943475 | 0.943475 | 0.000000 |
+| Untouched test TechnicalScore | 0.938188 | 0.938188 | 0.000000 |
+
+Decision: accepted as a robustness improvement. Established simulator-shaped
+messages remain on the original fast path, while unfamiliar messages gain a
+deterministic structured fallback. The next evaluation should add independently
+written free-form cases because the current corpus contains templated families
+from one writer.

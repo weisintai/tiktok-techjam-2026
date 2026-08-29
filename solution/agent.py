@@ -13,7 +13,12 @@ from typing import Any
 import numpy as np
 
 from evaluator.local_evaluator import intent_card
-from solution.extraction import SLOT_NAMES, StructuredExtractor, StructuredTurn
+from solution.extraction import (
+    SLOT_NAMES,
+    StructuredExtractor,
+    StructuredTurn,
+    extract_deterministic_turn,
+)
 
 
 TOKEN_RE = re.compile(r"[a-z0-9]+", re.I)
@@ -431,6 +436,9 @@ class Agent:
             "initial_constraints": [],
             "user_profile": dict(user_profile),
             "inferred_intent": "unknown",
+            "no_preference": set(),
+            "unresolved": set(),
+            "show_options_first": False,
             "last_usage": {"prompt_tokens": 0, "completion_tokens": 0},
         }
 
@@ -441,6 +449,7 @@ class Agent:
         return bool(
             constraints
             or "but i'm still exploring" in lowered
+            or "though i haven't settled on the details" in lowered
             or "don't have a preference for" in lowered
             or "don't have an additional preference for" in lowered
             or "those options are not quite right yet" in lowered
@@ -482,6 +491,13 @@ class Agent:
             for value in values:
                 if value not in state["negative_constraints"]:
                     state["negative_constraints"].append(value)
+        no_preference = state.setdefault("no_preference", set())
+        no_preference.difference_update(turn.add)
+        no_preference.update(turn.no_preference)
+        unresolved = state.setdefault("unresolved", set())
+        unresolved.difference_update(turn.add)
+        unresolved.update(turn.unresolved)
+        state["show_options_first"] = state.get("show_options_first", False) or turn.show_options_first
 
     @staticmethod
     def _extract_initial(message: str) -> tuple[str, str]:
@@ -813,7 +829,7 @@ class Agent:
         asked = state["asked_attributes"]
         scores: dict[str, float] = {}
         for attribute in ("material", "color", "size", "style", "budget", "feature", "use_case"):
-            if attribute in asked:
+            if attribute in asked or attribute in state.get("no_preference", set()):
                 continue
             counts: Counter[str] = Counter()
             covered = 0
@@ -832,6 +848,8 @@ class Agent:
             if coverage < 0.10:
                 continue
             scores[attribute] = entropy * (0.25 + 0.75 * coverage)
+            if attribute in state.get("unresolved", set()):
+                scores[attribute] += 0.20
         for tag in state.get("user_profile", {}).get("preference_tags", []):
             for attribute in PROFILE_TAG_ATTRIBUTES.get(_normalize(str(tag)), ()):
                 if attribute in scores:
@@ -897,10 +915,14 @@ class Agent:
             state["initial_constraints"] = initial_constraints
 
         new_constraints = self._extract_constraints(user_message)
-        structured = StructuredTurn()
-        if (
-            self.structured_extractor is not None
-            and not self._rules_are_confident(user_message, new_constraints)
+        rules_confident = self._rules_are_confident(user_message, new_constraints)
+        structured = (
+            StructuredTurn()
+            if rules_confident
+            else extract_deterministic_turn(user_message, state)
+        )
+        if self.structured_extractor is not None and not rules_confident and (
+            structured.confidence < self.extraction_min_confidence
         ):
             try:
                 candidate = self.structured_extractor.extract(user_message, state)

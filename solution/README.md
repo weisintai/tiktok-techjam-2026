@@ -19,6 +19,12 @@ paraphrases confirm an existing slot instead of erasing sibling constraints.
 Natural overrides such as `Actually, make them casual white sneakers` also
 rewrite the stale category and inline facets.
 
+Messages outside the established simulator fast path use an evidence-grounded
+deterministic delta extractor. It handles explicit additions, replacements,
+removals, exclusions, no-preference slots, unresolved budget mentions, and
+show-options-first instructions. The fallback updates state through the same
+`StructuredTurn` boundary and adds no model call or dependency.
+
 The natural clarification prompt is selected from candidate-facet entropy and
 weak aggregate-profile priors. The structured contract deliberately remains
 `ask_attribute="other"`: direct attribute selection reduced the official score,
@@ -50,9 +56,10 @@ for reproducibility rather than recommended for submission.
 
 ## Optional local structured extraction
 
-The deterministic parser remains the zero-latency fast path for released
-simulator messages. For free-form shopper language, a local causal model can
-extract typed slots, exclusions, intent and slot-level replacements:
+The deterministic parser remains the zero-latency path for released simulator
+messages and common free-form operations. For unfamiliar shopper language, an
+optional local causal model can propose typed slots, exclusions, intent and
+slot-level replacements:
 
 ```bash
 uv pip install --python .venv/bin/python -r solution/requirements-llm.txt

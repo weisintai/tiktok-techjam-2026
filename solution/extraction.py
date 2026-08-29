@@ -41,6 +41,9 @@ class StructuredTurn:
     remove: dict[str, list[str]] = field(default_factory=dict)
     replace_slots: tuple[str, ...] = ()
     negative: dict[str, list[str]] = field(default_factory=dict)
+    no_preference: tuple[str, ...] = ()
+    unresolved: tuple[str, ...] = ()
+    show_options_first: bool = False
     confidence: float = 0.0
     prompt_tokens: int = 0
     completion_tokens: int = 0
@@ -68,6 +71,18 @@ class StructuredTurn:
                 if str(slot).casefold() in SLOT_NAMES
             )
         ) if isinstance(payload.get("replace_slots", []), list) else ()
+        no_preference = tuple(
+            dict.fromkeys(
+                str(slot).casefold() for slot in payload.get("no_preference", [])
+                if str(slot).casefold() in SLOT_NAMES
+            )
+        ) if isinstance(payload.get("no_preference", []), list) else ()
+        unresolved = tuple(
+            dict.fromkeys(
+                str(slot).casefold() for slot in payload.get("unresolved", [])
+                if str(slot).casefold() in SLOT_NAMES
+            )
+        ) if isinstance(payload.get("unresolved", []), list) else ()
         return cls(
             intent=intent,
             override=bool(payload.get("override", False)),
@@ -76,10 +91,159 @@ class StructuredTurn:
             remove=_slot_map(payload.get("remove")),
             replace_slots=replace_slots,
             negative=_slot_map(payload.get("negative")),
+            no_preference=no_preference,
+            unresolved=unresolved,
+            show_options_first=bool(payload.get("show_options_first", False)),
             confidence=confidence,
             prompt_tokens=max(0, int(prompt_tokens)),
             completion_tokens=max(0, int(completion_tokens)),
         )
+
+
+_CATEGORY_RE = re.compile(
+    r"\b(running shoes?|hiking shoes?|sneakers?|shoes?|boots?|sandals?|slippers?|"
+    r"bags?|handbags?|backpacks?|purses?|jackets?|coats?|dresses?|shirts?|tops?|"
+    r"pants|trousers?|shorts?|skirts?|socks?|hats?|caps?|watches?|jewelry)\b",
+    re.I,
+)
+_COLORS = ("black", "white", "blue", "red", "pink", "green", "brown", "gray", "grey", "purple", "yellow", "orange", "navy")
+_MATERIALS = ("cotton", "polyester", "nylon", "leather", "wool", "spandex", "silk", "rayon", "denim", "synthetic")
+_SIZES = ("small", "medium", "large", "xl", "xxl", "wide", "narrow", "petite", "plus size")
+_STYLES = ("casual", "formal", "classic", "elegant", "relaxed", "slim", "modern", "vintage")
+_FEATURES = ("waterproof", "lightweight", "cushioned", "cushioning", "comfortable", "warm", "breathable", "durable", "supportive")
+_USE_CASES = {
+    "running": "running", "jogging": "running", "hiking": "hiking",
+    "office": "work", "work": "work", "winter": "winter", "beach": "beach",
+    "outdoor": "outdoor", "gift": "gift", "everyday": "everyday",
+}
+
+
+def _mentioned_values(text: str) -> dict[str, list[str]]:
+    lowered = text.casefold()
+    values: dict[str, list[str]] = {}
+    for slot, vocabulary in (
+        ("material", _MATERIALS),
+        ("size", _SIZES),
+        ("style", _STYLES),
+        ("feature", _FEATURES),
+    ):
+        found = [value for value in vocabulary if re.search(rf"\b{re.escape(value)}\b", lowered)]
+        if found:
+            values[slot] = list(dict.fromkeys(
+                "cushioning" if value == "cushioned" else value for value in found
+            ))
+    colors = [color for color in _COLORS if re.search(rf"\b{re.escape(color)}\b", lowered)]
+    if colors:
+        values["color"] = [f"color: {'gray' if color == 'grey' else color}" for color in colors]
+    use_cases = [canonical for term, canonical in _USE_CASES.items() if re.search(rf"\b{term}\b", lowered)]
+    if use_cases:
+        values["use_case"] = list(dict.fromkeys(use_cases))
+    budget = re.search(
+        r"(?:under|below|less than|no more than|at most|maximum(?: of)?|ceiling(?: is)?|"
+        r"budget(?: of| is| within)?|cost(?:s|ing)?(?: below| under)?|cheaper than)\s*"
+        r"(?:one hundred|fifty|\$?\s*([0-9]+(?:\.[0-9]+)?))",
+        lowered,
+    )
+    if budget:
+        phrase = budget.group(0)
+        amount = budget.group(1) or ("100" if "one hundred" in phrase else "50")
+        values["budget"] = [f"budget under ${amount}"]
+    return values
+
+
+def extract_deterministic_turn(message: str, state: dict[str, Any]) -> StructuredTurn:
+    """Extract a conservative natural-language delta from explicit evidence."""
+    lowered = message.casefold()
+    category_match = _CATEGORY_RE.search(message)
+    category = category_match.group(1).casefold() if category_match else ""
+    category = re.sub(r"\bbags\b", "bag", category)
+
+    no_preference: list[str] = []
+    preference_aliases = {
+        "material": "material", "fabric": "material", "color": "color",
+        "colour": "color", "size": "size", "fit": "size", "style": "style",
+        "design": "style", "brand": "feature", "feature": "feature",
+    }
+    for match in re.finditer(
+        r"(?:no|do not have a|don't have a|do not have any|don't have any)\s+"
+        r"([a-z]+)\s+preference|(?:i\s+)?(?:do not|don't)\s+care\s+about\s+([a-z]+)",
+        lowered,
+    ):
+        name = match.group(1) or match.group(2)
+        slot = preference_aliases.get(name)
+        if slot:
+            no_preference.append(slot)
+
+    negative: dict[str, list[str]] = {}
+    for match in re.finditer(
+        r"(?:\bno\s+(?!preference)|\bwithout\s+|\bavoid\s+|\bdon't want\s+|"
+        r"\bdo not want\s+)([^,.;]+)",
+        message,
+        re.I,
+    ):
+        for slot, values in _mentioned_values(match.group(1)).items():
+            negative.setdefault(slot, []).extend(values)
+
+    remove: dict[str, list[str]] = {}
+    for match in re.finditer(
+        r"\b(?:forget|drop|remove|no longer need|don't need|do not need)\s+([^,.;]+)",
+        message,
+        re.I,
+    ):
+        for slot, values in _mentioned_values(match.group(1)).items():
+            remove.setdefault(slot, []).extend(values)
+
+    replace_slots: list[str] = []
+    add: dict[str, list[str]] = {}
+    replacement = re.search(r"(.+?)\s+instead of\s+([^,.;]+)", message, re.I)
+    if replacement:
+        replacement_values = _mentioned_values(replacement.group(1))
+        old_values = _mentioned_values(replacement.group(2))
+        for slot, values in replacement_values.items():
+            if slot in old_values:
+                add[slot] = values
+                replace_slots.append(slot)
+
+    excluded_spans = [match.span(1) for match in re.finditer(
+        r"\b(?:forget|drop|remove|no longer need|don't need|do not need|without|avoid|"
+        r"don't want|do not want)\s+([^,.;]+)", message, re.I
+    )]
+    positive_text = "".join(
+        " " if any(start <= index < end for start, end in excluded_spans) else character
+        for index, character in enumerate(message)
+    )
+    positive_values = _mentioned_values(positive_text)
+    for slot, values in positive_values.items():
+        if slot in no_preference or slot in replace_slots:
+            continue
+        blocked = set(negative.get(slot, [])) | set(remove.get(slot, []))
+        retained = [value for value in values if value not in blocked]
+        if retained:
+            add.setdefault(slot, []).extend(retained)
+
+    for mapping in (add, remove, negative):
+        for slot in list(mapping):
+            mapping[slot] = list(dict.fromkeys(mapping[slot]))
+
+    unresolved = []
+    if "budget" in lowered and "budget" not in add:
+        unresolved.append("budget")
+    show_options_first = bool(re.search(r"\b(?:show|give) me (?:the )?options first\b", lowered))
+    browsing = bool(re.search(r"\b(?:browsing|exploring|open to|ideas|options first|not sure)\b", lowered))
+    has_evidence = bool(category or add or remove or negative or no_preference or unresolved)
+    return StructuredTurn(
+        intent="browsing" if browsing else ("buying" if has_evidence else "unknown"),
+        override=bool(re.search(r"\b(?:actually|instead of|switch|replace|forget|drop|remove|no longer)\b", lowered)),
+        category=category,
+        add=add,
+        remove=remove,
+        replace_slots=tuple(dict.fromkeys(replace_slots)),
+        negative=negative,
+        no_preference=tuple(dict.fromkeys(no_preference)),
+        unresolved=tuple(dict.fromkeys(unresolved)),
+        show_options_first=show_options_first,
+        confidence=0.9 if has_evidence else 0.0,
+    )
 
 
 class StructuredExtractor(Protocol):
