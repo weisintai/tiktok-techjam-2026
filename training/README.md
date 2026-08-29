@@ -79,6 +79,45 @@ Recorded baselines:
   development candidate, with applied-state F1 `0.6822` and false-addition rate
   `0.5283`; it was rejected for runtime promotion.
 
+### Independent free-form corpus
+
+`independent_freeform_cases.jsonl` adds 60 messages written after the current
+extractor was implemented. It covers indirect preferences, no-preference
+statements, replacements, removals, exclusions, category switches, unresolved
+constraints, browse-first requests, conflicts, references, and deliberately
+unknown vocabulary. The 20 `development` cases may be inspected while changing
+the extractor. The 40 `test` cases are frozen and must be evaluated without
+`--show-failures`; do not inspect or tune against individual test failures.
+
+The frozen file SHA256 is recorded in `independent_freeform_cases.sha256`.
+This is a stronger temporal holdout than the seed corpus, but it still has one
+author and therefore is not evidence of multi-user language generalization.
+
+Main-versus-hybrid extraction A/B using the same frozen cases and scorer:
+
+| Extractor | Split | Cases | Exact state | State precision | State recall | State F1 | False additions |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Main legacy rules | Development | 20 | 0.0500 | 0.5926 | 0.4211 | 0.4923 | 0.9000 |
+| Hybrid fallback | Development | 20 | 0.9000 | 0.9740 | 0.9868 | 0.9804 | 0.1081 |
+| Main legacy rules | Frozen test | 40 | 0.1000 | 0.6091 | 0.4589 | 0.5234 | 0.9500 |
+| Hybrid fallback | Frozen test | 40 | 0.3750 | 0.8403 | 0.8288 | 0.8345 | 0.2466 |
+
+The frozen test was rerun without failure diagnostics only after the development
+candidate was selected. Its state F1 remains below the seed test (`0.8782`) and
+is retained as the honest robustness result. The `+0.3111` frozen-test
+state-F1 improvement over legacy rules measures intent extraction only;
+it is not an official end-to-end TechnicalScore delta. `--extractor legacy`
+reproduces the original main rule extractor for future A/B runs.
+
+```bash
+.venv/bin/python -m training.evaluate_extraction \
+  --cases training/independent_freeform_cases.jsonl --split development
+.venv/bin/python -m training.evaluate_extraction \
+  --cases training/independent_freeform_cases.jsonl --split test --extractor both \
+  --output artifacts/evaluations/independent_freeform_test_baseline.json
+shasum -a 256 -c training/independent_freeform_cases.sha256
+```
+
 DSPy prompt generation is an offline experiment. OpenAI may propose prompt
 candidates, but the shipped Qwen model must execute and score them locally.
 Neither DSPy, OpenAI credentials, nor Qwen weights are required for the official
