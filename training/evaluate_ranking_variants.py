@@ -43,6 +43,12 @@ def main() -> None:
     parser.add_argument("--variants", nargs="+", choices=tuple(VARIANTS), default=tuple(VARIANTS))
     parser.add_argument("--output")
     parser.add_argument("--learned-reranker")
+    parser.add_argument(
+        "--learned-reranker-scopes",
+        nargs="+",
+        choices=("off", "freeform", "all"),
+        default=("freeform",),
+    )
     args = parser.parse_args()
 
     samples = load_samples(Path(args.dataset), args.limit)
@@ -59,15 +65,21 @@ def main() -> None:
         results[name] = summary(evaluated)
         print(name, json.dumps(results[name], sort_keys=True))
     if args.learned_reranker:
-        evaluated = evaluate(
-            Agent(args.catalog, learned_reranker_path=args.learned_reranker),
-            samples,
-            identifiers,
-            categories,
-            products,
-        )
-        results["learned_reranker"] = summary(evaluated)
-        print("learned_reranker", json.dumps(results["learned_reranker"], sort_keys=True))
+        for scope in args.learned_reranker_scopes:
+            name = f"learned_reranker_{scope}"
+            evaluated = evaluate(
+                Agent(
+                    args.catalog,
+                    learned_reranker_path=args.learned_reranker,
+                    learned_reranker_scope=scope,
+                ),
+                samples,
+                identifiers,
+                categories,
+                products,
+            )
+            results[name] = summary(evaluated)
+            print(name, json.dumps(results[name], sort_keys=True))
     report = {"dataset": args.dataset, "sessions": len(samples), "results": results}
     if args.output:
         Path(args.output).write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")

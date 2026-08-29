@@ -27,6 +27,11 @@ def main() -> None:
     parser.add_argument("--experimental-router", action="store_true")
     parser.add_argument("--learned-reranker", help="Optional joblib top-50 reranker artifact")
     parser.add_argument(
+        "--learned-reranker-scope",
+        choices=("off", "freeform", "all"),
+        default="freeform",
+    )
+    parser.add_argument(
         "--extractor-model",
         help="Local Hugging Face causal model path/name, e.g. Qwen/Qwen3-0.6B",
     )
@@ -58,6 +63,7 @@ def main() -> None:
         dense_routes=("browsing",) if args.browsing_dense else ("browsing", "uncertain", "hybrid"),
         reference_feedback=args.reference_feedback,
         learned_reranker_path=args.learned_reranker,
+        learned_reranker_scope=args.learned_reranker_scope,
     )
     result = evaluate(agent, samples, ids, categories, products)
     Path(args.output).write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

@@ -297,6 +297,7 @@ class Agent:
         trigram_retrieval: bool = False,
         confidence_topk: bool = False,
         learned_reranker_path: str | Path | None = None,
+        learned_reranker_scope: str = "freeform",
     ) -> None:
         self.catalog_path = Path(catalog_path)
         self.model_name = model_name
@@ -315,6 +316,9 @@ class Agent:
         self.trigram_retrieval = trigram_retrieval
         self.confidence_topk = confidence_topk
         self.learned_reranker_path = Path(learned_reranker_path) if learned_reranker_path else None
+        if learned_reranker_scope not in {"off", "freeform", "all"}:
+            raise ValueError("learned_reranker_scope must be off, freeform, or all")
+        self.learned_reranker_scope = learned_reranker_scope
         self.connection = sqlite3.connect(":memory:")
         self.sessions: dict[str, dict[str, Any]] = {}
         self.rank_cache: dict[tuple[object, ...], tuple[list[str], dict[str, float]]] = {}
@@ -829,7 +833,10 @@ class Agent:
                 head.sort(key=compatibility, reverse=True)
                 ranked = head + ranked[100:]
         learned_applied = False
-        if self.learned_reranker is not None and soft_query and len(ranked) >= 2:
+        learned_route_enabled = self.learned_reranker_scope == "all" or (
+            self.learned_reranker_scope == "freeform" and bool(soft_query)
+        )
+        if self.learned_reranker is not None and learned_route_enabled and len(ranked) >= 2:
             head = ranked[:50]
             features = [
                 self._learned_features(

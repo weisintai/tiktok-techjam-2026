@@ -58,6 +58,24 @@ Evaluate it end to end with:
   --learned-reranker artifacts/models/catalog_reranker.joblib
 ```
 
+## Activation scope ablation
+
+The initial apparent global gain came from a diagnostic that inserted a
+nonmatching probe term to bypass the free-form gate. A clean `off`, `freeform`,
+and `all` scope was subsequently implemented and evaluated without changing
+query text.
+
+| Scope | Public Hit@10 | Public MRR | Public MTTC | Public TechnicalScore | Stress TechnicalScore |
+|---|---:|---:|---:|---:|---:|
+| Off | 0.995 | 0.985167 | 2.970 | 0.953650 | 0.951600 |
+| Free-form only | 0.995 | 0.985167 | 2.970 | 0.953650 | 0.951600 |
+| All routes | 0.995 | 0.976417 | 2.880 | 0.952825 | 0.944689 |
+
+Global reranking improves public MTTC but loses too much rank precision, and on
+stress it also reduces Hit@10 to `0.990`. Decision: reject global activation and
+keep `freeform` as the default scope. Reproduce the ablation with
+`--learned-reranker-scope all`; it is not recommended for submission.
+
 ## Clarification invariant
 
 The official local evaluator ignores the semantic content of the response
