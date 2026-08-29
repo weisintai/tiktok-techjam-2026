@@ -5,6 +5,7 @@ from time import sleep
 
 from solution.agent import Agent, OVERRIDE_RE, _constraint_variants, _quarantine_structured_turn
 from solution.extraction import (
+    CatalogLexicon,
     StructuredTurn,
     TimeoutExtractor,
     _first_json_object,
@@ -14,6 +15,68 @@ from stress_eval import transform_message
 
 
 class SolutionParsingTest(unittest.TestCase):
+    def test_catalog_lexicon_adds_repeated_safe_categories_and_facets(self) -> None:
+        lexicon = CatalogLexicon.from_counts(
+            {"Loafers & Slip-Ons": 12, "Women": 100},
+            {
+                "feature": {"zipper closure": 8, "imported": 100},
+                "style": {"style: bohemian": 4},
+            },
+        )
+
+        turn = extract_deterministic_turn(
+            "I need bohemian loafers and slip ons with zipper closure.",
+            {},
+            lexicon,
+        )
+
+        self.assertEqual(turn.category, "loafers and slip ons")
+        self.assertEqual(turn.add["style"], ["style: bohemian"])
+        self.assertEqual(turn.add["feature"], ["zipper closure"])
+        self.assertNotIn("imported", turn.add["feature"])
+
+    def test_catalog_lexicon_respects_negative_operation_scope(self) -> None:
+        lexicon = CatalogLexicon.from_counts(
+            {},
+            {"feature": {"zipper closure": 8}},
+        )
+
+        turn = extract_deterministic_turn("No zipper closure.", {}, lexicon)
+
+        self.assertEqual(turn.negative, {"feature": ["zipper closure"]})
+        self.assertFalse(turn.add)
+
+    def test_catalog_lexicon_filters_mislabeled_metadata(self) -> None:
+        lexicon = CatalogLexicon.from_counts(
+            {"Clearance": 20, "Earrings": 20},
+            {
+                "color": {"batteries required: no": 10, "color: silver": 10},
+                "style": {"department: womens": 10, "style: bohemian": 10},
+                "feature": {"30 day money back guarantee": 10, "buckle closure": 10},
+            },
+        )
+
+        self.assertNotIn("clearance", lexicon.categories)
+        turn = extract_deterministic_turn(
+            "I want silver bohemian earrings with a buckle closure.", {}, lexicon
+        )
+        self.assertEqual(turn.category, "earrings")
+        self.assertEqual(turn.add["color"], ["color: silver"])
+        self.assertEqual(turn.add["style"], ["style: bohemian"])
+        self.assertEqual(turn.add["feature"], ["buckle closure"])
+
+    def test_one_word_catalog_category_requires_shopping_context(self) -> None:
+        lexicon = CatalogLexicon.from_counts(
+            {"Running": 20}, {"use_case": {"sport: running": 20}}
+        )
+
+        incidental = extract_deterministic_turn("I use it for running.", {}, lexicon)
+        requested = extract_deterministic_turn("Show me running.", {}, lexicon)
+
+        self.assertEqual(incidental.category, "")
+        self.assertEqual(incidental.add["use_case"], ["running"])
+        self.assertEqual(requested.category, "running")
+
     def test_natural_browsing_turn_tracks_preferences_and_dialogue_state(self) -> None:
         turn = extract_deterministic_turn(
             "I want a bag. I do not have a design preference. Black would be nice. "
@@ -55,6 +118,30 @@ class SolutionParsingTest(unittest.TestCase):
         )
         self.assertNotIn("color", state["no_preference"])
 
+    def test_no_preference_releases_an_existing_slot(self) -> None:
+        state = {
+            "slots": {"material": ["leather"], "color": ["color: black"]},
+            "constraints": ["leather", "color: black"],
+            "negative_constraints": [],
+        }
+        turn = extract_deterministic_turn("The material makes no difference to me.", {})
+
+        Agent._apply_structured_turn(state, turn)
+
+        self.assertEqual(state["slots"]["material"], [])
+        self.assertEqual(state["constraints"], ["color: black"])
+
+    def test_freeform_deferred_and_removal_phrases_are_typed(self) -> None:
+        deferred = extract_deterministic_turn(
+            "Give me options for hats first; I will decide on color afterward.", {}
+        )
+        removed = extract_deterministic_turn("I no longer care about the $80 ceiling.", {})
+
+        self.assertEqual(deferred.intent, "browsing")
+        self.assertEqual(deferred.unresolved, ("color",))
+        self.assertTrue(deferred.show_options_first)
+        self.assertEqual(removed.remove, {"budget": ["budget under $80"]})
+
 
     def test_plain_language_demo_flow_returns_products_and_updates_slots(self) -> None:
         agent = Agent("data/catalog.jsonl")
@@ -62,12 +149,15 @@ class SolutionParsingTest(unittest.TestCase):
 
         first = agent.respond("demo", "I need black running shoes under $80", 1, 10)
         second = agent.respond("demo", "No leather, and blue instead of black", 2, 10)
+        agent.respond("demo", "I also prefer gorpcore details.", 3, 10)
 
         self.assertTrue(first["recommendations"])
         self.assertTrue(second["recommendations"])
         self.assertIn("color: blue", agent.sessions["demo"]["constraints"])
         self.assertNotIn("color: black", agent.sessions["demo"]["constraints"])
         self.assertIn("leather", agent.sessions["demo"]["negative_constraints"])
+        self.assertIn("i also prefer gorpcore details", agent.sessions["demo"]["soft_queries"])
+        self.assertNotIn("gorpcore", agent.sessions["demo"]["constraints"])
 
     def test_late_extraction_is_discarded(self) -> None:
         class SlowExtractor:

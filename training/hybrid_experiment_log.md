@@ -76,3 +76,54 @@ messages remain on the original fast path, while unfamiliar messages gain a
 deterministic structured fallback. The next evaluation should add independently
 written free-form cases because the current corpus contains templated families
 from one writer.
+
+## Independent Free-Form Holdout
+
+A second 60-case corpus was authored only after the deterministic fallback was
+implemented. It contains 20 inspectable development cases and 40 frozen test
+cases across 21 conversational families. The scorer was extended to include
+no-preference, unresolved-slot, and show-options-first state. The test split was
+run once without individual failure output.
+
+| Extractor | Split | Exact state | State F1 | False additions |
+|---|---|---:|---:|---:|
+| Main legacy rules | Development | 0.0500 | 0.4923 | 0.9000 |
+| Hybrid fallback | Development | 0.9000 | 0.9804 | 0.1081 |
+| Main legacy rules | Frozen test | 0.1000 | 0.5234 | 0.9500 |
+| Hybrid fallback | Frozen test | 0.3750 | 0.8345 | 0.2466 |
+
+This reveals a measurable free-form robustness gap relative to the original
+seed test state F1 of `0.8782`. The corpus remains single-author evidence, so
+future confidence should come from examples independently supplied by multiple
+team members rather than further tuning on the frozen test cases.
+
+Against main's reproduced legacy rule path, hybrid gains `+0.3111` absolute
+state F1 on the frozen test and reduces false additions by `0.7034`. This is an
+extraction-only A/B; the official end-to-end gates remain unchanged.
+
+## Catalog-Derived Lexicon
+
+The fallback's product vocabulary now extends itself from the frozen catalog
+during the existing in-memory index build. Only repeated short phrases are
+admitted: leaf categories and typed intent-card facets with frequency of at
+least three. Generic hierarchy nodes, malformed values, boilerplate, and nested
+short matches are filtered. The resulting lexicon contains 535 categories and
+1,145 facets; conversational operators remain hand-audited rules.
+
+| Evaluation | Before | Candidate | Delta |
+|---|---:|---:|---:|
+| Public TechnicalScore | 0.953650 | 0.953650 | 0.000000 |
+| Stress TechnicalScore | 0.951600 | 0.951600 | 0.000000 |
+| Reported model tokens | 0 | 0 | 0 |
+
+Decision: accepted provisionally as fixed-catalog vocabulary coverage. It does
+not establish an official score gain; its purpose is reducing private-set risk
+from clean but unfamiliar catalog terminology.
+
+The catalog audit rejected the initial broad facet admission because intent-card
+metadata includes mislabeled values such as department labels in style and
+manufacturer flags in color. Slot-specific evidence filters now retain only
+high-confidence forms. Unmatched fallback text is kept as bounded soft retrieval
+context rather than promoted to a hard slot. Development state F1 improved from
+`0.8649` to `0.9804`; the uninspected frozen-test aggregate improved from
+`0.8207` to `0.8345`. Public and stress TechnicalScores remained unchanged.

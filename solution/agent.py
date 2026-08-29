@@ -14,6 +14,7 @@ import numpy as np
 
 from evaluator.local_evaluator import intent_card
 from solution.extraction import (
+    CatalogLexicon,
     SLOT_NAMES,
     StructuredExtractor,
     StructuredTurn,
@@ -316,6 +317,7 @@ class Agent:
         self.model = None
         self.cross_encoder = None
         self.embeddings: np.ndarray | None = None
+        self.catalog_lexicon = CatalogLexicon()
         self._build_index()
         if model_name:
             self._load_semantic_index()
@@ -330,6 +332,8 @@ class Agent:
             "tokenize='unicode61 remove_diacritics 2')"
         )
         batch = []
+        category_counts: Counter[str] = Counter()
+        facet_counts: dict[str, Counter[str]] = defaultdict(Counter)
         with self.catalog_path.open(encoding="utf-8") as handle:
             for line in handle:
                 product = json.loads(line)
@@ -342,7 +346,9 @@ class Agent:
                 self.cards[asin] = values
                 facets: dict[str, set[str]] = defaultdict(set)
                 for value in values:
-                    facets[_constraint_slot(value)].add(value)
+                    slot = _constraint_slot(value)
+                    facets[slot].add(value)
+                    facet_counts[slot][value] += 1
                 self.card_facets[asin] = dict(facets)
                 try:
                     average_rating = float(product.get("average_rating") or 0.0)
@@ -354,6 +360,10 @@ class Agent:
                     rating_number = 0.0
                 self.product_quality[asin] = (average_rating, rating_number)
                 categories = product.get("categories", [])
+                if isinstance(categories, list) and categories:
+                    leaf_category = _normalize(str(categories[-1]))
+                    if leaf_category:
+                        category_counts[leaf_category] += 1
                 group = categories[-1] if isinstance(categories, list) and categories else categories
                 self.product_groups[asin] = _normalize(str(group)) if group else "other"
                 for value in values:
@@ -378,6 +388,7 @@ class Agent:
         if batch:
             cursor.executemany("INSERT INTO products VALUES (?, ?, ?, ?, ?, ?, ?)", batch)
         self.connection.commit()
+        self.catalog_lexicon = CatalogLexicon.from_counts(category_counts, facet_counts)
 
     def _catalog_fingerprint(self) -> str:
         stat = self.catalog_path.stat()
@@ -439,6 +450,7 @@ class Agent:
             "no_preference": set(),
             "unresolved": set(),
             "show_options_first": False,
+            "soft_queries": [],
             "last_usage": {"prompt_tokens": 0, "completion_tokens": 0},
         }
 
@@ -494,6 +506,11 @@ class Agent:
         no_preference = state.setdefault("no_preference", set())
         no_preference.difference_update(turn.add)
         no_preference.update(turn.no_preference)
+        for slot in turn.no_preference:
+            state["slots"][slot] = []
+        state["constraints"] = [
+            value for slot in SLOT_NAMES for value in state["slots"].get(slot, [])
+        ]
         unresolved = state.setdefault("unresolved", set())
         unresolved.difference_update(turn.add)
         unresolved.update(turn.unresolved)
@@ -628,6 +645,7 @@ class Agent:
         negative_constraints: list[str] | None = None,
         user_profile: dict[str, Any] | None = None,
         route: str = "hybrid",
+        soft_query: str = "",
     ) -> tuple[list[str], dict[str, float]]:
         profile_tags = tuple(sorted(
             _normalize(str(value)) for value in (user_profile or {}).get("preference_tags", [])
@@ -643,6 +661,7 @@ class Agent:
             tuple(_normalize(value) for value in (negative_constraints or [])),
             profile_key if self.profile_tiebreak else (),
             route,
+            _normalize(soft_query),
         )
         cached = self.rank_cache.get(cache_key)
         if cached is not None:
@@ -654,7 +673,7 @@ class Agent:
         expanded_constraints = list(dict.fromkeys(
             variant for group in normalized_groups for variant in group
         ))
-        query = " ".join([category, *constraints, *expanded_constraints]).strip()
+        query = " ".join([category, *constraints, *expanded_constraints, soft_query]).strip()
         bm25_scored = self._bm25_scored(query)
         bm25 = [asin for asin, _ in bm25_scored]
         dense = self._dense(query) if route in {"browsing", "uncertain", "hybrid"} else []
@@ -919,7 +938,7 @@ class Agent:
         structured = (
             StructuredTurn()
             if rules_confident
-            else extract_deterministic_turn(user_message, state)
+            else extract_deterministic_turn(user_message, state, self.catalog_lexicon)
         )
         if self.structured_extractor is not None and not rules_confident and (
             structured.confidence < self.extraction_min_confidence
@@ -957,6 +976,7 @@ class Agent:
             if replacement_category:
                 state["category"] = replacement_category
             state["seen"].clear()
+            state["soft_queries"] = []
 
         new_constraints = (
             self._extract_override_constraints(user_message)
@@ -972,19 +992,29 @@ class Agent:
         state["negative_constraints"] = list(dict.fromkeys(state["negative_constraints"]))
         if structured.confidence >= self.extraction_min_confidence:
             self._apply_structured_turn(state, structured)
+        if not rules_confident:
+            soft_queries = state.setdefault("soft_queries", [])
+            normalized_message = _normalize(user_message)
+            if normalized_message and normalized_message not in soft_queries:
+                soft_queries.append(normalized_message)
+                del soft_queries[:-3]
+        soft_query = " ".join(state.get("soft_queries", []))
         route = self._route_intent(user_message, state, structured.confidence) if self.experimental_router else "hybrid"
         if route == "uncertain":
             buying, diagnostics = self.rank_with_diagnostics(
-                state["category"], state["constraints"], state["negative_constraints"], state["user_profile"], "buying"
+                state["category"], state["constraints"], state["negative_constraints"],
+                state["user_profile"], "buying", soft_query
             )
             browsing, _ = self.rank_with_diagnostics(
-                state["category"], state["constraints"], state["negative_constraints"], state["user_profile"], "browsing"
+                state["category"], state["constraints"], state["negative_constraints"],
+                state["user_profile"], "browsing", soft_query
             )
             buying_weight = structured.confidence if structured.intent == "buying" else 0.5
             ranked = self._fuse_routes(buying, browsing, buying_weight)
         else:
             ranked, diagnostics = self.rank_with_diagnostics(
-                state["category"], state["constraints"], state["negative_constraints"], state["user_profile"], route
+                state["category"], state["constraints"], state["negative_constraints"],
+                state["user_profile"], route, soft_query
             )
         diagnostics["route_buying"] = float(route == "buying")
         diagnostics["route_browsing"] = float(route == "browsing")

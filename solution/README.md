@@ -114,6 +114,27 @@ Browsing, 15% Intent Override and 5% Boundary. Public and paraphrase-stress
 scores remain mandatory promotion gates because synthetic optimization alone
 selected one threshold that did not generalize.
 
+## Catalog-derived extraction lexicon
+
+During the existing catalog-index build, the agent counts leaf categories and
+typed intent-card facets. The free-form fallback receives a lexicon made only
+from short phrases appearing in at least three catalog products. Generic
+taxonomy nodes and known metadata boilerplate are excluded, while longer
+matches suppress nested generic matches.
+
+On the frozen 50,000-product catalog this produces 535 leaf-category phrases
+and 1,145 facet phrases. It expands coverage for catalog terms such as
+`rash guard shirts`, `loafers and slip ons`, and specific closure
+types without changing the read-only catalog or adding a runtime dependency.
+Conversational operations remain explicit deterministic rules; catalog text
+supplies product vocabulary rather than intent labels.
+
+Unrecognized wording is retained for at most three fallback turns as soft query
+text. It participates in BM25 and optional dense retrieval but never becomes an
+exact facet, exclusion, or state mutation. Intent overrides clear this residual
+text. This lets open-vocabulary terms remain searchable while typed constraints
+keep their higher ranking priority.
+
 ## Offline robustness diagnostics
 
 ```bash
