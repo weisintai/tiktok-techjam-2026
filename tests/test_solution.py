@@ -1,26 +1,139 @@
 from __future__ import annotations
 
 import unittest
+import json
+import tempfile
+from pathlib import Path
 from time import sleep
 
-from solution.agent import Agent, OVERRIDE_RE, _constraint_variants, _quarantine_structured_turn
+from solution.agent import (
+    Agent,
+    OVERRIDE_RE,
+    _constraint_variants,
+    _normalize_vector,
+    _quarantine_structured_turn,
+)
 from solution.extraction import StructuredTurn, TimeoutExtractor, _first_json_object
 from stress_eval import transform_message
 
 
 class SolutionParsingTest(unittest.TestCase):
+    def test_semantic_queries_include_message_structure_and_negatives(self) -> None:
+        queries = Agent._semantic_queries(
+            "shoes",
+            ["waterproof", "color: blue"],
+            ["leather"],
+            "I want trail shoes for rainy walks, not leather.",
+            "hybrid",
+        )
+        query_map = dict(queries)
+        self.assertIn("i want trail shoes for rainy walks, not leather", query_map)
+        self.assertIn("shoes waterproof color: blue", query_map)
+        self.assertIn("avoid leather", query_map)
+        self.assertLess(query_map["avoid leather"], 0.0)
+
+    def test_dense_scored_supports_contextual_query_blending_without_numpy(self) -> None:
+        class DummyModel:
+            def encode(self, texts: list[str], normalize_embeddings: bool = True):
+                vectors = []
+                for text in texts:
+                    lowered = text.casefold()
+                    trail = 1.0 if any(term in lowered for term in ("trail", "rocky", "outdoor", "hiking")) else 0.0
+                    office = 1.0 if any(term in lowered for term in ("office", "formal", "work")) else 0.0
+                    waterproof = 1.0 if any(term in lowered for term in ("rain", "waterproof")) else 0.0
+                    leather = 1.0 if "leather" in lowered else 0.0
+                    vectors.append([trail, office, waterproof, leather])
+                return vectors
+
+        catalog_rows = [
+            {
+                "parent_asin": "TRAIL",
+                "title": "Trail runner",
+                "features": ["hiking", "waterproof"],
+                "details": {"department": "mens"},
+                "description": ["outdoor path shoe"],
+                "categories": ["Clothing", "Shoes"],
+                "store": "Example",
+            },
+            {
+                "parent_asin": "OFFICE",
+                "title": "Office loafer",
+                "features": ["formal", "leather"],
+                "details": {"department": "mens"},
+                "description": ["dress shoe"],
+                "categories": ["Clothing", "Shoes"],
+                "store": "Example",
+            },
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            catalog_path = Path(directory) / "catalog.jsonl"
+            catalog_path.write_text(
+                "".join(json.dumps(row) + "\n" for row in catalog_rows),
+                encoding="utf-8",
+            )
+            agent = Agent(catalog_path)
+            agent.model = DummyModel()
+            agent.embeddings = [
+                _normalize_vector([1.0, 0.0, 1.0, 0.0]),
+                _normalize_vector([0.0, 1.0, 0.0, 1.0]),
+            ]
+            scored = agent._dense_scored(
+                Agent._semantic_queries(
+                    "shoes",
+                    ["waterproof"],
+                    ["leather"],
+                    "I want something for rocky outdoor trails in rain.",
+                    "hybrid",
+                ),
+                limit=2,
+            )
+            self.assertEqual(scored[0][0], "TRAIL")
+            self.assertGreater(scored[0][1], scored[1][1])
+
     def test_plain_language_demo_flow_returns_products_and_updates_slots(self) -> None:
-        agent = Agent("data/catalog.jsonl")
-        agent.reset("demo", {})
+        catalog_rows = [
+            {
+                "parent_asin": "A",
+                "title": "Black running shoes",
+                "features": ["running", "synthetic textile", "lightweight"],
+                "details": {"department": "mens"},
+                "description": ["athletic everyday sneaker"],
+                "categories": ["Clothing", "Shoes"],
+                "store": "Example",
+                "average_rating": 4.5,
+                "rating_number": 100,
+                "price": 69.0,
+            },
+            {
+                "parent_asin": "B",
+                "title": "Blue running shoes",
+                "features": ["running", "mesh", "lightweight"],
+                "details": {"department": "mens"},
+                "description": ["athletic everyday sneaker"],
+                "categories": ["Clothing", "Shoes"],
+                "store": "Example",
+                "average_rating": 4.6,
+                "rating_number": 120,
+                "price": 75.0,
+            },
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            catalog_path = Path(directory) / "catalog.jsonl"
+            catalog_path.write_text(
+                "".join(json.dumps(row) + "\n" for row in catalog_rows),
+                encoding="utf-8",
+            )
+            agent = Agent(catalog_path)
+            agent.reset("demo", {})
 
-        first = agent.respond("demo", "I need black running shoes under $80", 1, 10)
-        second = agent.respond("demo", "No leather, and blue instead of black", 2, 10)
+            first = agent.respond("demo", "I need black running shoes under $80", 1, 10)
+            second = agent.respond("demo", "No leather, and blue instead of black", 2, 10)
 
-        self.assertTrue(first["recommendations"])
-        self.assertTrue(second["recommendations"])
-        self.assertIn("color: blue", agent.sessions["demo"]["constraints"])
-        self.assertNotIn("color: black", agent.sessions["demo"]["constraints"])
-        self.assertIn("leather", agent.sessions["demo"]["negative_constraints"])
+            self.assertTrue(first["recommendations"])
+            self.assertTrue(second["recommendations"])
+            self.assertIn("color: blue", agent.sessions["demo"]["constraints"])
+            self.assertNotIn("color: black", agent.sessions["demo"]["constraints"])
+            self.assertIn("leather", agent.sessions["demo"]["negative_constraints"])
 
     def test_late_extraction_is_discarded(self) -> None:
         class SlowExtractor:

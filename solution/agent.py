@@ -10,7 +10,10 @@ from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
-import numpy as np
+try:
+    import numpy as np
+except ModuleNotFoundError:  # pragma: no cover - exercised in lean local environments
+    np = None
 
 from evaluator.local_evaluator import intent_card
 from solution.extraction import SLOT_NAMES, StructuredExtractor, StructuredTurn
@@ -57,6 +60,11 @@ FACET_ALIASES: tuple[tuple[str, tuple[str, ...]], ...] = (
 
 MATERIAL_WORDS = ("cotton", "polyester", "nylon", "leather", "wool", "spandex", "silk", "rayon", "fabric")
 COLOR_WORDS = ("black", "white", "blue", "red", "pink", "green", "brown", "gray", "grey", "purple", "yellow", "orange")
+GENERIC_CATEGORY_TERMS = {
+    "clothing", "shoes", "jewelry", "clothing shoes jewelry", "women", "mens",
+    "womens", "boys", "girls", "baby", "kids", "men", "women's", "men's",
+    "luggage travel gear", "handbags wallets", "costumes accessories",
+}
 PROFILE_TAG_TERMS: dict[str, tuple[str, ...]] = {
     "fit": ("fit", "fitted", "size", "sizing", "width", "wide", "stretch", "slim"),
     "comfort": ("comfort", "comfortable", "cushion", "soft", "breathable", "lightweight"),
@@ -89,6 +97,16 @@ def _text(value: object) -> str:
     return str(value)
 
 
+def _flatten_values(value: object) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, dict):
+        return [f"{key} {item}" for key, item in value.items() if item not in (None, "", [])]
+    if isinstance(value, list):
+        return [str(item) for item in value if item not in (None, "")]
+    return [str(value)]
+
+
 def _normalize(value: str) -> str:
     return re.sub(r"\s+", " ", value).strip(" -;,.\t\n").casefold()
 
@@ -96,6 +114,24 @@ def _normalize(value: str) -> str:
 def _terms(value: str) -> list[str]:
     return [token.casefold() for token in TOKEN_RE.findall(value)
             if len(token) > 1 and token.casefold() not in STOPWORDS]
+
+
+def _normalize_vector(values: list[float]) -> list[float]:
+    norm = math.sqrt(sum(value * value for value in values))
+    if norm <= 1e-12:
+        return [0.0 for _ in values]
+    return [value / norm for value in values]
+
+
+def _blend_vectors(weighted_vectors: list[tuple[float, list[float]]]) -> list[float]:
+    if not weighted_vectors:
+        return []
+    width = len(weighted_vectors[0][1])
+    blended = [0.0] * width
+    for weight, vector in weighted_vectors:
+        for index in range(width):
+            blended[index] += weight * vector[index]
+    return _normalize_vector(blended)
 
 
 def _constraint_variants(value: str, limit: int = 16) -> set[str]:
@@ -126,6 +162,41 @@ def _constraint_slot(value: str) -> str:
     if any(word in lowered for word in ("hiking", "running", "gym", "winter", "outdoor", "work")):
         return "use_case"
     return "feature"
+
+
+def _phrase_variants(value: str) -> set[str]:
+    cleaned = _normalize(value)
+    if not cleaned:
+        return set()
+    variants = {cleaned}
+    words = cleaned.split()
+    singularized = []
+    changed = False
+    for word in words:
+        if len(word) > 4 and word.endswith("ies"):
+            singularized.append(word[:-3] + "y")
+            changed = True
+        elif len(word) > 3 and word.endswith("s") and not word.endswith("ss"):
+            singularized.append(word[:-1])
+            changed = True
+        else:
+            singularized.append(word)
+    if changed:
+        variants.add(" ".join(singularized))
+    return variants
+
+
+def _catalog_category_phrases(categories: object) -> set[str]:
+    if not isinstance(categories, list):
+        return set()
+    phrases: set[str] = set()
+    for raw in categories:
+        for part in str(raw).split(","):
+            normalized = _normalize(part)
+            if not normalized or normalized in GENERIC_CATEGORY_TERMS:
+                continue
+            phrases.update(_phrase_variants(normalized))
+    return phrases
 
 
 _MODEL_EVIDENCE_ALIASES = {
@@ -305,12 +376,16 @@ class Agent:
         self.card_index: dict[str, set[str]] = defaultdict(set)
         self.product_quality: dict[str, tuple[float, float]] = {}
         self.product_groups: dict[str, str] = {}
+        self.category_signatures: dict[str, set[str]] = {}
+        self.catalog_category_counts: Counter[str] = Counter()
+        self.catalog_category_phrases: list[str] = []
         self.asins: list[str] = []
         self.documents: list[str] = []
+        self.semantic_documents: list[str] = []
         self.asin_to_index: dict[str, int] = {}
         self.model = None
         self.cross_encoder = None
-        self.embeddings: np.ndarray | None = None
+        self.embeddings: Any = None
         self._build_index()
         if model_name:
             self._load_semantic_index()
@@ -351,6 +426,9 @@ class Agent:
                 categories = product.get("categories", [])
                 group = categories[-1] if isinstance(categories, list) and categories else categories
                 self.product_groups[asin] = _normalize(str(group)) if group else "other"
+                signatures = _catalog_category_phrases(categories)
+                self.category_signatures[asin] = signatures
+                self.catalog_category_counts.update(signatures)
                 for value in values:
                     self.card_index[value].add(asin)
                 document = " | ".join([
@@ -359,9 +437,11 @@ class Agent:
                     *card["hard_constraints"],
                     *card["soft_preferences"],
                 ])
+                semantic_document = self._semantic_document(product, card)
                 self.asin_to_index[asin] = len(self.asins)
                 self.asins.append(asin)
                 self.documents.append(document)
+                self.semantic_documents.append(semantic_document)
                 batch.append((
                     asin, _text(product.get("title")), _text(product.get("categories")),
                     _text(product.get("features")), _text(product.get("details")),
@@ -373,13 +453,67 @@ class Agent:
         if batch:
             cursor.executemany("INSERT INTO products VALUES (?, ?, ?, ?, ?, ?, ?)", batch)
         self.connection.commit()
+        self.catalog_category_phrases = sorted(
+            self.catalog_category_counts,
+            key=lambda phrase: (-len(phrase.split()), -len(phrase), -self.catalog_category_counts[phrase], phrase),
+        )
 
     def _catalog_fingerprint(self) -> str:
         stat = self.catalog_path.stat()
-        raw = f"{self.catalog_path.resolve()}:{stat.st_size}:{stat.st_mtime_ns}:{self.model_name}"
+        raw = f"{self.catalog_path.resolve()}:{stat.st_size}:{stat.st_mtime_ns}:{self.model_name}:semantic-v2"
         return hashlib.sha256(raw.encode()).hexdigest()
 
+    def _match_catalog_categories(self, text: str) -> set[str]:
+        haystack = f" {_normalize(text)} "
+        if not haystack.strip():
+            return set()
+        matches: set[str] = set()
+        for phrase in self.catalog_category_phrases:
+            if f" {phrase} " in haystack:
+                matches.add(phrase)
+            if len(matches) >= 8:
+                break
+        return matches
+
+    def _resolve_catalog_category(self, text: str, fallback: str = "") -> str:
+        matches = self._match_catalog_categories(text)
+        if not matches:
+            return fallback
+        return max(
+            matches,
+            key=lambda phrase: (
+                len(phrase.split()),
+                len(phrase),
+                self.catalog_category_counts.get(phrase, 0),
+                phrase,
+            ),
+        )
+
+    @staticmethod
+    def _semantic_document(product: dict[str, Any], card: dict[str, Any]) -> str:
+        categories = " > ".join(str(value) for value in product.get("categories") or [])
+        title = _text(product.get("title"))
+        store = _text(product.get("store"))
+        features = [_normalize(item) for item in _flatten_values(product.get("features"))[:8] if _normalize(item)]
+        details = [_normalize(item) for item in _flatten_values(product.get("details"))[:6] if _normalize(item)]
+        description = [_normalize(item) for item in _flatten_values(product.get("description"))[:4] if _normalize(item)]
+        card_bits = [*card["hard_constraints"], *card["soft_preferences"]]
+        sentences = [
+            f"title: {title}",
+            f"category path: {categories}" if categories else "",
+            f"brand or store: {store}" if store else "",
+            f"key attributes: {'; '.join(card_bits)}" if card_bits else "",
+            f"features: {'; '.join(features)}" if features else "",
+            f"details: {'; '.join(details)}" if details else "",
+            f"description: {'; '.join(description)}" if description else "",
+        ]
+        return ". ".join(piece for piece in sentences if piece)
+
     def _load_semantic_index(self) -> None:
+        if np is None:
+            self.model = None
+            self.embeddings = None
+            return
         try:
             from sentence_transformers import SentenceTransformer
 
@@ -394,7 +528,7 @@ class Agent:
                     self.embeddings = cached["embeddings"]
                     return
             encoded = self.model.encode(
-                self.documents,
+                self.semantic_documents,
                 batch_size=512,
                 normalize_embeddings=True,
                 show_progress_bar=True,
@@ -418,6 +552,17 @@ class Agent:
             self.cross_encoder = CrossEncoder(self.cross_encoder_name, max_length=128)
         except Exception:
             self.cross_encoder = None
+
+    def close(self) -> None:
+        if self.connection is not None:
+            self.connection.close()
+            self.connection = None
+
+    def __del__(self) -> None:  # pragma: no cover - best-effort cleanup
+        try:
+            self.close()
+        except Exception:
+            pass
 
     def reset(self, session_id: str, user_profile: dict) -> None:
         self.sessions[session_id] = {
@@ -546,6 +691,10 @@ class Agent:
         for term in ("running", "hiking", "winter", "outdoor", "work", "casual", "formal", "classic", "elegant"):
             if re.search(rf"\b{term}\b", lowered):
                 facets.append(term)
+        if any(term in lowered for term in ("laptop", "computer", "macbook", "notebook")):
+            facets.append("fits laptop")
+        if any(term in lowered for term in ("travel", "commute", "commuting")):
+            facets.append("travel")
         budget = re.search(r"(?:under|below|up to)\s*\$?([0-9]+(?:\.[0-9]+)?)", lowered)
         if budget:
             facets.append(f"budget under ${budget.group(1)}")
@@ -572,12 +721,15 @@ class Agent:
 
     @staticmethod
     def _extract_override_category(message: str) -> str:
-        nouns = re.findall(
-            r"\b(sneakers?|shoes?|boots?|jackets?|coats?|dresses?|shirts?|pants|sandals?|slippers?)\b",
+        specific = re.findall(
+            r"\b(backpacks?|daypacks?|rucksacks?|laptop bags?|messenger bags?|briefcases?|"
+            r"sneakers?|shoes?|boots?|jackets?|coats?|dresses?|shirts?|pants|sandals?|slippers?)\b",
             message,
             re.I,
         )
-        return nouns[-1] if nouns else ""
+        if specific:
+            return specific[-1]
+        return ""
 
     def _bm25_scored(self, query: str, limit: int = 500) -> list[tuple[str, float]]:
         terms = list(dict.fromkeys(_terms(query)))[:100]
@@ -596,14 +748,140 @@ class Agent:
         return [asin for asin, _ in self._bm25_scored(query, limit)]
 
     def _dense(self, query: str, limit: int = 250) -> list[str]:
-        if self.model is None or self.embeddings is None:
+        return [asin for asin, _ in self._dense_scored([(query, 1.0)], limit)]
+
+    @staticmethod
+    def _semantic_request(
+        category: str,
+        constraints: list[str],
+        negative_constraints: list[str] | None,
+    ) -> str:
+        clauses = []
+        if category:
+            clauses.append(f"shopper wants {category}")
+        if constraints:
+            clauses.append("needs " + ", ".join(constraints[:5]))
+        if negative_constraints:
+            clauses.append("avoid " + ", ".join(negative_constraints[:4]))
+        return ". ".join(clauses)
+
+    @staticmethod
+    def _semantic_queries(
+        category: str,
+        constraints: list[str],
+        negative_constraints: list[str] | None,
+        query_text: str,
+        route: str,
+    ) -> list[tuple[str, float]]:
+        queries: list[tuple[str, float]] = []
+        category = category.strip()
+        structured = " ".join([category, *constraints]).strip()
+        request = Agent._semantic_request(category, constraints, negative_constraints)
+        exploratory = route in {"browsing", "uncertain"}
+        if query_text.strip():
+            queries.append((query_text.strip(), 0.55 if exploratory else 0.35))
+        if structured:
+            queries.append((structured, 0.35 if exploratory else 0.45))
+        if request:
+            queries.append((request, 0.30 if exploratory else 0.25))
+        if category and constraints:
+            queries.append((f"{category}. {'; '.join(constraints[:4])}", 0.20))
+        elif category:
+            queries.append((category, 0.15))
+        elif constraints:
+            queries.append((" ".join(constraints[:4]), 0.15))
+        if negative_constraints:
+            queries.append((
+                "avoid " + "; ".join(value for value in negative_constraints[:4] if value),
+                -0.12,
+            ))
+        if not queries:
             return []
-        vector = self.model.encode([query], normalize_embeddings=True)[0].astype(np.float32)
-        scores = self.embeddings @ vector
-        limit = min(limit, len(scores))
-        indices = np.argpartition(scores, -limit)[-limit:]
-        indices = indices[np.argsort(scores[indices])[::-1]]
-        return [self.asins[int(index)] for index in indices]
+        totals = sum(abs(weight) for _, weight in queries) or 1.0
+        merged: dict[str, float] = defaultdict(float)
+        for text, weight in queries:
+            cleaned = _normalize(text)
+            if cleaned:
+                merged[cleaned] += weight / totals
+        return [(text, weight) for text, weight in merged.items() if abs(weight) > 1e-9]
+
+    def _dense_scored(
+        self,
+        queries: list[tuple[str, float]],
+        limit: int = 250,
+    ) -> list[tuple[str, float]]:
+        if self.model is None or self.embeddings is None or not queries:
+            return []
+        try:
+            encoded = self.model.encode(
+                [text for text, _ in queries],
+                normalize_embeddings=True,
+            )
+        except Exception:
+            return []
+        weighted_vectors: list[tuple[float, list[float]]] = []
+        if np is not None and hasattr(encoded, "shape"):
+            for (__, weight), vector in zip(queries, encoded, strict=False):
+                weighted_vectors.append((weight, [float(value) for value in vector.tolist()]))
+        else:
+            for (__, weight), vector in zip(queries, encoded, strict=False):
+                weighted_vectors.append((weight, _normalize_vector([float(value) for value in vector])))
+        blended = _blend_vectors(weighted_vectors)
+        if not blended:
+            return []
+        if np is not None and hasattr(self.embeddings, "shape"):
+            scores = self.embeddings @ np.asarray(blended, dtype=np.float32)
+            limit = min(limit, len(scores))
+            if limit <= 0:
+                return []
+            indices = np.argpartition(scores, -limit)[-limit:]
+            indices = indices[np.argsort(scores[indices])[::-1]]
+            return [
+                (self.asins[int(index)], float(scores[int(index)]))
+                for index in indices
+            ]
+        scores = [
+            sum(value * weight for value, weight in zip(vector, blended, strict=False))
+            for vector in self.embeddings
+        ]
+        ranked = sorted(range(len(scores)), key=scores.__getitem__, reverse=True)[:limit]
+        return [(self.asins[index], float(scores[index])) for index in ranked]
+
+    @staticmethod
+    def _should_use_dense(
+        route: str,
+        query_text: str,
+        normalized_groups: list[set[str]],
+        negative_groups: list[set[str]],
+        bm25_scored: list[tuple[str, float]],
+        best_exact: int,
+        complete_match_count: int,
+    ) -> bool:
+        if route in {"browsing", "uncertain"}:
+            return True
+        if not query_text.strip():
+            return False
+        lowered = query_text.casefold()
+        exploratory = any(term in lowered for term in (
+            "something", "ideas", "open to", "not sure", "exploring", "versatile", "everyday",
+        ))
+        if exploratory:
+            return True
+        hard_constraints = len(normalized_groups) + len(negative_groups)
+        if hard_constraints <= 1 and len(_terms(query_text)) >= 5:
+            return True
+        if best_exact < min(2, len(normalized_groups)) and len(_terms(query_text)) >= 4:
+            return True
+        if complete_match_count > 40:
+            return True
+        if len(bm25_scored) < 20:
+            return True
+        if len(bm25_scored) >= 2:
+            first_score, second_score = bm25_scored[0][1], bm25_scored[1][1]
+            bm25_gap = (second_score - first_score) / max(abs(first_score), 1e-9)
+            if bm25_gap < 0.03 and hard_constraints <= 2:
+                return True
+        return False
 
     def rank_with_diagnostics(
         self,
@@ -612,6 +890,7 @@ class Agent:
         negative_constraints: list[str] | None = None,
         user_profile: dict[str, Any] | None = None,
         route: str = "hybrid",
+        query_text: str = "",
     ) -> tuple[list[str], dict[str, float]]:
         profile_tags = tuple(sorted(
             _normalize(str(value)) for value in (user_profile or {}).get("preference_tags", [])
@@ -627,6 +906,7 @@ class Agent:
             tuple(_normalize(value) for value in (negative_constraints or [])),
             profile_key if self.profile_tiebreak else (),
             route,
+            _normalize(query_text),
         )
         cached = self.rank_cache.get(cache_key)
         if cached is not None:
@@ -641,14 +921,26 @@ class Agent:
         query = " ".join([category, *constraints, *expanded_constraints]).strip()
         bm25_scored = self._bm25_scored(query)
         bm25 = [asin for asin, _ in bm25_scored]
-        dense = self._dense(query) if route in {"browsing", "uncertain", "hybrid"} else []
+        semantic_queries = self._semantic_queries(
+            category,
+            constraints,
+            negative_constraints,
+            query_text,
+            route,
+        )
+        dense_scored = self._dense_scored(semantic_queries) if route in {"browsing", "uncertain", "hybrid"} else []
+        dense = [asin for asin, _ in dense_scored]
         bm25_rank = {asin: rank for rank, asin in enumerate(bm25, 1)}
         dense_rank = {asin: rank for rank, asin in enumerate(dense, 1)}
+        dense_scores = {asin: score for asin, score in dense_scored}
         exact_ids: set[str] = set()
         for group in normalized_groups:
             for value in group:
                 exact_ids.update(self.card_index.get(value, set()))
         candidates = set(bm25) | set(dense) | exact_ids
+        requested_categories = self._match_catalog_categories(" ".join([category, query_text, *constraints]))
+        if category:
+            requested_categories.update(_phrase_variants(category))
 
         exact_counts = {
             asin: sum(bool(group & self.cards.get(asin, set())) for group in normalized_groups)
@@ -660,6 +952,21 @@ class Agent:
             sum(count == len(normalized_groups) for count in exact_counts.values())
             if normalized_groups else 0
         )
+        best_exact = max(exact_counts.values(), default=0)
+        use_dense = route in {"browsing", "uncertain", "hybrid"} and self._should_use_dense(
+            route,
+            query_text,
+            normalized_groups,
+            negative_groups,
+            bm25_scored,
+            best_exact,
+            complete_match_count,
+        )
+        if not use_dense:
+            dense_scored = []
+            dense = []
+            dense_rank = {}
+            dense_scores = {}
         if self.cross_encoder is not None and normalized_groups and not has_complete_exact_match:
             cross_candidates = bm25[:50]
             pairs = [
@@ -672,11 +979,21 @@ class Agent:
 
         def key(asin: str) -> tuple[int, float, float, float, float, float, float, float, float]:
             values = self.cards.get(asin, set())
+            category_signatures = self.category_signatures.get(asin, set())
             negative_count = sum(bool(group & values) for group in negative_groups)
             exact_count = exact_counts[asin]
             exact_chars = sum(
                 max((len(value) for value in group if value in values), default=0)
                 for group in normalized_groups
+            )
+            semantic_score = dense_scores.get(asin, float("-inf"))
+            requested_category_match = float(bool(requested_categories & category_signatures))
+            category_focus = -float(len(category_signatures - requested_categories)) if requested_categories else 0.0
+            laptop_fit = float(
+                "fits laptop" in constraints and any(
+                    token in self.documents[self.asin_to_index[asin]].casefold()
+                    for token in ("laptop", "computer", "macbook", "notebook")
+                )
             )
             # RRF makes lexical and dense ranks comparable without score calibration.
             rrf = 1.0 / (60 + bm25_rank.get(asin, 100_000))
@@ -697,9 +1014,13 @@ class Agent:
                 popularity = math.log1p(max(0.0, rating_number))
             buying_key = (
                 -negative_count,
+                requested_category_match,
+                laptop_fit,
+                category_focus,
                 float(exact_count),
                 float(exact_chars),
                 cross_scores.get(asin, float("-inf")),
+                semantic_score,
                 profile_score,
                 rating_fit,
                 popularity,
@@ -707,14 +1028,15 @@ class Agent:
                 -float(bm25_rank.get(asin, 100_000)),
             )
             if route == "browsing":
-                return (-negative_count, rrf, float(exact_count), float(exact_chars), 0.0, 0.0, 0.0, 0.0,
+                return (-negative_count, requested_category_match, laptop_fit, category_focus, semantic_score, rrf, float(exact_count), float(exact_chars), 0.0,
                         -float(bm25_rank.get(asin, 100_000)))
             return buying_key
 
         ranked = sorted(candidates, key=key, reverse=True)
         if route == "browsing":
+            protected = ranked[:3]
             buckets: dict[str, list[str]] = defaultdict(list)
-            for asin in ranked[:100]:
+            for asin in ranked[3:100]:
                 buckets[self.product_groups.get(asin, "other")].append(asin)
             diverse = []
             while buckets:
@@ -722,8 +1044,7 @@ class Agent:
                     diverse.append(buckets[group].pop(0))
                     if not buckets[group]:
                         del buckets[group]
-            ranked = diverse + ranked[100:]
-        best_exact = max(exact_counts.values(), default=0)
+            ranked = protected + diverse + ranked[100:]
         exact_ties = sum(count == best_exact for count in exact_counts.values())
         bm25_gap = 0.0
         if len(bm25_scored) >= 2:
@@ -738,7 +1059,10 @@ class Agent:
             "exact_tie_count": float(exact_ties),
             "complete_match_count": float(complete_match_count),
             "bm25_result_count": float(len(bm25)),
+            "dense_result_count": float(len(dense)),
             "bm25_relative_gap": float(bm25_gap),
+            "semantic_query_count": float(len(semantic_queries)),
+            "dense_enabled": float(use_dense),
         }
         if len(self.rank_cache) >= 4096:
             self.rank_cache.pop(next(iter(self.rank_cache)))
@@ -891,10 +1215,12 @@ class Agent:
         state = self.sessions[session_id]
         if turn == 1:
             category, preference = self._extract_initial(user_message)
-            state["category"] = category
+            state["category"] = self._resolve_catalog_category(user_message, category)
             state["initial_preference"] = preference
-            initial_constraints = self._extract_inline_facets(category)
+            initial_constraints = self._extract_inline_facets(user_message)
             state["initial_constraints"] = initial_constraints
+            if self.typed_slots:
+                self._merge_constraints(state, initial_constraints, False)
 
         new_constraints = self._extract_constraints(user_message)
         structured = StructuredTurn()
@@ -933,7 +1259,7 @@ class Agent:
             ]
             replacement_category = self._extract_override_category(user_message)
             if replacement_category:
-                state["category"] = replacement_category
+                state["category"] = self._resolve_catalog_category(user_message, replacement_category)
             state["seen"].clear()
 
         new_constraints = (
@@ -953,16 +1279,19 @@ class Agent:
         route = self._route_intent(user_message, state, structured.confidence) if self.experimental_router else "hybrid"
         if route == "uncertain":
             buying, diagnostics = self.rank_with_diagnostics(
-                state["category"], state["constraints"], state["negative_constraints"], state["user_profile"], "buying"
+                state["category"], state["constraints"], state["negative_constraints"], state["user_profile"], "buying",
+                user_message,
             )
             browsing, _ = self.rank_with_diagnostics(
-                state["category"], state["constraints"], state["negative_constraints"], state["user_profile"], "browsing"
+                state["category"], state["constraints"], state["negative_constraints"], state["user_profile"], "browsing",
+                user_message,
             )
             buying_weight = structured.confidence if structured.intent == "buying" else 0.5
             ranked = self._fuse_routes(buying, browsing, buying_weight)
         else:
             ranked, diagnostics = self.rank_with_diagnostics(
-                state["category"], state["constraints"], state["negative_constraints"], state["user_profile"], route
+                state["category"], state["constraints"], state["negative_constraints"], state["user_profile"], route,
+                user_message,
             )
         diagnostics["route_buying"] = float(route == "buying")
         diagnostics["route_browsing"] = float(route == "browsing")
