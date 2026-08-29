@@ -297,7 +297,7 @@ class Agent:
         trigram_retrieval: bool = False,
         confidence_topk: bool = False,
         override_soft_retain: bool = False,
-        override_retain_hard: bool = False,
+        override_retain_hard: bool = True,
         popularity_tiebreak: bool = False,
         popularity_gate: int = 10,
         popularity_min_turn: int = 0,

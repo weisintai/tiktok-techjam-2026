@@ -2,7 +2,7 @@
 
 An offline conversational shopping agent that turns multi-turn dialogue into
 typed constraints, preserves intent changes, and retrieves the exact purchased
-Amazon product in an average of `2.97` turns on the released evaluation set.
+Amazon product in an average of `2.945` turns on the released evaluation set.
 
 The scorer-proven path is deterministic: it uses structured session state,
 catalog-derived exact cards, and weighted SQLite FTS5 BM25. The official
@@ -15,34 +15,45 @@ dependency of the submitted agent.
 
 | Evaluation | Hit@10 | MRR | MTTC | TechnicalScore |
 |---|---:|---:|---:|---:|
-| Official public set, 200 sessions | `0.995` | `0.985167` | `2.97` | **`0.95365`** |
-| Deterministic paraphrase stress set | `0.995` | `0.978667` | `2.975` | **`0.95160`** |
-| Unseen-ASIN synthetic validation, 400 sessions | `0.990` | `0.977583` | `3.24` | `0.943475` |
-| Untouched synthetic test, 400 sessions | `0.980` | `0.970792` | `3.1525` | `0.938188` |
+| Official public set, 200 sessions | `0.995` | `0.985167` | `2.945` | **`0.95415`** |
+| Deterministic paraphrase stress set | `0.995` | `0.978667` | `2.950` | **`0.95210`** |
+| Unseen-ASIN synthetic validation, 400 sessions | `0.990` | `0.977583` | `3.205` | `0.944175` |
+| Untouched synthetic test, 400 sessions | `0.980` | `0.970792` | `3.1175` | `0.938888` |
 
 The released BM25 starter achieved Hit@10 `0.125`, MRR `0.068034`, and MTTC
-`9.81`. This agent reaches Hit@10 `0.995`, MRR `0.985167`, and MTTC `2.97`
+`9.81`. This agent reaches Hit@10 `0.995`, MRR `0.985167`, and MTTC `2.945`
 without changing the official evaluator, catalog, labels, or protocol.
 
-### Opt-in ranking flags, public set only
+Override preference retention is enabled by default. It raises every gate above
+by `+0.0005` to `+0.0007`, leaving Hit@10 and MRR untouched on all four and
+improving MTTC alone, so it is a strict efficiency gain rather than a trade.
+`--no-override-retain-hard` restores the previous `0.95365` behaviour.
 
-Two additional retrieval changes are implemented but **off by default**, so
-every number above describes the shipped path. Enabling both raises MRR and
-lowers MTTC together rather than trading one against the other:
+### The popularity tie-break, and why it stays off
 
-| Configuration | Hit@10 | MRR | MTTC | TechnicalScore |
-|---|---:|---:|---:|---:|
-| Default path | `0.995` | `0.985167` | `2.97` | `0.95365` |
-| `--override-retain-hard` | `0.995` | `0.985167` | `2.945` | `0.95415` |
-| Both flags together | `0.995` | `0.989167` | `2.925` | **`0.95575`** |
+`--popularity-tiebreak` reaches `0.95575` on the public set and `0.95450` on
+the stress set, but costs `-0.0229` on the unseen-ASIN synthetic test. The two
+results are not in conflict; they measure different target distributions.
 
-```bash
-.venv/bin/python run_solution.py --override-retain-hard --popularity-tiebreak
-```
+| Gate | Default | `--popularity-tiebreak` | Delta |
+|---|---:|---:|---:|
+| Public set | `0.95415` | `0.95575` | `+0.0016` |
+| Paraphrase stress | `0.95210` | `0.95450` | `+0.0024` |
+| Synthetic validation | `0.944175` | `0.934137` | `-0.0100` |
+| Synthetic test | `0.938888` | `0.915250` | `-0.0237` |
 
-Both stay off pending the stress and ASIN-separated synthetic gates that every
-other accepted experiment cleared. A `+0.0021` margin on a single 200-session
-evaluation does not rule out public overfitting.
+The released sessions are anchored on real purchase records, so their targets
+are heavily popularity-skewed: the median public target sits at the **`0.995`
+percentile** of the catalog by review count, with a median of `6846` reviews
+against a catalog median of `12`, and `86.5%` of targets fall in the catalog's
+most-reviewed decile. The synthetic splits instead emit four sessions for every
+catalog product, so their targets are uniform by construction and a popularity
+prior cannot help there by definition.
+
+The flag therefore stays off. It depends on an assumption about how the private
+sessions were sampled rather than on anything the shopper says, and the private
+distribution cannot be checked. The downside if that assumption fails is an
+order of magnitude larger than the gain if it holds.
 
 ## How it works
 
@@ -106,7 +117,7 @@ Run the public evaluation:
 .venv/bin/python run_solution.py --output results.json
 ```
 
-Expected TechnicalScore: `0.95365` with zero reported model tokens.
+Expected TechnicalScore: `0.95415` with zero reported model tokens.
 
 ## Reproduce the verified checks
 
@@ -120,8 +131,8 @@ Expected TechnicalScore: `0.95365` with zero reported model tokens.
 Expected results:
 
 - Tests: `41/41`
-- Public TechnicalScore: `0.95365`
-- Stress TechnicalScore: `0.95160`
+- Public TechnicalScore: `0.95415`
+- Stress TechnicalScore: `0.95210`
 - Rule-only free-form extraction micro-F1: `0.0583` across 200 seed cases
 - Model calls on released simulator templates: `0`
 
@@ -175,8 +186,8 @@ synthetic gates.
 | Trigram recall and confidence Top-K | Reduced public/stress MRR or smoke TechnicalScore | Rejected |
 | Catalog-trained top-50 reranker | Public/stress unchanged; product-disjoint and frozen free-form tests improved | Validated optional candidate |
 | Top-K widening, 25 counterfactual policies | Every variant below baseline | Rejected |
-| Override preference retention | Public `0.95415`; intent_override MTTC `4.27`→`4.10` | Opt-in, pending stress/synthetic |
-| Turn-gated popularity tie-break | Public `0.95575` combined; MRR and MTTC both improve | Opt-in, pending stress/synthetic |
+| Override preference retention | `+0.0005` to `+0.0007` on all four gates; Hit@10 and MRR unchanged | Accepted, on by default |
+| Turn-gated popularity tie-break | Public `+0.0016`, stress `+0.0024`, synthetic test `-0.0237` | Experimental flag only |
 | Ungated popularity tie-break | Public `0.95300`; MTTC gains lost to MRR | Rejected, superseded by the gated form |
 | Average-rating tie-break | Ranks the target far below review volume, `37` vs `2` in one 150-product block | Rejected, no signal |
 | `"; "` constraint recombination | Public within noise; repairs a real parser fault | Opt-in parser fix |
@@ -237,9 +248,9 @@ runtime.
 
 The remaining competition work should improve candidate recall and target rank
 on unseen products: trace the dense-router regression, calibrate selective
-BM25/vector fusion, and run the two opt-in ranking flags through the stress and
-ASIN-separated synthetic gates so they can either ship or be rejected on the
-same evidence as everything else. Top-K changes no longer need testing; the
+BM25/vector fusion, and find a tie-break for metadata-identical blocks that reads evidence from the
+conversation instead of assuming a target distribution, which is the one thing
+the popularity prior cannot do. Top-K changes no longer need testing; the
 scoring arithmetic above rules them out. More prompt optimization is only
 worthwhile for a post-hackathon human-facing product or if organizers confirm
 free-form hidden messages.

@@ -26,9 +26,10 @@ def main() -> None:
     parser.add_argument("--profile-tiebreak", action="store_true")
     parser.add_argument("--experimental-router", action="store_true")
     parser.add_argument(
-        "--override-retain-hard",
-        action="store_true",
-        help="Re-admit the superseded preference after an override rewrites a slot",
+        "--no-override-retain-hard",
+        dest="override_retain_hard",
+        action="store_false",
+        help="Discard the superseded preference instead of re-admitting it after an override",
     )
     parser.add_argument(
         "--popularity-tiebreak",
