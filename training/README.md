@@ -151,3 +151,15 @@ Score the completed files with the competition metric formula:
 Fixed transcripts do not react to the agent's exact question wording, so this
 is a robustness comparison rather than a replacement for the official dynamic
 simulator.
+
+For a reproducible model-authored stress corpus, first generate assignments and
+then isolate one local Ollama model per packet:
+
+```bash
+.venv/bin/python -m training.prepare_blind_sessions --writers 3 --sessions-per-writer 20
+.venv/bin/python -m training.generate_model_blind_sessions
+shasum -a 256 -c training/model_blind_packets.sha256
+```
+
+The checked-in model corpus uses Qwen3 1.7B, Gemma3 1B and Llama 3.2 1B. It is
+synthetic evidence and must not be described as human-blind evaluation.

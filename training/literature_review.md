@@ -115,3 +115,23 @@ generated boundary tests, not independent purchase-ranking evidence.
 Blind evaluation tooling is provided by `prepare_blind_sessions.py` and
 `evaluate_blind_transcripts.py`. No blind TechnicalScore is reported until
 independent writers complete the generated packets.
+
+### Local-model writer probe
+
+As a substitute for unavailable subagent spawning, three pre-existing local
+Ollama models independently filled 20 disjoint assignments each: Qwen3 1.7B,
+Gemma3 1B and Llama 3.2 1B. They received only scenario instructions and
+product briefs. The resulting 60-session corpus is frozen by
+`model_blind_packets.sha256` and explicitly labeled model-authored.
+
+| Split | Default TechnicalScore | Reference + gated questions |
+|---|---:|---:|
+| Development, 30 | 0.103250 | 0.103250 |
+| Frozen test, 30 | 0.065334 | 0.065334 |
+
+This is an adversarial robustness probe, not a private-score estimate. The
+writers paraphrased raw catalog briefs, while the official simulator reveals
+intent-card constraints in response to agent questions. Fixed transcripts also
+cannot answer the agent's actual clarification wording. The result shows that
+exact-ASIN ranking from unconstrained natural descriptions is a major gap, and
+that the two experimental dialogue features do not address that retrieval gap.
