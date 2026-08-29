@@ -102,6 +102,7 @@ baseline (`0.953650` public, `0.951600` stress).
 | Ungated adaptive questions | 0.946150 | Not run | Rejected at public gate |
 | Answerability-gated questions | 0.953650 | 0.951600 combined below | Keep experimental |
 | Reference feedback plus gated questions | 0.953650 | 0.951600 | Keep experimental |
+| Weighted field-compatibility reranker | Not run | Not run | Rejected on model-authored development |
 
 Browsing-only dense retrieval preserved Hit@10 and MRR but increased browsing
 MTTC from `2.7500` to `2.7625`. Ungated adaptive questions reduced MRR from
@@ -135,3 +136,10 @@ intent-card constraints in response to agent questions. Fixed transcripts also
 cannot answer the agent's actual clarification wording. The result shows that
 exact-ASIN ranking from unconstrained natural descriptions is a major gap, and
 that the two experimental dialogue features do not address that retrieval gap.
+
+A deterministic IDF-weighted compatibility reranker over the top 100 BM25
+candidates was then tested against model-authored development. TechnicalScore
+moved only from `0.103250` to `0.103666`; MRR decreased from `0.081944` to
+`0.081111`, while MTTC improved by `0.0333` turns. The candidate was removed
+before public evaluation because the gain was immaterial and required extra
+per-product field indexes.
