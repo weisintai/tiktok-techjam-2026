@@ -296,6 +296,12 @@ class Agent:
         field_reranker: bool = False,
         trigram_retrieval: bool = False,
         confidence_topk: bool = False,
+        override_soft_retain: bool = False,
+        override_retain_hard: bool = False,
+        popularity_tiebreak: bool = False,
+        popularity_gate: int = 10,
+        popularity_min_turn: int = 0,
+        recombine_constraints: bool = False,
         learned_reranker_path: str | Path | None = None,
     ) -> None:
         self.catalog_path = Path(catalog_path)
@@ -314,6 +320,12 @@ class Agent:
         self.field_reranker = field_reranker
         self.trigram_retrieval = trigram_retrieval
         self.confidence_topk = confidence_topk
+        self.override_soft_retain = override_soft_retain
+        self.override_retain_hard = override_retain_hard
+        self.popularity_tiebreak = popularity_tiebreak
+        self.popularity_gate = popularity_gate
+        self.popularity_min_turn = popularity_min_turn
+        self.recombine_constraints = recombine_constraints
         self.learned_reranker_path = Path(learned_reranker_path) if learned_reranker_path else None
         self.connection = sqlite3.connect(":memory:")
         self.sessions: dict[str, dict[str, Any]] = {}
@@ -620,6 +632,29 @@ class Agent:
             facets.append(f"budget under ${budget.group(1)}")
         return list(dict.fromkeys(facets))
 
+    def _recombine_constraints(self, parts: list[str]) -> list[str]:
+        """Repair constraint values that legitimately contain the "; " separator.
+
+        The shopper joins several requirements with "; ", but a single catalog
+        value may itself contain semicolons ("Solid colors: 100% Cotton; Heather
+        Grey: ..."). Splitting blindly yields fragments that match no product, so
+        adjacent fragments are re-joined whenever the longer span is a real
+        catalog value. Catalog membership, not punctuation, decides the boundary.
+        """
+        if len(parts) < 2:
+            return parts
+        merged: list[str] = []
+        start = 0
+        while start < len(parts):
+            end = start + 1
+            for candidate in range(len(parts), start + 1, -1):
+                if _normalize("; ".join(parts[start:candidate])) in self.card_index:
+                    end = candidate
+                    break
+            merged.append("; ".join(parts[start:end]))
+            start = end
+        return merged
+
     @classmethod
     def _extract_override_constraints(cls, message: str) -> list[str]:
         explicit = cls._extract_constraints(message)
@@ -703,6 +738,7 @@ class Agent:
         user_profile: dict[str, Any] | None = None,
         route: str = "hybrid",
         soft_query: str = "",
+        turn: int = 0,
     ) -> tuple[list[str], dict[str, float]]:
         profile_tags = tuple(sorted(
             _normalize(str(value)) for value in (user_profile or {}).get("preference_tags", [])
@@ -719,6 +755,7 @@ class Agent:
             profile_key if self.profile_tiebreak else (),
             route,
             _normalize(soft_query),
+            turn >= self.popularity_min_turn if self.popularity_tiebreak else False,
         )
         cached = self.rank_cache.get(cache_key)
         if cached is not None:
@@ -764,7 +801,7 @@ class Agent:
                 scores = self.cross_encoder.predict(pairs, batch_size=256, show_progress_bar=False)
                 cross_scores = {asin: float(score) for asin, score in zip(cross_candidates, scores)}
 
-        def key(asin: str) -> tuple[int, float, float, float, float, float, float, float, float]:
+        def key(asin: str) -> tuple[float, ...]:
             values = self.cards.get(asin, set())
             negative_count = sum(bool(group & values) for group in negative_groups)
             exact_count = exact_counts[asin]
@@ -791,10 +828,24 @@ class Agent:
                 if isinstance(prior_rating, (int, float)) and average_rating:
                     rating_fit = -abs(float(prior_rating) - average_rating)
                 popularity = math.log1p(max(0.0, rating_number))
+            # Inside a large block of metadata-identical products the card carries
+            # no further evidence, so lexical order there is arbitrary. The label is
+            # a purchased product, and review volume is the available proxy for
+            # sales volume, which makes it a better prior than an arbitrary tie.
+            tied_popularity = 0.0
+            if (
+                self.popularity_tiebreak
+                and turn >= self.popularity_min_turn
+                and complete_match_count >= self.popularity_gate
+            ):
+                tied_popularity = math.log1p(
+                    max(0.0, self.product_quality.get(asin, (0.0, 0.0))[1])
+                )
             buying_key = (
                 -negative_count,
                 float(exact_count),
                 float(exact_chars),
+                tied_popularity,
                 cross_scores.get(asin, float("-inf")),
                 profile_score,
                 rating_fit,
@@ -803,7 +854,8 @@ class Agent:
                 -float(bm25_rank.get(asin, 100_000)),
             )
             if route == "browsing":
-                return (-negative_count, rrf, float(exact_count), float(exact_chars), 0.0, 0.0, 0.0, 0.0,
+                return (-negative_count, rrf, float(exact_count), float(exact_chars),
+                        tied_popularity, 0.0, 0.0, 0.0, 0.0,
                         -float(bm25_rank.get(asin, 100_000)))
             return buying_key
 
@@ -1166,6 +1218,7 @@ class Agent:
         if override:
             # Confirmed constraints survive; inline values from the original request
             # are superseded before rewritten slots are applied.
+            superseded_preference = _normalize(state.get("initial_preference", ""))
             state["initial_preference"] = ""
             for value in state.get("initial_constraints", []):
                 slot = _constraint_slot(value)
@@ -1180,14 +1233,27 @@ class Agent:
             if replacement_category:
                 state["category"] = replacement_category
             state["seen"].clear()
-            state["soft_queries"] = []
+            # An override re-prioritizes; it does not assert the earlier preference
+            # is false. Demoting it to a soft lexical signal keeps that evidence
+            # available for tie-breaking without letting it filter candidates.
+            state["soft_queries"] = (
+                [superseded_preference]
+                if self.override_soft_retain and superseded_preference
+                else []
+            )
 
         new_constraints = (
             self._extract_override_constraints(user_message)
             if override else self._extract_constraints(user_message)
         )
+        if self.recombine_constraints:
+            new_constraints = self._recombine_constraints(new_constraints)
         if self.typed_slots:
             self._merge_constraints(state, new_constraints, override)
+            if override and self.override_retain_hard and superseded_preference:
+                # Re-admit the superseded preference additively, after the rewritten
+                # slots are in place, so it can never erase the new requirement.
+                self._merge_constraints(state, [superseded_preference], False)
         else:
             state["constraints"].extend(new_constraints)
             state["constraints"] = list(dict.fromkeys(state["constraints"]))
@@ -1216,18 +1282,18 @@ class Agent:
         if route == "uncertain":
             buying, diagnostics = self.rank_with_diagnostics(
                 state["category"], state["constraints"], state["negative_constraints"],
-                state["user_profile"], "buying", soft_query
+                state["user_profile"], "buying", soft_query, turn
             )
             browsing, _ = self.rank_with_diagnostics(
                 state["category"], state["constraints"], state["negative_constraints"],
-                state["user_profile"], "browsing", soft_query
+                state["user_profile"], "browsing", soft_query, turn
             )
             buying_weight = structured.confidence if structured.intent == "buying" else 0.5
             ranked = self._fuse_routes(buying, browsing, buying_weight)
         else:
             ranked, diagnostics = self.rank_with_diagnostics(
                 state["category"], state["constraints"], state["negative_constraints"],
-                state["user_profile"], route, soft_query
+                state["user_profile"], route, soft_query, turn
             )
         diagnostics["route_buying"] = float(route == "buying")
         diagnostics["route_browsing"] = float(route == "browsing")

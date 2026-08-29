@@ -25,6 +25,23 @@ def main() -> None:
     parser.add_argument("--reference-feedback", action="store_true")
     parser.add_argument("--profile-tiebreak", action="store_true")
     parser.add_argument("--experimental-router", action="store_true")
+    parser.add_argument(
+        "--override-retain-hard",
+        action="store_true",
+        help="Re-admit the superseded preference after an override rewrites a slot",
+    )
+    parser.add_argument(
+        "--popularity-tiebreak",
+        action="store_true",
+        help="Break ties inside metadata-identical blocks by catalog review volume",
+    )
+    parser.add_argument("--popularity-gate", type=int, default=10)
+    parser.add_argument("--popularity-min-turn", type=int, default=3)
+    parser.add_argument(
+        "--recombine-constraints",
+        action="store_true",
+        help="Rejoin '; '-split fragments that form a single catalog value",
+    )
     parser.add_argument("--learned-reranker", help="Optional joblib top-50 reranker artifact")
     parser.add_argument(
         "--extractor-model",
@@ -57,6 +74,11 @@ def main() -> None:
         experimental_router=args.experimental_router or args.browsing_dense,
         dense_routes=("browsing",) if args.browsing_dense else ("browsing", "uncertain", "hybrid"),
         reference_feedback=args.reference_feedback,
+        override_retain_hard=args.override_retain_hard,
+        popularity_tiebreak=args.popularity_tiebreak,
+        popularity_gate=args.popularity_gate,
+        popularity_min_turn=args.popularity_min_turn,
+        recombine_constraints=args.recombine_constraints,
         learned_reranker_path=args.learned_reranker,
     )
     result = evaluate(agent, samples, ids, categories, products)
