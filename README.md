@@ -24,6 +24,26 @@ The released BM25 starter achieved Hit@10 `0.125`, MRR `0.068034`, and MTTC
 `9.81`. This agent reaches Hit@10 `0.995`, MRR `0.985167`, and MTTC `2.97`
 without changing the official evaluator, catalog, labels, or protocol.
 
+### Opt-in ranking flags, public set only
+
+Two additional retrieval changes are implemented but **off by default**, so
+every number above describes the shipped path. Enabling both raises MRR and
+lowers MTTC together rather than trading one against the other:
+
+| Configuration | Hit@10 | MRR | MTTC | TechnicalScore |
+|---|---:|---:|---:|---:|
+| Default path | `0.995` | `0.985167` | `2.97` | `0.95365` |
+| `--override-retain-hard` | `0.995` | `0.985167` | `2.945` | `0.95415` |
+| Both flags together | `0.995` | `0.989167` | `2.925` | **`0.95575`** |
+
+```bash
+.venv/bin/python run_solution.py --override-retain-hard --popularity-tiebreak
+```
+
+Both stay off pending the stress and ASIN-separated synthetic gates that every
+other accepted experiment cleared. A `+0.0021` margin on a single 200-session
+evaluation does not rule out public overfitting.
+
 ## How it works
 
 ```text
@@ -99,7 +119,7 @@ Expected TechnicalScore: `0.95365` with zero reported model tokens.
 
 Expected results:
 
-- Tests: `29/29`
+- Tests: `41/41`
 - Public TechnicalScore: `0.95365`
 - Stress TechnicalScore: `0.95160`
 - Rule-only free-form extraction micro-F1: `0.0583` across 200 seed cases
@@ -154,6 +174,38 @@ synthetic gates.
 | Free-form-gated top-100 reranker | Public/stress unchanged; model dev improved; frozen model test neutral | Experimental flag only |
 | Trigram recall and confidence Top-K | Reduced public/stress MRR or smoke TechnicalScore | Rejected |
 | Catalog-trained top-50 reranker | Public/stress unchanged; product-disjoint and frozen free-form tests improved | Validated optional candidate |
+| Top-K widening, 25 counterfactual policies | Every variant below baseline | Rejected |
+| Override preference retention | Public `0.95415`; intent_override MTTC `4.27`→`4.10` | Opt-in, pending stress/synthetic |
+| Turn-gated popularity tie-break | Public `0.95575` combined; MRR and MTTC both improve | Opt-in, pending stress/synthetic |
+| Ungated popularity tie-break | Public `0.95300`; MTTC gains lost to MRR | Rejected, superseded by the gated form |
+| Average-rating tie-break | Ranks the target far below review volume, `37` vs `2` in one 150-product block | Rejected, no signal |
+| `"; "` constraint recombination | Public within noise; repairs a real parser fault | Opt-in parser fix |
+
+### Why the Top-K policy is fixed
+
+The evaluator ends a session at the target's first appearance
+(`evaluator/local_evaluator.py:252`), so each session scores
+`0.50·hit + 0.30·(1/rank) + 0.20·(11−turn)/10` on that turn and gets no second
+attempt. Slipping from rank 1 to rank 2 costs `0.15`, while saving a turn
+returns `0.02`, so a wider list must save seven turns to break even. Replaying
+the public set under 25 alternative policies puts every one of them below the
+`0.95365` reference. The emit-one-until-turn-7 policy is a consequence of that
+arithmetic rather than a tuned parameter.
+
+### Why the popularity tie-break is gated
+
+Once the shopper's constraints are exhausted, hundreds of products can match a
+boilerplate card exactly, and lexical rank no longer distinguishes them. Review
+volume is the available proxy for sales volume, and the label is a purchased
+product: inside those metadata-identical blocks the purchased item sits at
+median percentile `0.071` by review count. Average rating carries no comparable
+signal.
+
+The gates matter more than the signal. Applied from turn 1 the prior overrides
+lexical evidence while that evidence is still informative, which costs more
+than it returns (`-0.00115`). Restricted to `turn >= 3` and to a large
+`complete_match_count`, and ordered directly after the exact-match terms rather
+than behind `profile_score` and `rating_fit`, the same signal returns `+0.0016`.
 
 Detailed diagnostics and ablation reports live in `training/`; raw evaluator
 outputs are retained under `artifacts/evaluations/` and are not needed at
@@ -164,6 +216,16 @@ runtime.
 - Some intent cards describe hundreds of metadata-identical products without
   disclosing the title phrase that distinguishes the purchased item. Any
   tie-breaker then encodes a prior rather than evidence from the conversation.
+  The opt-in popularity tie-break is such a prior. It assumes the labelled
+  purchase is drawn with probability related to sales volume, which is a
+  property of how the sessions were sampled rather than anything the shopper
+  stated.
+- `public_0020` is the single remaining miss. Its card holds a value that itself
+  contains `"; "`, the separator the shopper uses to join requirements, so the
+  parser splits one real value into fragments that match no product and
+  `complete_match_count` collapses to zero. `--recombine-constraints` repairs
+  the parse by preferring the longest span that is a real catalog value; the
+  session still misses, so the parse is necessary but not sufficient.
 - The released simulator is deterministic. The stress and metamorphic harnesses
   test paraphrases and clause order, but they are not a substitute for a large
   independently authored conversation set.
@@ -175,9 +237,17 @@ runtime.
 
 The remaining competition work should improve candidate recall and target rank
 on unseen products: trace the dense-router regression, calibrate selective
-BM25/vector fusion, and test reranking and Top-K changes on ASIN-separated
-validation. More prompt optimization is only worthwhile for a post-hackathon
-human-facing product or if organizers confirm free-form hidden messages.
+BM25/vector fusion, and run the two opt-in ranking flags through the stress and
+ASIN-separated synthetic gates so they can either ship or be rejected on the
+same evidence as everything else. Top-K changes no longer need testing; the
+scoring arithmetic above rules them out. More prompt optimization is only
+worthwhile for a post-hackathon human-facing product or if organizers confirm
+free-form hidden messages.
+
+Score headroom decomposes as Hit@10 `0.0025`, MRR `0.0045`, and efficiency
+`0.0394`. MTTC is therefore worth roughly five times the other two combined,
+and because turns 1 to 6 emit a single product, every hit is already rank 1 —
+so ranking improvements convert directly into earlier turns with no MRR risk.
 
 ## Repository layout
 
