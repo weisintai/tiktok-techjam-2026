@@ -16,6 +16,9 @@ def main() -> None:
     parser.add_argument("--split", choices=("development", "test"))
     parser.add_argument("--reference-feedback", action="store_true")
     parser.add_argument("--adaptive-questions", action="store_true")
+    parser.add_argument("--field-reranker", action="store_true")
+    parser.add_argument("--trigram-retrieval", action="store_true")
+    parser.add_argument("--confidence-topk", action="store_true")
     parser.add_argument("--output")
     args = parser.parse_args()
 
@@ -27,6 +30,9 @@ def main() -> None:
         args.catalog,
         reference_feedback=args.reference_feedback,
         adaptive_questions=args.adaptive_questions,
+        field_reranker=args.field_reranker,
+        trigram_retrieval=args.trigram_retrieval,
+        confidence_topk=args.confidence_topk,
     )
     sessions = []
     grouped: defaultdict[str, list[dict]] = defaultdict(list)

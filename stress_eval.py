@@ -94,6 +94,9 @@ def main() -> None:
     parser.add_argument("--reference-feedback", action="store_true")
     parser.add_argument("--profile-tiebreak", action="store_true")
     parser.add_argument("--experimental-router", action="store_true")
+    parser.add_argument("--field-reranker", action="store_true")
+    parser.add_argument("--trigram-retrieval", action="store_true")
+    parser.add_argument("--confidence-topk", action="store_true")
     args = parser.parse_args()
 
     samples = load_jsonl(args.dataset)
@@ -107,6 +110,9 @@ def main() -> None:
         experimental_router=args.experimental_router or args.browsing_dense,
         dense_routes=("browsing",) if args.browsing_dense else ("browsing", "uncertain", "hybrid"),
         reference_feedback=args.reference_feedback,
+        field_reranker=args.field_reranker,
+        trigram_retrieval=args.trigram_retrieval,
+        confidence_topk=args.confidence_topk,
     )
     result = evaluate(InputTransformAgent(base), samples, ids, categories, products)
     Path(args.output).write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

@@ -127,3 +127,33 @@ high-confidence forms. Unmatched fallback text is kept as bounded soft retrieval
 context rather than promoted to a hard slot. Development state F1 improved from
 `0.8649` to `0.9804`; the uninspected frozen-test aggregate improved from
 `0.8207` to `0.8345`. Public and stress TechnicalScores remained unchanged.
+
+## Gated Ranking and Recall Experiments
+
+Failure tracing motivated three isolated experiments: field-aware reranking of
+the top 100 candidates, SQLite FTS5 trigram recall, and confidence-based early
+Top-K widening. All are reproducible through `training.evaluate_ranking_variants`
+and remain disabled by default.
+
+| Candidate | Public TechnicalScore | Stress TechnicalScore | Model dev | Frozen model test | Decision |
+|---|---:|---:|---:|---:|---|
+| Baseline | 0.953650 | 0.951600 | 0.103250 | 0.065334 | Keep |
+| Ungated field reranker | 0.952600 | 0.953050 | 0.113250 | Not run | Reject |
+| Free-form-gated field reranker | 0.953650 | 0.951600 | 0.113250 | 0.065334 | Experimental only |
+| Trigram retrieval | 0.952500 | 0.950575 | 0.103916 | Not run | Reject |
+| Confidence Top-K widening, 20-session smoke | 0.881000 | Not run | Not run | Not run | Reject |
+
+The free-form gate uses the bounded residual query that is populated only when
+the established parser is not confident. This completely isolates the official
+and paraphrase fast paths. It improved development by `0.010000`, but produced
+no frozen-test improvement, so the gain is not sufficient for promotion.
+
+Trigram retrieval had a high one-time indexing cost and reduced MRR on both
+public and stress evaluations. Early Top-K widening reduced 20-session smoke
+MRR from `0.950000` to `0.816667` while improving MTTC by only `0.35` turns.
+These results reinforce that candidate confidence is not calibrated well enough
+to trade rank precision for earlier exposure.
+
+Decision: no default behavior changed. The next reranking attempt needs a new
+signal that generalizes across transcript writers; further weighting of the same
+lexical and exact-card evidence is unlikely to close the measured gap.

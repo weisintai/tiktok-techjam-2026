@@ -151,6 +151,8 @@ synthetic gates.
 | Dense Buying/Browsing router | Public `0.95355` | Experimental flag only |
 | Profile, title-specificity, popularity tie-breaks | Reduced public and/or stress score | Rejected |
 | Override output widening | Improved MTTC but reduced combined score | Rejected |
+| Free-form-gated top-100 reranker | Public/stress unchanged; model dev improved; frozen model test neutral | Experimental flag only |
+| Trigram recall and confidence Top-K | Reduced public/stress MRR or smoke TechnicalScore | Rejected |
 
 Detailed diagnostics and ablation reports live in `training/`; raw evaluator
 outputs are retained under `artifacts/evaluations/` and are not needed at

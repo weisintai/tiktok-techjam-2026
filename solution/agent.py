@@ -293,6 +293,9 @@ class Agent:
         experimental_router: bool = False,
         dense_routes: tuple[str, ...] = ("browsing", "uncertain", "hybrid"),
         reference_feedback: bool = False,
+        field_reranker: bool = False,
+        trigram_retrieval: bool = False,
+        confidence_topk: bool = False,
     ) -> None:
         self.catalog_path = Path(catalog_path)
         self.model_name = model_name
@@ -307,6 +310,9 @@ class Agent:
         self.experimental_router = experimental_router
         self.dense_routes = frozenset(dense_routes)
         self.reference_feedback = reference_feedback
+        self.field_reranker = field_reranker
+        self.trigram_retrieval = trigram_retrieval
+        self.confidence_topk = confidence_topk
         self.connection = sqlite3.connect(":memory:")
         self.sessions: dict[str, dict[str, Any]] = {}
         self.rank_cache: dict[tuple[object, ...], tuple[list[str], dict[str, float]]] = {}
@@ -392,6 +398,16 @@ class Agent:
         if batch:
             cursor.executemany("INSERT INTO products VALUES (?, ?, ?, ?, ?, ?, ?)", batch)
         self.connection.commit()
+        if self.trigram_retrieval:
+            cursor.execute(
+                "CREATE VIRTUAL TABLE product_trigrams USING fts5("
+                "parent_asin UNINDEXED, document, tokenize='trigram')"
+            )
+            cursor.executemany(
+                "INSERT INTO product_trigrams VALUES (?, ?)",
+                zip(self.asins, self.documents),
+            )
+            self.connection.commit()
         self.catalog_lexicon = CatalogLexicon.from_counts(category_counts, facet_counts)
 
     def _catalog_fingerprint(self) -> str:
@@ -633,6 +649,27 @@ class Agent:
     def _bm25(self, query: str, limit: int = 500) -> list[str]:
         return [asin for asin, _ in self._bm25_scored(query, limit)]
 
+    def _trigram(self, query: str, limit: int = 150) -> list[str]:
+        words = [word for word in _terms(query) if len(word) >= 3]
+        phrases = list(dict.fromkeys([
+            *words,
+            *(f"{left} {right}" for left, right in zip(words, words[1:])),
+        ]))
+        if not phrases:
+            return []
+        # Long residual phrases are most useful for model numbers and compound
+        # product names that token BM25 can bury below its bounded candidate set.
+        expression = " OR ".join(f'"{value}"' for value in phrases[:40])
+        try:
+            rows = self.connection.execute(
+                "SELECT parent_asin FROM product_trigrams WHERE product_trigrams MATCH ? "
+                "ORDER BY bm25(product_trigrams) LIMIT ?",
+                (expression, limit),
+            ).fetchall()
+        except sqlite3.OperationalError:
+            return []
+        return [str(row[0]) for row in rows]
+
     def _dense(self, query: str, limit: int = 250) -> list[str]:
         if self.model is None or self.embeddings is None:
             return []
@@ -681,14 +718,16 @@ class Agent:
         query = " ".join([category, *constraints, *expanded_constraints, soft_query]).strip()
         bm25_scored = self._bm25_scored(query)
         bm25 = [asin for asin, _ in bm25_scored]
+        trigram = self._trigram(query) if self.trigram_retrieval else []
         dense = self._dense(query) if route in self.dense_routes else []
         bm25_rank = {asin: rank for rank, asin in enumerate(bm25, 1)}
+        trigram_rank = {asin: rank for rank, asin in enumerate(trigram, 1)}
         dense_rank = {asin: rank for rank, asin in enumerate(dense, 1)}
         exact_ids: set[str] = set()
         for group in normalized_groups:
             for value in group:
                 exact_ids.update(self.card_index.get(value, set()))
-        candidates = set(bm25) | set(dense) | exact_ids
+        candidates = set(bm25) | set(dense) | set(trigram) | exact_ids
 
         exact_counts = {
             asin: sum(bool(group & self.cards.get(asin, set())) for group in normalized_groups)
@@ -721,6 +760,8 @@ class Agent:
             # RRF makes lexical and dense ranks comparable without score calibration.
             rrf = 1.0 / (60 + bm25_rank.get(asin, 100_000))
             rrf += 1.0 / (60 + dense_rank.get(asin, 100_000))
+            if trigram_rank:
+                rrf += 0.35 / (60 + trigram_rank.get(asin, 100_000))
             profile_score = 0.0
             rating_fit = 0.0
             popularity = 0.0
@@ -752,6 +793,26 @@ class Agent:
             return buying_key
 
         ranked = sorted(candidates, key=key, reverse=True)
+        if self.field_reranker and soft_query and normalized_groups and ranked:
+            query_terms = set(_terms(query))
+            head = ranked[:100]
+            base_rank = {asin: rank for rank, asin in enumerate(head)}
+
+            def compatibility(asin: str) -> tuple[float, float, int]:
+                document_terms = set(_terms(self.documents[self.asin_to_index[asin]]))
+                coverage = len(query_terms & document_terms) / max(1, len(query_terms))
+                slot_coverage = sum(
+                    bool(group & self.cards.get(asin, set())) for group in normalized_groups
+                ) / len(normalized_groups)
+                # The gate limits this signal to candidates with comparable exact
+                # compatibility; lexical coverage resolves ambiguity inside the tier.
+                return (slot_coverage, coverage, -base_rank[asin])
+
+            best_exact = max(exact_counts.values(), default=0)
+            tied = sum(exact_counts[asin] == best_exact for asin in head)
+            if tied >= 4:
+                head.sort(key=compatibility, reverse=True)
+                ranked = head + ranked[100:]
         if route == "browsing":
             buckets: dict[str, list[str]] = defaultdict(list)
             for asin in ranked[:100]:
@@ -778,6 +839,7 @@ class Agent:
             "exact_tie_count": float(exact_ties),
             "complete_match_count": float(complete_match_count),
             "bm25_result_count": float(len(bm25)),
+            "trigram_result_count": float(len(trigram)),
             "bm25_relative_gap": float(bm25_gap),
         }
         if len(self.rank_cache) >= 4096:
@@ -1088,6 +1150,11 @@ class Agent:
         # become avoidable misses.
         if turn >= 10:
             output_limit = 10
+        elif self.confidence_topk and turn <= 6 and (
+            diagnostics.get("exact_tie_count", 0.0) >= 4
+            or diagnostics.get("bm25_relative_gap", 0.0) < 0.01
+        ):
+            output_limit = 3
         elif turn <= 6:
             output_limit = 1
         elif diagnostics.get("complete_match_count", 0.0) > 100:
