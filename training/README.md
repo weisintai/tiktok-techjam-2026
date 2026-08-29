@@ -123,3 +123,31 @@ candidates, but the shipped Qwen model must execute and score them locally.
 Neither DSPy, OpenAI credentials, nor Qwen weights are required for the official
 deterministic evaluator path. Further optimization is deferred unless arbitrary
 free-form private input is confirmed.
+
+## Blind human transcript evaluation
+
+Generate disjoint non-public target assignments for at least three writers:
+
+```bash
+.venv/bin/python -m training.prepare_blind_sessions \
+  --writers 3 --sessions-per-writer 20
+```
+
+Writers fill each record's `turns` with 1-10 natural shopper messages without
+viewing agent code, parser vocabulary, or another writer's messages. Freeze and
+checksum completed files before developers inspect the development half. Never
+inspect test transcripts while selecting a candidate.
+
+Score the completed files with the competition metric formula:
+
+```bash
+.venv/bin/python -m training.evaluate_blind_transcripts \
+  --cases training/blind_packets/writer_*.jsonl --split development
+.venv/bin/python -m training.evaluate_blind_transcripts \
+  --cases training/blind_packets/writer_*.jsonl --split test \
+  --reference-feedback --adaptive-questions
+```
+
+Fixed transcripts do not react to the agent's exact question wording, so this
+is a robustness comparison rather than a replacement for the official dynamic
+simulator.

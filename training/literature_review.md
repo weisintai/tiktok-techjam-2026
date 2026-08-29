@@ -90,3 +90,28 @@ large enough to offset one MTTC turn; otherwise recommend immediately.
 - More manually hardcoded catalog words. Prefer filtered catalog evidence,
   soft retrieval context and independently measured error families.
 
+## Experiment results
+
+Experiments were run after this review against the catalog-grounded robustness
+baseline (`0.953650` public, `0.951600` stress).
+
+| Candidate | Public TechnicalScore | Stress TechnicalScore | Decision |
+|---|---:|---:|---|
+| Router only, lexical retrieval | 0.953650 | Not required | Neutral control |
+| Router plus browsing-only MiniLM dense retrieval | 0.953550 | Not run | Rejected at public gate |
+| Ungated adaptive questions | 0.946150 | Not run | Rejected at public gate |
+| Answerability-gated questions | 0.953650 | 0.951600 combined below | Keep experimental |
+| Reference feedback plus gated questions | 0.953650 | 0.951600 | Keep experimental |
+
+Browsing-only dense retrieval preserved Hit@10 and MRR but increased browsing
+MTTC from `2.7500` to `2.7625`. Ungated adaptive questions reduced MRR from
+`0.985167` to `0.980167` and increased MTTC from `2.97` to `3.27`.
+
+Reference resolution was separately checked on 200 catalog-grounded facet
+references and 89 whole-product similarity references across ordinal and
+numeric forms. Exact resolution was `1.0000` with zero leaked slots. These are
+generated boundary tests, not independent purchase-ranking evidence.
+
+Blind evaluation tooling is provided by `prepare_blind_sessions.py` and
+`evaluate_blind_transcripts.py`. No blind TechnicalScore is reported until
+independent writers complete the generated packets.
