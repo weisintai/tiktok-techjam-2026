@@ -49,6 +49,10 @@ def main() -> None:
         choices=("off", "freeform", "all"),
         default=("freeform",),
     )
+    parser.add_argument(
+        "--learned-reranker-policy", choices=("full", "exact_tier", "blend"), default="full"
+    )
+    parser.add_argument("--learned-reranker-weight", type=float, default=0.4)
     args = parser.parse_args()
 
     samples = load_samples(Path(args.dataset), args.limit)
@@ -72,6 +76,8 @@ def main() -> None:
                     args.catalog,
                     learned_reranker_path=args.learned_reranker,
                     learned_reranker_scope=scope,
+                    learned_reranker_policy=args.learned_reranker_policy,
+                    learned_reranker_weight=args.learned_reranker_weight,
                 ),
                 samples,
                 identifiers,

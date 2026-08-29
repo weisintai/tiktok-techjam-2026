@@ -76,6 +76,39 @@ stress it also reduces Hit@10 to `0.990`. Decision: reject global activation and
 keep `freeform` as the default scope. Reproduce the ablation with
 `--learned-reranker-scope all`; it is not recommended for submission.
 
+## Conservative policy experiments
+
+Three follow-up policies attempted to retain the global model's MTTC gain while
+protecting deterministic rank precision. Selection used product-disjoint
+validation before public evaluation.
+
+| Policy | Product validation MRR | Public MRR | Public MTTC | Public TechnicalScore |
+|---|---:|---:|---:|---:|
+| Deterministic baseline | 0.899078 | 0.985167 | 2.970 | 0.953650 |
+| Full learned reorder | 0.908790 | 0.976417 | 2.880 | 0.952825 |
+| Preserve exact-coverage tiers | 0.908790 | 0.976417 | 2.885 | 0.952725 |
+| 40% learned rank blend | 0.904024 | 0.979500 | 2.925 | 0.952850 |
+| 20% learned rank blend | 0.900697 | 0.981000 | 2.945 | 0.952900 |
+| 10% learned rank blend | 0.899602 | 0.982667 | 2.960 | 0.953100 |
+| 5% learned rank blend | 0.899289 | 0.979750 | 2.965 | 0.952125 |
+
+Exact tiers do not protect public ordering because many official candidates tie
+on exact-card coverage. Every blend loses more MRR than it gains through MTTC.
+Decision: reject global blending and retain full reranking only on free-form
+turns.
+
+An incremental one-, two-, and three-constraint training variant was also
+tested to target early conversion. A small smoke set improved, but the scaled
+product-disjoint validation MRR fell from `0.579651` to `0.515570`. It was
+rejected before public or frozen evaluation, and its generated artifact was not
+retained.
+
+The sole public miss was traced separately. The target remains in the candidate
+pool but settles around rank 256 after disclosure because 530 candidates share
+the same generic catalog evidence and the conversation never reveals its unique
+title phrase. This is an evidence-identifiability failure, not a general
+candidate-recall fix; no target-specific rule was added.
+
 ## Clarification invariant
 
 The official local evaluator ignores the semantic content of the response

@@ -29,6 +29,13 @@ class SolutionParsingTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "off, freeform, or all"):
             Agent("missing-catalog.jsonl", learned_reranker_scope="sometimes")
 
+    def test_learned_reranker_policy_is_validated_before_catalog_loading(self) -> None:
+        with self.assertRaisesRegex(ValueError, "full, exact_tier, or blend"):
+            Agent("missing-catalog.jsonl", learned_reranker_policy="replace_everything")
+
+        with self.assertRaisesRegex(ValueError, "between 0 and 1"):
+            Agent("missing-catalog.jsonl", learned_reranker_weight=1.1)
+
     def test_catalog_lexicon_adds_repeated_safe_categories_and_facets(self) -> None:
         lexicon = CatalogLexicon.from_counts(
             {"Loafers & Slip-Ons": 12, "Women": 100},

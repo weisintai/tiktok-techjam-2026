@@ -32,6 +32,10 @@ def main() -> None:
         default="freeform",
     )
     parser.add_argument(
+        "--learned-reranker-policy", choices=("full", "exact_tier", "blend"), default="full"
+    )
+    parser.add_argument("--learned-reranker-weight", type=float, default=0.4)
+    parser.add_argument(
         "--extractor-model",
         help="Local Hugging Face causal model path/name, e.g. Qwen/Qwen3-0.6B",
     )
@@ -64,6 +68,8 @@ def main() -> None:
         reference_feedback=args.reference_feedback,
         learned_reranker_path=args.learned_reranker,
         learned_reranker_scope=args.learned_reranker_scope,
+        learned_reranker_policy=args.learned_reranker_policy,
+        learned_reranker_weight=args.learned_reranker_weight,
     )
     result = evaluate(agent, samples, ids, categories, products)
     Path(args.output).write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

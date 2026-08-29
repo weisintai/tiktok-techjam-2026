@@ -298,6 +298,8 @@ class Agent:
         confidence_topk: bool = False,
         learned_reranker_path: str | Path | None = None,
         learned_reranker_scope: str = "freeform",
+        learned_reranker_policy: str = "full",
+        learned_reranker_weight: float = 0.4,
     ) -> None:
         self.catalog_path = Path(catalog_path)
         self.model_name = model_name
@@ -319,6 +321,12 @@ class Agent:
         if learned_reranker_scope not in {"off", "freeform", "all"}:
             raise ValueError("learned_reranker_scope must be off, freeform, or all")
         self.learned_reranker_scope = learned_reranker_scope
+        if learned_reranker_policy not in {"full", "exact_tier", "blend"}:
+            raise ValueError("learned_reranker_policy must be full, exact_tier, or blend")
+        if not 0.0 <= learned_reranker_weight <= 1.0:
+            raise ValueError("learned_reranker_weight must be between 0 and 1")
+        self.learned_reranker_policy = learned_reranker_policy
+        self.learned_reranker_weight = learned_reranker_weight
         self.connection = sqlite3.connect(":memory:")
         self.sessions: dict[str, dict[str, Any]] = {}
         self.rank_cache: dict[tuple[object, ...], tuple[list[str], dict[str, float]]] = {}
@@ -847,15 +855,24 @@ class Agent:
             ]
             try:
                 probabilities = self.learned_reranker.predict_proba(features)[:, 1]
+                if self.learned_reranker_policy == "blend":
+                    model_scores = [
+                        (1.0 - self.learned_reranker_weight) / (index + 1)
+                        + self.learned_reranker_weight * float(probability)
+                        for index, probability in enumerate(probabilities)
+                    ]
+                else:
+                    model_scores = [float(value) for value in probabilities]
                 head = [
-                    asin for _, _, _, asin in sorted(
+                    asin for _, _, _, _, asin in sorted(
                         (
                             sum(bool(group & self.cards.get(asin, set())) for group in negative_groups),
-                            -float(probability),
+                            -features[index][2] if self.learned_reranker_policy == "exact_tier" else 0.0,
+                            -model_scores[index],
                             index,
                             asin,
                         )
-                        for index, (asin, probability) in enumerate(zip(head, probabilities))
+                        for index, asin in enumerate(head)
                     )
                 ]
                 ranked = head + ranked[50:]
