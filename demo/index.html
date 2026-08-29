@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shopping Copilot Demo</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">TikTok TechJam 2026 Demo</p>
+        <h1>Shopping Copilot</h1>
+        <p class="lede">
+          Test the shopping copilot with benchmark samples or your own prompts, then inspect
+          the returned products, the Top-10 ranking, and where the correct answer lands.
+        </p>
+        <div class="hero-ribbon">
+          <span class="hero-pill">Local catalog</span>
+          <span class="hero-pill">Top-10 preview</span>
+          <span class="hero-pill">Correct-rank inspector</span>
+        </div>
+      </section>
+
+      <section class="panel controls">
+        <div class="stepbar">
+          <div class="step active">1. Choose mode</div>
+          <div class="step">2. Pick sample or free prompt</div>
+          <div class="step">3. Send message</div>
+        </div>
+        <div class="row row-top">
+          <label>
+            <span>Mode</span>
+            <select id="mode">
+              <option value="baseline">Baseline</option>
+              <option value="dense">Dense Semantic</option>
+            </select>
+          </label>
+          <label>
+            <span>Public Sample</span>
+            <select id="sample-select"></select>
+            <small id="sample-help" class="field-help">Loading benchmark samples...</small>
+          </label>
+          <button id="reset-session" class="accent">Reset Session</button>
+        </div>
+        <div class="row">
+          <div class="quick-panel">
+            <div class="quick-header">
+              <span>Quick Test Prompts</span>
+              <button id="use-starter" class="ghost">Use Sample Starter</button>
+            </div>
+            <div id="prompt-presets" class="preset-grid"></div>
+          </div>
+        </div>
+        <div class="row">
+          <label class="wide">
+            <span>Prompt</span>
+            <textarea id="prompt" rows="4" placeholder="Type a shopper message here, then press Send or Cmd/Ctrl+Enter..."></textarea>
+          </label>
+        </div>
+        <div class="row actions">
+          <div class="tip" id="workflow-tip">
+            Start by choosing a sample. The app creates a session automatically.
+          </div>
+          <button id="send-prompt" class="accent">Send To Bot</button>
+        </div>
+        <p id="status" class="status">Loading demo data...</p>
+        <div id="error-banner" class="error-banner hidden"></div>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <div class="panel-head">
+            <h2>Sample Context</h2>
+            <span id="sample-pill" class="pill">Custom</span>
+          </div>
+          <div id="sample-summary" class="target-card empty">Pick a benchmark sample to see the scenario and user profile summary.</div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <h2>Conversation</h2>
+            <span class="pill">Multi-turn</span>
+          </div>
+          <div id="conversation-log" class="conversation-log">
+            <div class="conversation-empty">Session ready. Your prompts and the bot follow-up will appear here.</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <h2>Ground Truth</h2>
+          <div id="target-card" class="target-card empty">Choose a sample to reveal the correct product.</div>
+          <div class="metrics">
+            <div>
+              <span class="metric-label">Visible rank</span>
+              <strong id="target-rank-visible">-</strong>
+            </div>
+            <div>
+              <span class="metric-label">Overall rank</span>
+              <strong id="target-rank-all">-</strong>
+            </div>
+            <div>
+              <span class="metric-label">Returned now</span>
+              <strong id="target-returned">-</strong>
+            </div>
+            <div>
+              <span class="metric-label">Scenario</span>
+              <strong id="scenario-type">-</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2>Agent State</h2>
+          <pre id="state-box" class="state-box">Start a session to inspect parsed state.</pre>
+          <div id="response-note" class="response-note"></div>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <div class="panel-head">
+            <h2>Returned This Turn</h2>
+            <span id="returned-count" class="pill">0 items</span>
+          </div>
+          <p class="panel-copy">These are the products the competition agent would actually show right now.</p>
+          <ol id="returned-list" class="results"></ol>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <h2>Top 10 Ranked Preview</h2>
+            <span class="pill">Competition context</span>
+          </div>
+          <p class="panel-copy">This reveals the broader ranking context even when the live turn only surfaces Top-1 or Top-3.</p>
+          <ol id="preview-list" class="results"></ol>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <div class="panel-head">
+            <h2>Why It Ranked</h2>
+            <span class="pill">Readable diagnostics</span>
+          </div>
+          <div id="why-box" class="state-box">Send a prompt to see the ranking rationale.</div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <h2>Demo Tips</h2>
+            <span class="pill">Pitch ready</span>
+          </div>
+          <div class="tips-list">
+            <div class="tip-card">Start with a benchmark sample to show the correct target rank live.</div>
+            <div class="tip-card">Then rewrite the prompt in your own words to show robust state tracking.</div>
+            <div class="tip-card">Use an override prompt like “Actually switch to…” to show adaptive updates.</div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

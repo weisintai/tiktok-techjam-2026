@@ -368,7 +368,7 @@ class Agent:
         self.structured_extractor = structured_extractor
         self.extraction_min_confidence = extraction_min_confidence
         self.experimental_router = experimental_router
-        self.connection = sqlite3.connect(":memory:")
+        self.connection = sqlite3.connect(":memory:", check_same_thread=False)
         self.sessions: dict[str, dict[str, Any]] = {}
         self.rank_cache: dict[tuple[object, ...], tuple[list[str], dict[str, float]]] = {}
         self.cards: dict[str, set[str]] = {}

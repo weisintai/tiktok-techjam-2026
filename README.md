@@ -88,6 +88,26 @@ Run the public evaluation:
 
 Expected TechnicalScore: `0.95365` with zero reported model tokens.
 
+## Local demo UI
+
+Run a lightweight local frontend that lets you type prompts, inspect the
+agent's parsed state, and compare the current ranking against a known target
+from the public benchmark set:
+
+```bash
+python3 demo_app.py --port 8000
+```
+
+Then open [http://127.0.0.1:8000](http://127.0.0.1:8000).
+
+The demo supports:
+
+- free-form prompting against the local catalog;
+- selecting a public benchmark sample and loading its official starter prompt;
+- showing the product returned this turn, the current Top-10 ranking preview,
+  and the known correct product's rank; and
+- switching between the baseline path and the optional dense semantic path.
+
 ## Reproduce the verified checks
 
 ```bash
