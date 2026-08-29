@@ -94,6 +94,9 @@ ambiguity-gated Top-K policy. Those differences account for much of main's
 higher MRR and paraphrase robustness.
 
 See `docs/how_it_works.md` for an end-to-end explanation of the runtime pipeline.
+See `docs/branch_comparison.md` for an aligned comparison of main and Shwe,
+including accepted techniques, failure modes, and the recommended convergence
+plan.
 See `docs/project_reference.md` for the consolidated Track 4 brief, architecture,
 rubric mapping, deliverables, and caveats. See `docs/experiment_log.md` for every
 tested hypothesis, including rejected experiments and historical checkpoints.
