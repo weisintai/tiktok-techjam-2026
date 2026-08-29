@@ -68,6 +68,13 @@ Compare the rule parser with a local structured extractor using:
 .venv/bin/python -m training.evaluate_extraction --gguf /path/to/Qwen3-0.6B-Q8_0.gguf
 ```
 
+Train the optional ASIN-disjoint top-50 reranker without public target leakage:
+
+```bash
+.venv/bin/python -m training.train_learned_reranker \
+  --train-products 800 --validation-products 300
+```
+
 Recorded baselines:
 
 - `freeform_rule_baseline.json`: all 200 seed cases, rule-only raw-delta F1

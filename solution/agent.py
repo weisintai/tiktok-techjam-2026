@@ -296,6 +296,7 @@ class Agent:
         field_reranker: bool = False,
         trigram_retrieval: bool = False,
         confidence_topk: bool = False,
+        learned_reranker_path: str | Path | None = None,
     ) -> None:
         self.catalog_path = Path(catalog_path)
         self.model_name = model_name
@@ -313,6 +314,7 @@ class Agent:
         self.field_reranker = field_reranker
         self.trigram_retrieval = trigram_retrieval
         self.confidence_topk = confidence_topk
+        self.learned_reranker_path = Path(learned_reranker_path) if learned_reranker_path else None
         self.connection = sqlite3.connect(":memory:")
         self.sessions: dict[str, dict[str, Any]] = {}
         self.rank_cache: dict[tuple[object, ...], tuple[list[str], dict[str, float]]] = {}
@@ -326,6 +328,7 @@ class Agent:
         self.asin_to_index: dict[str, int] = {}
         self.model = None
         self.cross_encoder = None
+        self.learned_reranker = None
         self.embeddings: np.ndarray | None = None
         self.catalog_lexicon = CatalogLexicon()
         self._build_index()
@@ -333,6 +336,18 @@ class Agent:
             self._load_semantic_index()
         if cross_encoder_name:
             self._load_cross_encoder()
+        if self.learned_reranker_path:
+            self._load_learned_reranker()
+
+    def _load_learned_reranker(self) -> None:
+        try:
+            import joblib
+
+            artifact = joblib.load(self.learned_reranker_path)
+            if artifact.get("schema_version") == 1:
+                self.learned_reranker = artifact["model"]
+        except Exception:
+            self.learned_reranker = None
 
     def _build_index(self) -> None:
         cursor = self.connection.cursor()
@@ -813,6 +828,33 @@ class Agent:
             if tied >= 4:
                 head.sort(key=compatibility, reverse=True)
                 ranked = head + ranked[100:]
+        learned_applied = False
+        if self.learned_reranker is not None and soft_query and len(ranked) >= 2:
+            head = ranked[:50]
+            features = [
+                self._learned_features(
+                    asin, rank, query, category, normalized_groups, negative_groups,
+                    bm25_rank, exact_counts,
+                )
+                for rank, asin in enumerate(head, 1)
+            ]
+            try:
+                probabilities = self.learned_reranker.predict_proba(features)[:, 1]
+                head = [
+                    asin for _, _, _, asin in sorted(
+                        (
+                            sum(bool(group & self.cards.get(asin, set())) for group in negative_groups),
+                            -float(probability),
+                            index,
+                            asin,
+                        )
+                        for index, (asin, probability) in enumerate(zip(head, probabilities))
+                    )
+                ]
+                ranked = head + ranked[50:]
+                learned_applied = True
+            except Exception:
+                pass
         if route == "browsing":
             buckets: dict[str, list[str]] = defaultdict(list)
             for asin in ranked[:100]:
@@ -841,11 +883,61 @@ class Agent:
             "bm25_result_count": float(len(bm25)),
             "trigram_result_count": float(len(trigram)),
             "bm25_relative_gap": float(bm25_gap),
+            "learned_reranker_applied": float(learned_applied),
         }
         if len(self.rank_cache) >= 4096:
             self.rank_cache.pop(next(iter(self.rank_cache)))
         self.rank_cache[cache_key] = (ranked, diagnostics)
         return ranked, diagnostics
+
+    def _learned_features(
+        self,
+        asin: str,
+        baseline_rank: int,
+        query: str,
+        category: str,
+        normalized_groups: list[set[str]],
+        negative_groups: list[set[str]],
+        bm25_rank: dict[str, int],
+        exact_counts: dict[str, int],
+    ) -> list[float]:
+        values = self.cards.get(asin, set())
+        query_terms = set(_terms(query))
+        document_terms = set(_terms(self.documents[self.asin_to_index[asin]]))
+        category_terms = set(_terms(category))
+        group_terms = set(_terms(self.product_groups.get(asin, "")))
+        exact_count = exact_counts.get(asin, 0)
+        negative_count = sum(bool(group & values) for group in negative_groups)
+        exact_chars = sum(
+            max((len(value) for value in group if value in values), default=0)
+            for group in normalized_groups
+        )
+        rare_total = rare_matched = 0.0
+        for group in normalized_groups:
+            rarity = max(
+                (math.log1p(len(self.asins) / max(1, len(self.card_index.get(value, ()))))
+                 for value in group),
+                default=0.0,
+            )
+            rare_total += rarity
+            if group & values:
+                rare_matched += rarity
+        slot_matches = []
+        for slot in ("material", "color", "size", "style", "feature", "use_case"):
+            slot_groups = [group for group in normalized_groups if any(_constraint_slot(v) == slot for v in group)]
+            slot_matches.append(float(bool(slot_groups) and all(group & values for group in slot_groups)))
+        return [
+            1.0 / baseline_rank,
+            1.0 / bm25_rank.get(asin, 100_000),
+            exact_count / max(1, len(normalized_groups)),
+            exact_chars / max(1, sum(max(map(len, group), default=0) for group in normalized_groups)),
+            float(negative_count),
+            len(query_terms & document_terms) / max(1, len(query_terms)),
+            len(query_terms & document_terms) / max(1, len(document_terms)),
+            len(category_terms & group_terms) / max(1, len(category_terms)),
+            rare_matched / max(rare_total, 1e-9),
+            *slot_matches,
+        ]
 
     def _rank(
         self,

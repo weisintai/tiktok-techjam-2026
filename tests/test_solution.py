@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+from pathlib import Path
 from time import sleep
 
 from solution.agent import Agent, OVERRIDE_RE, _constraint_variants, _quarantine_structured_turn
@@ -15,6 +16,15 @@ from stress_eval import transform_message
 
 
 class SolutionParsingTest(unittest.TestCase):
+    def test_missing_learned_reranker_falls_back_without_failure(self) -> None:
+        agent = Agent.__new__(Agent)
+        agent.learned_reranker_path = Path("missing-reranker.joblib")
+        agent.learned_reranker = object()
+
+        agent._load_learned_reranker()
+
+        self.assertIsNone(agent.learned_reranker)
+
     def test_catalog_lexicon_adds_repeated_safe_categories_and_facets(self) -> None:
         lexicon = CatalogLexicon.from_counts(
             {"Loafers & Slip-Ons": 12, "Women": 100},

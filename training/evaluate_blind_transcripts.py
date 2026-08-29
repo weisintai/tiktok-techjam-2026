@@ -19,6 +19,7 @@ def main() -> None:
     parser.add_argument("--field-reranker", action="store_true")
     parser.add_argument("--trigram-retrieval", action="store_true")
     parser.add_argument("--confidence-topk", action="store_true")
+    parser.add_argument("--learned-reranker")
     parser.add_argument("--output")
     args = parser.parse_args()
 
@@ -33,6 +34,7 @@ def main() -> None:
         field_reranker=args.field_reranker,
         trigram_retrieval=args.trigram_retrieval,
         confidence_topk=args.confidence_topk,
+        learned_reranker_path=args.learned_reranker,
     )
     sessions = []
     grouped: defaultdict[str, list[dict]] = defaultdict(list)
