@@ -291,6 +291,8 @@ class Agent:
         structured_extractor: StructuredExtractor | None = None,
         extraction_min_confidence: float = 0.55,
         experimental_router: bool = False,
+        dense_routes: tuple[str, ...] = ("browsing", "uncertain", "hybrid"),
+        reference_feedback: bool = False,
     ) -> None:
         self.catalog_path = Path(catalog_path)
         self.model_name = model_name
@@ -303,6 +305,8 @@ class Agent:
         self.structured_extractor = structured_extractor
         self.extraction_min_confidence = extraction_min_confidence
         self.experimental_router = experimental_router
+        self.dense_routes = frozenset(dense_routes)
+        self.reference_feedback = reference_feedback
         self.connection = sqlite3.connect(":memory:")
         self.sessions: dict[str, dict[str, Any]] = {}
         self.rank_cache: dict[tuple[object, ...], tuple[list[str], dict[str, float]]] = {}
@@ -451,6 +455,7 @@ class Agent:
             "unresolved": set(),
             "show_options_first": False,
             "soft_queries": [],
+            "last_recommendations": [],
             "last_usage": {"prompt_tokens": 0, "completion_tokens": 0},
         }
 
@@ -676,7 +681,7 @@ class Agent:
         query = " ".join([category, *constraints, *expanded_constraints, soft_query]).strip()
         bm25_scored = self._bm25_scored(query)
         bm25 = [asin for asin, _ in bm25_scored]
-        dense = self._dense(query) if route in {"browsing", "uncertain", "hybrid"} else []
+        dense = self._dense(query) if route in self.dense_routes else []
         bm25_rank = {asin: rank for rank, asin in enumerate(bm25, 1)}
         dense_rank = {asin: rank for rank, asin in enumerate(dense, 1)}
         exact_ids: set[str] = set()
@@ -878,11 +883,56 @@ class Agent:
     def _select_question(self, ranked: list[str], state: dict[str, Any]) -> str:
         if not self.adaptive_questions:
             return "other"
-        scores = self._question_scores(ranked, state)
+        unresolved = set(state.get("unresolved", set()))
+        if not unresolved:
+            return "other"
+        scores = {
+            attribute: score
+            for attribute, score in self._question_scores(ranked, state).items()
+            if attribute in unresolved
+        }
         if not scores:
             return "other"
         attribute = max(scores, key=lambda item: (scores[item], item))
         return attribute if scores[attribute] >= 0.35 else "other"
+
+    def _reference_feedback(
+        self, message: str, state: dict[str, Any]
+    ) -> tuple[StructuredTurn, str]:
+        """Resolve explicit ordinal product references without copying hidden facets."""
+        ordinal = re.search(r"\b(first|second|third|1st|2nd|3rd)\b", message, re.I)
+        if not ordinal:
+            return StructuredTurn(), ""
+        positions = {"first": 0, "1st": 0, "second": 1, "2nd": 1, "third": 2, "3rd": 2}
+        shown = state.get("last_recommendations", [])
+        index = positions[ordinal.group(1).casefold()]
+        if index >= len(shown):
+            return StructuredTurn(), ""
+        asin = shown[index]
+        facets = self.card_facets.get(asin, {})
+        lowered = message.casefold()
+        positive = bool(re.search(r"\b(?:like|match|prefer|same|similar|more like)\b", lowered))
+        slot_terms = {
+            "material": ("material", "fabric"),
+            "color": ("color", "colour"),
+            "size": ("size", "fit"),
+            "style": ("style", "design"),
+            "feature": ("feature",),
+            "use_case": ("use", "occasion"),
+        }
+        add: dict[str, list[str]] = {}
+        if positive:
+            for slot, terms in slot_terms.items():
+                if any(re.search(rf"\b{re.escape(term)}\b", lowered) for term in terms):
+                    values = sorted(facets.get(slot, set()))
+                    if values:
+                        add[slot] = values[:4]
+        similarity = bool(re.search(r"\b(?:closer to|more like|similar to)\b", lowered))
+        soft_query = " ".join(sorted(self.cards.get(asin, set()))) if similarity else ""
+        return (
+            StructuredTurn(intent="buying", add=add, confidence=0.9 if add else 0.0),
+            soft_query,
+        )
 
     def _question_message(
         self, ask_attribute: str, ranked: list[str], state: dict[str, Any]
@@ -992,11 +1042,20 @@ class Agent:
         state["negative_constraints"] = list(dict.fromkeys(state["negative_constraints"]))
         if structured.confidence >= self.extraction_min_confidence:
             self._apply_structured_turn(state, structured)
+        reference_turn, reference_query = (
+            self._reference_feedback(user_message, state)
+            if self.reference_feedback else (StructuredTurn(), "")
+        )
+        if reference_turn.confidence >= self.extraction_min_confidence:
+            self._apply_structured_turn(state, reference_turn)
         if not rules_confident:
             soft_queries = state.setdefault("soft_queries", [])
             normalized_message = _normalize(user_message)
             if normalized_message and normalized_message not in soft_queries:
                 soft_queries.append(normalized_message)
+                del soft_queries[:-3]
+            if reference_query and reference_query not in soft_queries:
+                soft_queries.append(reference_query)
                 del soft_queries[:-3]
         soft_query = " ".join(state.get("soft_queries", []))
         route = self._route_intent(user_message, state, structured.confidence) if self.experimental_router else "hybrid"
@@ -1043,6 +1102,7 @@ class Agent:
             if len(recommendations) == min(top_k, output_limit):
                 break
         state["seen"].update(item["parent_asin"] for item in recommendations)
+        state["last_recommendations"] = [item["parent_asin"] for item in recommendations]
         ask_attribute = self._select_question(ranked, state)
         state["asked_attributes"].add(ask_attribute)
         question = self._question_message(ask_attribute, ranked, state)

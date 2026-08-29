@@ -291,6 +291,44 @@ class SolutionParsingTest(unittest.TestCase):
         fused = Agent._fuse_routes(["buy", "shared"], ["browse", "shared"], 0.5)
         self.assertEqual(fused[0], "shared")
 
+    def test_adaptive_question_requires_an_answerable_unresolved_slot(self) -> None:
+        agent = Agent("data/catalog.jsonl", adaptive_questions=True)
+        ranked = agent.asins[:20]
+        state = {
+            "asked_attributes": set(), "no_preference": set(), "unresolved": set(),
+            "user_profile": {}, "seen": set(),
+        }
+
+        self.assertEqual(agent._select_question(ranked, state), "other")
+        state["unresolved"] = {"color"}
+        selected = agent._select_question(ranked, state)
+        self.assertIn(selected, {"color", "other"})
+        agent.connection.close()
+
+    def test_reference_feedback_copies_only_an_explicit_facet(self) -> None:
+        agent = Agent.__new__(Agent)
+        agent.card_facets = {
+            "a": {"material": {"cotton"}, "color": {"color: black"}},
+            "b": {"style": {"casual"}},
+        }
+        agent.cards = {
+            "a": {"cotton", "color: black"},
+            "b": {"casual", "lightweight"},
+        }
+        state = {"last_recommendations": ["a", "b"]}
+
+        facet_turn, facet_query = agent._reference_feedback(
+            "I prefer the same material as the first one.", state
+        )
+        similarity_turn, similarity_query = agent._reference_feedback(
+            "Show me something more like the second one.", state
+        )
+
+        self.assertEqual(facet_turn.add, {"material": ["cotton"]})
+        self.assertEqual(facet_query, "")
+        self.assertFalse(similarity_turn.add)
+        self.assertEqual(similarity_query, "casual lightweight")
+
     def test_structured_payload_validation(self) -> None:
         turn = StructuredTurn.from_payload({
             "intent": "BUYING",

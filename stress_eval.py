@@ -88,8 +88,10 @@ def main() -> None:
     parser.add_argument("--dataset", default="data/public_set.jsonl")
     parser.add_argument("--output", default="stress_results.json")
     parser.add_argument("--dense", action="store_true")
+    parser.add_argument("--browsing-dense", action="store_true")
     parser.add_argument("--cross-encoder", action="store_true")
     parser.add_argument("--adaptive-questions", action="store_true")
+    parser.add_argument("--reference-feedback", action="store_true")
     parser.add_argument("--profile-tiebreak", action="store_true")
     parser.add_argument("--experimental-router", action="store_true")
     args = parser.parse_args()
@@ -98,11 +100,13 @@ def main() -> None:
     ids, categories, products = catalog_index(args.catalog)
     base = Agent(
         args.catalog,
-        model_name="sentence-transformers/all-MiniLM-L6-v2" if args.dense or args.experimental_router else None,
+        model_name="sentence-transformers/all-MiniLM-L6-v2" if args.dense or args.browsing_dense else None,
         cross_encoder_name="cross-encoder/ms-marco-MiniLM-L6-v2" if args.cross_encoder else None,
         adaptive_questions=args.adaptive_questions,
         profile_tiebreak=args.profile_tiebreak,
-        experimental_router=args.experimental_router,
+        experimental_router=args.experimental_router or args.browsing_dense,
+        dense_routes=("browsing",) if args.browsing_dense else ("browsing", "uncertain", "hybrid"),
+        reference_feedback=args.reference_feedback,
     )
     result = evaluate(InputTransformAgent(base), samples, ids, categories, products)
     Path(args.output).write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
