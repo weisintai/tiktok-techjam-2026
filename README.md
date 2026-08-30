@@ -320,7 +320,6 @@ artifacts/evaluations/            archived raw experiment outputs
 evaluator/                        unmodified official evaluator
 data/public_set.jsonl             official 200-session development set
 tests/                            parser, state, evaluator and training checks
-docs/                             challenge contract and team handoff
 ```
 
 ## Technology and cost
@@ -340,14 +339,8 @@ docs/                             challenge contract and team handoff
 
 | Member | Contribution |
 |---|---|
-| Aung Ye Thant Hein | Retrieval and ranking — category resolution, purchase-volume prior, override handling |
+| Aung Ye Thant Hein | Retrieval and ranking - category resolution, purchase-volume prior, override handling |
 | Chue Myat Sandy | Evaluation, ablation experiments, and repo cleanup |
-| Htet Shwe Win Than | Testing — unit, regression, and stress harnesses |
+| Htet Shwe Win Than | Testing unit, regression, and stress harnesses |
 | Tai Wei Sin | Core agent architecture and pipeline |
 | Win Lei Thawdar | Frontend demo console |
-
-## Attribution
-
-See [`DATA_ATTRIBUTION.md`](DATA_ATTRIBUTION.md) for dataset attribution and
-[`docs/competition_specification.md`](docs/competition_specification.md) for the
-official evaluation contract.
