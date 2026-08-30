@@ -1,22 +1,21 @@
 # TechJam Shopping Copilot
 
 An offline conversational shopping agent that turns multi-turn dialogue into
-typed constraints, preserves intent changes, and finds the exact purchased
-Amazon product in an average of `1.995` turns on the released evaluation set.
+typed constraints and finds the exact purchased Amazon product in an average
+of `1.995` turns on the released evaluation set.
 
-The scored path is fully deterministic — structured session state, exact
-catalog-card matches, phrase-level category resolution, weighted SQLite FTS5
-BM25, and a purchase-volume prior for products the conversation can't tell
-apart. It needs no network access, API key, model weight, or token spend. A
-small local model is an optional demo of free-form language understanding,
-not a dependency of the submitted agent.
+The scored path is fully deterministic: structured session state, exact
+catalog-card matches, phrase-level category resolution, weighted BM25, and a
+purchase-volume prior for products the conversation can't tell apart — no
+network access, API key, or token spend required. A small local model is an
+optional demo of free-form language understanding, not a dependency.
 
-Multi-turn product search is where keyword search fails: a shopper who says
-"something warm for winter, not too flashy" can't be served by literal-term
-matching, and every clarifying question that doesn't narrow the catalog wastes
-a turn. This project treats that as a state-tracking problem, not a
-bigger-model problem — the win came from never losing or misapplying what the
-shopper already said, not from adding an LLM to the critical path.
+Keyword search fails multi-turn shopping: a shopper who says "something warm
+for winter, not too flashy" can't be served by literal-term matching, and a
+clarifying question that doesn't narrow the catalog wastes a turn. This is a
+state-tracking problem, not a bigger-model one — the gain came from never
+losing or misapplying what the shopper said, not from adding an LLM to the
+critical path.
 
 ## How this maps to the judging rubric
 
@@ -347,9 +346,17 @@ docs/                             challenge contract and team handoff
 
 ## Team
 
-Team names and contribution ownership are intentionally left for the team to
-confirm before Devpost submission. The proposed allocation and demo checklist
-are in [`docs/team_handoff.md`](docs/team_handoff.md).
+**Sur-Five**
+
+- Aung Ye Thant Hein
+- Chue Myat Sandy
+- Htet Shwe Win Than
+- Tai Wei Sin
+- Win Lei Thawdar
+
+Contribution ownership is being finalized before Devpost submission; the
+proposed allocation and demo checklist are in
+[`docs/team_handoff.md`](docs/team_handoff.md).
 
 ## Attribution
 
