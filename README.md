@@ -17,16 +17,6 @@ state-tracking problem, not a bigger-model one — the gain came from never
 losing or misapplying what the shopper said, not from adding an LLM to the
 critical path.
 
-## How this maps to the judging rubric
-
-| Criterion | Weight | Where the evidence is |
-|---|---:|---|
-| Technical Execution | 35% | [Results](#results) and [Engineering evidence](#engineering-evidence) log every accepted *and* rejected experiment with its measured score. Every number reproduces from a clean checkout; 49/49 unit tests pass. |
-| Innovation & Problem Insight | 20% | [What produced the gain](#what-produced-the-gain): two mechanisms that act only on evidence the shopper gave or a catalog fact every product has, applied in a strict order so neither can override the other. |
-| Impact & Relevance | 20% | The paragraph above states the real failure mode this solves. [Limitations](#limitations) is explicit about where the approach stops working. |
-| Feasibility & Practicality | 15% | Zero network access, API keys, or token spend (see [Technology and cost](#technology-and-cost)). A working [demo console](#demo) runs on the same production `Agent`, not a mock. |
-| Presentation & Communication | 10% | Judged live at the final event; see [`docs/team_handoff.md`](docs/team_handoff.md) for the demo script and Q&A prep. |
-
 ## Results
 
 | Evaluation | Hit@10 | MRR | MTTC | TechnicalScore |
@@ -348,15 +338,13 @@ docs/                             challenge contract and team handoff
 
 **Sur-Five**
 
-- Aung Ye Thant Hein
-- Chue Myat Sandy
-- Htet Shwe Win Than
-- Tai Wei Sin
-- Win Lei Thawdar
-
-Contribution ownership is being finalized before Devpost submission; the
-proposed allocation and demo checklist are in
-[`docs/team_handoff.md`](docs/team_handoff.md).
+| Member | Contribution |
+|---|---|
+| Aung Ye Thant Hein | Retrieval and ranking — category resolution, purchase-volume prior, override handling |
+| Chue Myat Sandy | Evaluation, ablation experiments, and repo cleanup |
+| Htet Shwe Win Than | Testing — unit, regression, and stress harnesses |
+| Tai Wei Sin | Core agent architecture and pipeline |
+| Win Lei Thawdar | Frontend demo console |
 
 ## Attribution
 
