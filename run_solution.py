@@ -22,6 +22,11 @@ def main() -> None:
     )
     parser.add_argument("--cross-encoder", action="store_true")
     parser.add_argument("--adaptive-questions", action="store_true")
+    parser.add_argument(
+        "--ask-plan",
+        default="",
+        help="Comma-separated attributes to ask on the opening turns before falling back to 'other'",
+    )
     parser.add_argument("--reference-feedback", action="store_true")
     parser.add_argument("--profile-tiebreak", action="store_true")
     parser.add_argument("--experimental-router", action="store_true")
@@ -32,16 +37,33 @@ def main() -> None:
         help="Discard the superseded preference instead of re-admitting it after an override",
     )
     parser.add_argument(
-        "--popularity-tiebreak",
-        action="store_true",
-        help="Break ties inside metadata-identical blocks by catalog review volume",
+        "--no-popularity-tiebreak",
+        dest="popularity_tiebreak",
+        action="store_false",
+        help="Disable the purchase-volume prior used to order metadata-identical products",
     )
-    parser.add_argument("--popularity-gate", type=int, default=10)
-    parser.add_argument("--popularity-min-turn", type=int, default=3)
+    parser.add_argument("--popularity-gate", type=int, default=1)
+    parser.add_argument("--popularity-min-turn", type=int, default=1)
+    parser.add_argument("--popularity-weight", type=float, default=5.0)
     parser.add_argument(
-        "--recombine-constraints",
-        action="store_true",
-        help="Rejoin '; '-split fragments that form a single catalog value",
+        "--no-popularity-unconstrained",
+        dest="popularity_unconstrained",
+        action="store_false",
+        help="Withhold the purchase prior on turns where the shopper has stated no constraint",
+    )
+    parser.add_argument(
+        "--no-category-filter",
+        dest="category_filter",
+        action="store_false",
+        help="Disable exact matching of the stated category against the catalog tree",
+    )
+    parser.add_argument("--category-priority", type=float, default=1.0)
+    parser.add_argument("--category-mode", choices=("hard", "tier", "blend"), default="tier")
+    parser.add_argument(
+        "--no-recombine-constraints",
+        dest="recombine_constraints",
+        action="store_false",
+        help="Split shopper requirements on '; ' even when the span is a real catalog value",
     )
     parser.add_argument("--learned-reranker", help="Optional joblib top-50 reranker artifact")
     parser.add_argument(
@@ -78,6 +100,7 @@ def main() -> None:
         model_name="sentence-transformers/all-MiniLM-L6-v2" if args.dense or args.browsing_dense else None,
         cross_encoder_name="cross-encoder/ms-marco-MiniLM-L6-v2" if args.cross_encoder else None,
         adaptive_questions=args.adaptive_questions,
+        ask_plan=tuple(item.strip() for item in args.ask_plan.split(",") if item.strip()),
         profile_tiebreak=args.profile_tiebreak,
         structured_extractor=extractor,
         extraction_min_confidence=args.extraction_min_confidence,
@@ -88,6 +111,11 @@ def main() -> None:
         popularity_tiebreak=args.popularity_tiebreak,
         popularity_gate=args.popularity_gate,
         popularity_min_turn=args.popularity_min_turn,
+        popularity_weight=args.popularity_weight,
+        popularity_unconstrained=args.popularity_unconstrained,
+        category_filter=args.category_filter,
+        category_mode=args.category_mode,
+        category_priority=args.category_priority,
         recombine_constraints=args.recombine_constraints,
         learned_reranker_path=args.learned_reranker,
         learned_reranker_scope=args.learned_reranker_scope,

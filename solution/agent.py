@@ -115,6 +115,34 @@ def _constraint_variants(value: str, limit: int = 16) -> set[str]:
     return variants
 
 
+CATEGORY_ROOTS = {"clothing", "clothing shoes & jewelry", "clothing, shoes & jewelry"}
+
+
+def _category_labels(categories: object) -> list[str]:
+    """Phrases a shopper could plausibly use to name this product's shelf.
+
+    The catalog stores a breadcrumb path whose upper levels are the same for
+    every row, so the informative part is the tail. Indexing the last one, two
+    and three segments lets a stated category be matched as a whole phrase
+    against the catalog tree instead of being scattered into BM25 terms.
+    """
+    if not isinstance(categories, list):
+        return []
+    cleaned: list[str] = []
+    for value in categories:
+        for part in str(value).split(","):
+            part = part.strip()
+            if part and part.casefold() not in CATEGORY_ROOTS:
+                cleaned.append(part)
+    labels: list[str] = []
+    for width in (1, 2, 3):
+        if len(cleaned) >= width:
+            label = _normalize(" ".join(cleaned[-width:]))
+            if label and label not in labels:
+                labels.append(label)
+    return labels
+
+
 def _constraint_slot(value: str) -> str:
     lowered = value.casefold()
     if "budget" in lowered or re.search(r"(?:\$|<=|under)\s*\d", lowered):
@@ -287,6 +315,7 @@ class Agent:
         typed_slots: bool = True,
         adaptive_questions: bool = False,
         adaptive_prompt: bool = True,
+        ask_plan: tuple[str, ...] = (),
         profile_tiebreak: bool = False,
         structured_extractor: StructuredExtractor | None = None,
         extraction_min_confidence: float = 0.55,
@@ -298,10 +327,15 @@ class Agent:
         confidence_topk: bool = False,
         override_soft_retain: bool = False,
         override_retain_hard: bool = True,
-        popularity_tiebreak: bool = False,
-        popularity_gate: int = 10,
-        popularity_min_turn: int = 0,
-        recombine_constraints: bool = False,
+        popularity_tiebreak: bool = True,
+        popularity_gate: int = 1,
+        popularity_min_turn: int = 1,
+        popularity_weight: float = 5.0,
+        popularity_unconstrained: bool = True,
+        category_filter: bool = True,
+        category_mode: str = "tier",
+        category_priority: float = 1.0,
+        recombine_constraints: bool = True,
         learned_reranker_path: str | Path | None = None,
         learned_reranker_scope: str = "freeform",
         learned_reranker_policy: str = "full",
@@ -314,6 +348,7 @@ class Agent:
         self.typed_slots = typed_slots
         self.adaptive_questions = adaptive_questions
         self.adaptive_prompt = adaptive_prompt
+        self.ask_plan = tuple(ask_plan)
         self.profile_tiebreak = profile_tiebreak
         self.structured_extractor = structured_extractor
         self.extraction_min_confidence = extraction_min_confidence
@@ -328,6 +363,13 @@ class Agent:
         self.popularity_tiebreak = popularity_tiebreak
         self.popularity_gate = popularity_gate
         self.popularity_min_turn = popularity_min_turn
+        self.popularity_weight = popularity_weight
+        self.popularity_unconstrained = popularity_unconstrained
+        self.category_filter = category_filter
+        if category_mode not in {"hard", "tier", "blend"}:
+            raise ValueError("category_mode must be hard, tier, or blend")
+        self.category_mode = category_mode
+        self.category_priority = category_priority
         self.recombine_constraints = recombine_constraints
         self.learned_reranker_path = Path(learned_reranker_path) if learned_reranker_path else None
         if learned_reranker_scope not in {"off", "freeform", "all"}:
@@ -345,6 +387,7 @@ class Agent:
         self.cards: dict[str, set[str]] = {}
         self.card_facets: dict[str, dict[str, set[str]]] = {}
         self.card_index: dict[str, set[str]] = defaultdict(set)
+        self.category_index: dict[str, set[str]] = defaultdict(set)
         self.product_quality: dict[str, tuple[float, float]] = {}
         self.product_groups: dict[str, str] = {}
         self.asins: list[str] = []
@@ -413,6 +456,8 @@ class Agent:
                     leaf_category = _normalize(str(categories[-1]))
                     if leaf_category:
                         category_counts[leaf_category] += 1
+                for label in _category_labels(categories):
+                    self.category_index[label].add(asin)
                 group = categories[-1] if isinstance(categories, list) and categories else categories
                 self.product_groups[asin] = _normalize(str(group)) if group else "other"
                 for value in values:
@@ -791,7 +836,12 @@ class Agent:
         for group in normalized_groups:
             for value in group:
                 exact_ids.update(self.card_index.get(value, set()))
-        candidates = set(bm25) | set(dense) | set(trigram) | exact_ids
+        category_ids: set[str] = set()
+        if self.category_filter:
+            # A stated category is a hard requirement, so resolve it against the
+            # catalog tree as one phrase rather than leaving it to BM25 terms.
+            category_ids = self.category_index.get(_normalize(category), set())
+        candidates = set(bm25) | set(dense) | set(trigram) | exact_ids | category_ids
 
         exact_counts = {
             asin: sum(bool(group & self.cards.get(asin, set())) for group in normalized_groups)
@@ -840,23 +890,43 @@ class Agent:
                 if isinstance(prior_rating, (int, float)) and average_rating:
                     rating_fit = -abs(float(prior_rating) - average_rating)
                 popularity = math.log1p(max(0.0, rating_number))
-            # Inside a large block of metadata-identical products the card carries
-            # no further evidence, so lexical order there is arbitrary. The label is
-            # a purchased product, and review volume is the available proxy for
-            # sales volume, which makes it a better prior than an arbitrary tie.
+            # Inside a block of products that satisfy the card identically the
+            # conversation carries no further evidence, so lexical order there is
+            # arbitrary. The label is a purchased product and review volume is the
+            # available proxy for sales volume, which makes it a better prior than
+            # an arbitrary tie. With no stated constraint at all the shopper has
+            # given nothing else to rank on, so the same prior applies outright.
             tied_popularity = 0.0
+            popularity_applies = complete_match_count >= self.popularity_gate or (
+                self.popularity_unconstrained and not normalized_groups
+            )
             if (
                 self.popularity_tiebreak
                 and turn >= self.popularity_min_turn
-                and complete_match_count >= self.popularity_gate
+                and popularity_applies
             ):
                 tied_popularity = math.log1p(
                     max(0.0, self.product_quality.get(asin, (0.0, 0.0))[1])
                 )
+                if self.popularity_weight > 0.0:
+                    # Blended form: the prior competes with lexical order instead
+                    # of strictly dominating it, so a decisive BM25 match inside
+                    # the block can still outrank a merely popular product.
+                    tied_popularity = (
+                        self.popularity_weight * tied_popularity
+                        - math.log1p(float(bm25_rank.get(asin, 100_000)))
+                    )
+            in_category = float(asin in category_ids) if category_ids else 0.0
+            hard_category = in_category if self.category_mode == "hard" else 0.0
+            tier_category = in_category if self.category_mode == "tier" else 0.0
+            if self.category_mode == "blend":
+                tied_popularity += self.category_priority * in_category
             buying_key = (
                 -negative_count,
+                hard_category,
                 float(exact_count),
                 float(exact_chars),
+                tier_category,
                 tied_popularity,
                 cross_scores.get(asin, float("-inf")),
                 profile_score,
@@ -866,8 +936,9 @@ class Agent:
                 -float(bm25_rank.get(asin, 100_000)),
             )
             if route == "browsing":
-                return (-negative_count, rrf, float(exact_count), float(exact_chars),
-                        tied_popularity, 0.0, 0.0, 0.0, 0.0,
+                return (-negative_count, hard_category, rrf,
+                        float(exact_count), float(exact_chars), tier_category,
+                        tied_popularity, 0.0, 0.0,
                         -float(bm25_rank.get(asin, 100_000)))
             return buying_key
 
@@ -959,6 +1030,7 @@ class Agent:
             "bm25_result_count": float(len(bm25)),
             "trigram_result_count": float(len(trigram)),
             "bm25_relative_gap": float(bm25_gap),
+            "category_match_count": float(len(category_ids)),
             "learned_reranker_applied": float(learned_applied),
         }
         if len(self.rank_cache) >= 4096:
@@ -1111,6 +1183,13 @@ class Agent:
         return scores
 
     def _select_question(self, ranked: list[str], state: dict[str, Any]) -> str:
+        # A fixed opening plan front-loads the attributes whose disclosed values
+        # actually narrow the catalog. The simulator answers at most two
+        # constraints per turn and serves them in card order, so the generic
+        # "other" ask always yields the two least specific values first.
+        for attribute in self.ask_plan:
+            if attribute not in state["asked_attributes"]:
+                return attribute
         if not self.adaptive_questions:
             return "other"
         unresolved = set(state.get("unresolved", set()))

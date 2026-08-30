@@ -4,7 +4,13 @@ import unittest
 from pathlib import Path
 from time import sleep
 
-from solution.agent import Agent, OVERRIDE_RE, _constraint_variants, _quarantine_structured_turn
+from solution.agent import (
+    Agent,
+    OVERRIDE_RE,
+    _category_labels,
+    _constraint_variants,
+    _quarantine_structured_turn,
+)
 from solution.extraction import (
     CatalogLexicon,
     StructuredTurn,
@@ -483,6 +489,76 @@ class SolutionParsingTest(unittest.TestCase):
             ["color: white", "casual"],
         )
         self.assertEqual(Agent._extract_override_category(message), "sneakers")
+
+
+
+class CategoryResolutionTest(unittest.TestCase):
+    def test_category_labels_index_the_informative_tail_of_the_breadcrumb(self) -> None:
+        labels = _category_labels(
+            ["Clothing, Shoes & Jewelry", "Women", "Clothing", "Tops, Tees & Blouses", "T-Shirts"]
+        )
+
+        # Breadcrumbs are comma-split, the catalog-wide "Clothing" root is
+        # dropped, and the tail is indexed at three widths so a shopper naming
+        # the shelf loosely or precisely resolves either way.
+        self.assertEqual(
+            labels,
+            ["t-shirts", "tees & blouses t-shirts", "tops tees & blouses t-shirts"],
+        )
+
+    def test_category_labels_ignore_missing_or_malformed_breadcrumbs(self) -> None:
+        self.assertEqual(_category_labels(None), [])
+        self.assertEqual(_category_labels([]), [])
+        self.assertEqual(_category_labels(["Clothing"]), [])
+
+    def test_category_mode_is_validated_before_catalog_loading(self) -> None:
+        with self.assertRaisesRegex(ValueError, "hard, tier, or blend"):
+            Agent("missing-catalog.jsonl", category_mode="whenever")
+
+
+class PurchasePriorTest(unittest.TestCase):
+    """The prior orders products only where the shopper has given nothing else."""
+
+    def _ranked(self, **options: object) -> list[str]:
+        agent = Agent.__new__(Agent)
+        agent.__dict__.update(
+            popularity_tiebreak=True, popularity_min_turn=1, popularity_gate=1,
+            popularity_weight=5.0, popularity_unconstrained=True,
+            category_filter=False, category_mode="tier", category_priority=1.0,
+            profile_tiebreak=False, trigram_retrieval=False, field_reranker=False,
+            learned_reranker=None, learned_reranker_scope="off", cross_encoder=None,
+            dense_routes=frozenset(), rank_cache={},
+            cards={"POPULAR": {"cotton"}, "NICHE": {"cotton"}, "OTHER": {"wool"}},
+            card_index={"cotton": {"POPULAR", "NICHE"}, "wool": {"OTHER"}},
+            category_index={},
+            product_quality={"POPULAR": (4.1, 9000.0), "NICHE": (4.9, 3.0), "OTHER": (4.5, 50000.0)},
+            product_groups={}, asin_to_index={}, documents=[],
+        )
+        # A fixed lexical order that disagrees with the prior isolates its effect.
+        agent._bm25_scored = lambda query, limit=500: [
+            ("NICHE", -1.0), ("POPULAR", -0.9), ("OTHER", -0.8)
+        ]
+        ranked, _ = agent.rank_with_diagnostics(**options)
+        return ranked
+
+    def test_review_volume_outranks_lexical_order_inside_a_tied_block(self) -> None:
+        ranked = self._ranked(category="shirts", constraints=["cotton"], turn=1)
+
+        # Both products satisfy the stated constraint identically, so BM25 order
+        # between them is arbitrary and the purchase prior decides.
+        self.assertEqual(ranked[:2], ["POPULAR", "NICHE"])
+
+    def test_the_prior_never_promotes_a_product_that_fails_a_constraint(self) -> None:
+        ranked = self._ranked(category="shirts", constraints=["cotton"], turn=1)
+
+        # OTHER is the most-reviewed product here and still ranks last, because
+        # stated evidence is ordered ahead of the prior.
+        self.assertEqual(ranked[-1], "OTHER")
+
+    def test_the_prior_orders_candidates_when_nothing_has_been_stated(self) -> None:
+        ranked = self._ranked(category="shirts", constraints=[], turn=1)
+
+        self.assertEqual(ranked[0], "OTHER")
 
 
 if __name__ == "__main__":
