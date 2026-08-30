@@ -17,6 +17,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LandingScreen } from "@/components/landing-screen";
 import { metrics, quickPrompts } from "@/lib/demo-data";
 
 type LiveProduct = {
@@ -62,6 +63,7 @@ const shopperSteps = [
 ];
 
 export default function Home() {
+  const [showLanding, setShowLanding] = useState(true);
   const [input, setInput] = useState(starterPrompt);
   const [sessionId, setSessionId] = useState(() => `demo-${Date.now()}`);
   const [turn, setTurn] = useState(1);
@@ -134,6 +136,10 @@ export default function Home() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     void sendMessage();
+  }
+
+  if (showLanding) {
+    return <LandingScreen onStart={() => setShowLanding(false)} />;
   }
 
   return (
