@@ -23,15 +23,22 @@ def load_products(path: str | Path) -> dict[str, dict]:
     return products
 
 
-def query_for(product: dict) -> tuple[str, list[str], str]:
+def queries_for(product: dict, states_per_product: int) -> list[tuple[str, list[str], str]]:
     card = intent_card(product)
     categories = [str(value) for value in product.get("categories") or []]
     category = coarse_category(categories)
     constraints = [
         str(value) for value in [*card["hard_constraints"], *card["soft_preferences"]]
     ]
-    query = f"I need {category} suitable for " + ", ".join(constraints)
-    return category, constraints, query
+    if states_per_product == 0:
+        query = f"I need {category} suitable for " + ", ".join(constraints)
+        return [(category, constraints, query)]
+    states = []
+    for count in range(1, min(len(constraints), states_per_product) + 1):
+        visible = constraints[:count]
+        query = f"I need {category} suitable for " + ", ".join(visible)
+        states.append((category, visible, query))
+    return states
 
 
 def candidate_features(
@@ -65,6 +72,7 @@ def collect(
     quarantine: set[str],
     limit: int,
     negatives: int,
+    states_per_product: int,
 ) -> tuple[list[list[float]], list[int], list[tuple[str, list[str], list[list[float]]]]]:
     rows: list[list[float]] = []
     labels: list[int] = []
@@ -73,16 +81,16 @@ def collect(
     for asin, product in products.items():
         if asin in quarantine or split_for_asin(asin) != split:
             continue
-        category, constraints, query = query_for(product)
-        candidates, features = candidate_features(agent, category, constraints, query)
-        if asin not in candidates:
-            queries.append((asin, candidates, features))
-        else:
-            target_index = candidates.index(asin)
-            selected = [target_index, *[i for i in range(len(candidates)) if i != target_index][:negatives]]
-            rows.extend(features[index] for index in selected)
-            labels.extend(int(index == target_index) for index in selected)
-            queries.append((asin, candidates, features))
+        for category, constraints, query in queries_for(product, states_per_product):
+            candidates, features = candidate_features(agent, category, constraints, query)
+            if asin not in candidates:
+                queries.append((asin, candidates, features))
+            else:
+                target_index = candidates.index(asin)
+                selected = [target_index, *[i for i in range(len(candidates)) if i != target_index][:negatives]]
+                rows.extend(features[index] for index in selected)
+                labels.extend(int(index == target_index) for index in selected)
+                queries.append((asin, candidates, features))
         count += 1
         if count >= limit:
             break
@@ -128,6 +136,10 @@ def main() -> None:
     parser.add_argument("--train-products", type=int, default=1500)
     parser.add_argument("--validation-products", type=int, default=500)
     parser.add_argument("--negatives", type=int, default=12)
+    parser.add_argument(
+        "--states-per-product", type=int, default=0,
+        help="0 trains on the full intent card; positive values train on incremental prefixes",
+    )
     args = parser.parse_args()
 
     products = load_products(args.catalog)
@@ -136,7 +148,8 @@ def main() -> None:
     }
     agent = Agent(args.catalog)
     x_train, y_train, _ = collect(
-        agent, products, "train", quarantine, args.train_products, args.negatives
+        agent, products, "train", quarantine, args.train_products, args.negatives,
+        args.states_per_product,
     )
     model = HistGradientBoostingClassifier(
         learning_rate=0.06,
@@ -149,7 +162,8 @@ def main() -> None:
     weights = np.where(np.asarray(y_train) == 1, float(args.negatives), 1.0)
     model.fit(x_train, y_train, sample_weight=weights)
     _, _, validation_queries = collect(
-        agent, products, "validation", quarantine, args.validation_products, args.negatives
+        agent, products, "validation", quarantine, args.validation_products, args.negatives,
+        args.states_per_product,
     )
     report = {
         "schema_version": 1,
@@ -158,6 +172,7 @@ def main() -> None:
         "validation_products": len(validation_queries),
         "training_rows": len(y_train),
         "positive_rows": sum(y_train),
+        "states_per_product": args.states_per_product,
         "validation": ranking_metrics(model, validation_queries),
     }
     output = Path(args.output)

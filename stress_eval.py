@@ -98,6 +98,13 @@ def main() -> None:
     parser.add_argument("--trigram-retrieval", action="store_true")
     parser.add_argument("--confidence-topk", action="store_true")
     parser.add_argument("--learned-reranker")
+    parser.add_argument(
+        "--learned-reranker-scope", choices=("off", "freeform", "all"), default="freeform"
+    )
+    parser.add_argument(
+        "--learned-reranker-policy", choices=("full", "exact_tier", "blend"), default="full"
+    )
+    parser.add_argument("--learned-reranker-weight", type=float, default=0.4)
     args = parser.parse_args()
 
     samples = load_jsonl(args.dataset)
@@ -115,6 +122,9 @@ def main() -> None:
         trigram_retrieval=args.trigram_retrieval,
         confidence_topk=args.confidence_topk,
         learned_reranker_path=args.learned_reranker,
+        learned_reranker_scope=args.learned_reranker_scope,
+        learned_reranker_policy=args.learned_reranker_policy,
+        learned_reranker_weight=args.learned_reranker_weight,
     )
     result = evaluate(InputTransformAgent(base), samples, ids, categories, products)
     Path(args.output).write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
