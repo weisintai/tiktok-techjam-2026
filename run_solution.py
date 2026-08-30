@@ -20,6 +20,12 @@ def main() -> None:
     parser.add_argument("--profile-tiebreak", action="store_true")
     parser.add_argument("--experimental-router", action="store_true")
     parser.add_argument(
+        "--dense-rrf-weight",
+        type=float,
+        default=1.0,
+        help="Weight applied to the dense term in browsing/uncertain RRF fusion (0 keeps dense for candidate recall only, not ranking)",
+    )
+    parser.add_argument(
         "--extractor-model",
         help="Local Hugging Face causal model path/name, e.g. Qwen/Qwen3-0.6B",
     )
@@ -48,6 +54,7 @@ def main() -> None:
         structured_extractor=extractor,
         extraction_min_confidence=args.extraction_min_confidence,
         experimental_router=args.experimental_router,
+        dense_rrf_weight=args.dense_rrf_weight,
     )
     result = evaluate(agent, samples, ids, categories, products)
     Path(args.output).write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

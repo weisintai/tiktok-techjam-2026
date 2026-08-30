@@ -92,6 +92,12 @@ def main() -> None:
     parser.add_argument("--adaptive-questions", action="store_true")
     parser.add_argument("--profile-tiebreak", action="store_true")
     parser.add_argument("--experimental-router", action="store_true")
+    parser.add_argument(
+        "--dense-rrf-weight",
+        type=float,
+        default=1.0,
+        help="Weight applied to the dense term in browsing/uncertain RRF fusion (0 keeps dense for candidate recall only, not ranking)",
+    )
     args = parser.parse_args()
 
     samples = load_jsonl(args.dataset)
@@ -103,6 +109,7 @@ def main() -> None:
         adaptive_questions=args.adaptive_questions,
         profile_tiebreak=args.profile_tiebreak,
         experimental_router=args.experimental_router,
+        dense_rrf_weight=args.dense_rrf_weight,
     )
     result = evaluate(InputTransformAgent(base), samples, ids, categories, products)
     Path(args.output).write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

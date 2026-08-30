@@ -285,6 +285,7 @@ class Agent:
         structured_extractor: StructuredExtractor | None = None,
         extraction_min_confidence: float = 0.55,
         experimental_router: bool = False,
+        dense_rrf_weight: float = 1.0,
     ) -> None:
         self.catalog_path = Path(catalog_path)
         self.model_name = model_name
@@ -297,6 +298,7 @@ class Agent:
         self.structured_extractor = structured_extractor
         self.extraction_min_confidence = extraction_min_confidence
         self.experimental_router = experimental_router
+        self.dense_rrf_weight = dense_rrf_weight
         self.connection = sqlite3.connect(":memory:")
         self.sessions: dict[str, dict[str, Any]] = {}
         self.rank_cache: dict[tuple[object, ...], tuple[list[str], dict[str, float]]] = {}
@@ -680,7 +682,7 @@ class Agent:
             )
             # RRF makes lexical and dense ranks comparable without score calibration.
             rrf = 1.0 / (60 + bm25_rank.get(asin, 100_000))
-            rrf += 1.0 / (60 + dense_rank.get(asin, 100_000))
+            rrf += self.dense_rrf_weight / (60 + dense_rank.get(asin, 100_000))
             profile_score = 0.0
             rating_fit = 0.0
             popularity = 0.0

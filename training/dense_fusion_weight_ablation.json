@@ -1,0 +1,41 @@
+{
+  "hypothesis": "The --experimental-router public regression documented in router_ablation_results.json (0.95365 -> 0.95355) is caused by a single identifiable session, and equal-weight RRF fusion of BM25 and dense ranks is the specific mechanism.",
+  "root_cause_trace": {
+    "method": "Diffed per-session first_hit_turn/best_rank between the default agent and --experimental-router (with dense installed) on the public set; exactly one session differed.",
+    "session": "public_0134",
+    "scenario_type": "browsing",
+    "target": "B081SF3QRL",
+    "query_turn_1": "Piercing Jewelry Tunnels",
+    "target_rank_bm25_only": 1,
+    "target_rank_dense_only": "not in top 200",
+    "target_rank_after_equal_weight_rrf_fusion": 43,
+    "target_rank_after_diversity_bucketing": 92,
+    "explanation": "The target is a decisive BM25 leader (rank 1) for a narrow, specific category phrase, but the MiniLM dense encoder does not retrieve it in its own top 200. Equal-weight RRF still lets competitor products that rank moderately on both BM25 and dense out-score a BM25-only leader, because RRF sums independent per-source terms rather than protecting a confident single-source winner. Product-group diversity bucketing then compounds the demotion further, though the miss at output_limit=1 is already determined by the fusion step alone."
+  },
+  "change": "Added an optional dense_rrf_weight parameter (Agent constructor, --dense-rrf-weight CLI flag on run_solution.py and stress_eval.py) that scales the dense term in the intra-route RRF sum: rrf = 1/(60+bm25_rank) + dense_rrf_weight/(60+dense_rank). Default remains 1.0 (no behavior change to any existing documented result). At weight 0.0, dense retrieval still contributes candidates to the pool (recall) but no longer influences ranking order, so a decisive BM25 leader can no longer be displaced by fusion.",
+  "datasets": ["public_set (200)", "paraphrase stress (200)", "ASIN-separated synthetic validation (400, training/generated/validation.jsonl.gz)"],
+  "results": {
+    "public": {
+      "weight_1.0_current": 0.95355,
+      "weight_0.5": 0.95355,
+      "weight_0.0": 0.95365,
+      "no_dense_baseline": 0.95365,
+      "note": "public_0134 hits at turn 1 rank 1 (same as baseline) only at weight 0.0; weights 0.2-0.8 still miss at turn 1 despite the target's fused rank improving monotonically with lower weight (43 -> 34 -> 23 -> 17 -> 11 -> 8 -> 7 -> 4 -> 3 -> 2 -> 1 at weight 0.0), because output_limit=1 requires an exact rank-1 match on early turns."
+    },
+    "stress": {
+      "weight_1.0_current": 0.9516,
+      "weight_0.0": 0.9516,
+      "no_dense_baseline": 0.9516,
+      "note": "Router was never regressed on stress; weight change has no effect either direction."
+    },
+    "asin_separated_validation_400": {
+      "weight_1.0_current": 0.943425,
+      "weight_0.5": 0.943425,
+      "weight_0.0": 0.943375,
+      "no_dense_baseline": 0.943475,
+      "note": "Router+dense already trails the deterministic default by ~0.00005-0.0001 here regardless of weight (likely noise at n=400); weight 0.0 is marginally worse than weight 1.0 on this split, the opposite direction from the public-set effect."
+    }
+  },
+  "decision": "retain_experimental",
+  "reason": "dense_rrf_weight=0.0 fully and reproducibly eliminates the one known public regression with zero cost on stress, so it is a strict improvement to the --experimental-router path specifically on the public promotion gate. It does not, however, make --experimental-router beat the deterministic default on the ASIN-separated validation set, so this does not change the standing recommendation to keep the deterministic path as the submission default. The value of this experiment is a definitive, mechanistic root-cause explanation for a previously unexplained regression (closing the Priority 1 investigation in improvement_roadmap.md) plus a reusable, documented, zero-risk-by-default tuning knob (--dense-rrf-weight, default 1.0) for anyone continuing router work."
+}
