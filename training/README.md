@@ -68,6 +68,13 @@ Compare the rule parser with a local structured extractor using:
 .venv/bin/python -m training.evaluate_extraction --gguf /path/to/Qwen3-0.6B-Q8_0.gguf
 ```
 
+Train the optional ASIN-disjoint top-50 reranker without public target leakage:
+
+```bash
+.venv/bin/python -m training.train_learned_reranker \
+  --train-products 800 --validation-products 300
+```
+
 Recorded baselines:
 
 - `freeform_rule_baseline.json`: all 200 seed cases, rule-only raw-delta F1
@@ -79,8 +86,87 @@ Recorded baselines:
   development candidate, with applied-state F1 `0.6822` and false-addition rate
   `0.5283`; it was rejected for runtime promotion.
 
+### Independent free-form corpus
+
+`independent_freeform_cases.jsonl` adds 60 messages written after the current
+extractor was implemented. It covers indirect preferences, no-preference
+statements, replacements, removals, exclusions, category switches, unresolved
+constraints, browse-first requests, conflicts, references, and deliberately
+unknown vocabulary. The 20 `development` cases may be inspected while changing
+the extractor. The 40 `test` cases are frozen and must be evaluated without
+`--show-failures`; do not inspect or tune against individual test failures.
+
+The frozen file SHA256 is recorded in `independent_freeform_cases.sha256`.
+This is a stronger temporal holdout than the seed corpus, but it still has one
+author and therefore is not evidence of multi-user language generalization.
+
+Main-versus-hybrid extraction A/B using the same frozen cases and scorer:
+
+| Extractor | Split | Cases | Exact state | State precision | State recall | State F1 | False additions |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Main legacy rules | Development | 20 | 0.0500 | 0.5926 | 0.4211 | 0.4923 | 0.9000 |
+| Hybrid fallback | Development | 20 | 0.9000 | 0.9740 | 0.9868 | 0.9804 | 0.1081 |
+| Main legacy rules | Frozen test | 40 | 0.1000 | 0.6091 | 0.4589 | 0.5234 | 0.9500 |
+| Hybrid fallback | Frozen test | 40 | 0.3750 | 0.8403 | 0.8288 | 0.8345 | 0.2466 |
+
+The frozen test was rerun without failure diagnostics only after the development
+candidate was selected. Its state F1 remains below the seed test (`0.8782`) and
+is retained as the honest robustness result. The `+0.3111` frozen-test
+state-F1 improvement over legacy rules measures intent extraction only;
+it is not an official end-to-end TechnicalScore delta. `--extractor legacy`
+reproduces the original main rule extractor for future A/B runs.
+
+```bash
+.venv/bin/python -m training.evaluate_extraction \
+  --cases training/independent_freeform_cases.jsonl --split development
+.venv/bin/python -m training.evaluate_extraction \
+  --cases training/independent_freeform_cases.jsonl --split test --extractor both \
+  --output artifacts/evaluations/independent_freeform_test_baseline.json
+shasum -a 256 -c training/independent_freeform_cases.sha256
+```
+
 DSPy prompt generation is an offline experiment. OpenAI may propose prompt
 candidates, but the shipped Qwen model must execute and score them locally.
 Neither DSPy, OpenAI credentials, nor Qwen weights are required for the official
 deterministic evaluator path. Further optimization is deferred unless arbitrary
 free-form private input is confirmed.
+
+## Blind human transcript evaluation
+
+Generate disjoint non-public target assignments for at least three writers:
+
+```bash
+.venv/bin/python -m training.prepare_blind_sessions \
+  --writers 3 --sessions-per-writer 20
+```
+
+Writers fill each record's `turns` with 1-10 natural shopper messages without
+viewing agent code, parser vocabulary, or another writer's messages. Freeze and
+checksum completed files before developers inspect the development half. Never
+inspect test transcripts while selecting a candidate.
+
+Score the completed files with the competition metric formula:
+
+```bash
+.venv/bin/python -m training.evaluate_blind_transcripts \
+  --cases training/blind_packets/writer_*.jsonl --split development
+.venv/bin/python -m training.evaluate_blind_transcripts \
+  --cases training/blind_packets/writer_*.jsonl --split test \
+  --reference-feedback --adaptive-questions
+```
+
+Fixed transcripts do not react to the agent's exact question wording, so this
+is a robustness comparison rather than a replacement for the official dynamic
+simulator.
+
+For a reproducible model-authored stress corpus, first generate assignments and
+then isolate one local Ollama model per packet:
+
+```bash
+.venv/bin/python -m training.prepare_blind_sessions --writers 3 --sessions-per-writer 20
+.venv/bin/python -m training.generate_model_blind_sessions
+shasum -a 256 -c training/model_blind_packets.sha256
+```
+
+The checked-in model corpus uses Qwen3 1.7B, Gemma3 1B and Llama 3.2 1B. It is
+synthetic evidence and must not be described as human-blind evaluation.

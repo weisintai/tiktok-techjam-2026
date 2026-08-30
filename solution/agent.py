@@ -13,7 +13,13 @@ from typing import Any
 import numpy as np
 
 from evaluator.local_evaluator import intent_card
-from solution.extraction import SLOT_NAMES, StructuredExtractor, StructuredTurn
+from solution.extraction import (
+    CatalogLexicon,
+    SLOT_NAMES,
+    StructuredExtractor,
+    StructuredTurn,
+    extract_deterministic_turn,
+)
 
 
 TOKEN_RE = re.compile(r"[a-z0-9]+", re.I)
@@ -107,6 +113,34 @@ def _constraint_variants(value: str, limit: int = 16) -> set[str]:
                 expanded.update(variant.replace(source, target) for target in targets)
         variants = set(sorted(expanded)[:limit])
     return variants
+
+
+CATEGORY_ROOTS = {"clothing", "clothing shoes & jewelry", "clothing, shoes & jewelry"}
+
+
+def _category_labels(categories: object) -> list[str]:
+    """Phrases a shopper could plausibly use to name this product's shelf.
+
+    The catalog stores a breadcrumb path whose upper levels are the same for
+    every row, so the informative part is the tail. Indexing the last one, two
+    and three segments lets a stated category be matched as a whole phrase
+    against the catalog tree instead of being scattered into BM25 terms.
+    """
+    if not isinstance(categories, list):
+        return []
+    cleaned: list[str] = []
+    for value in categories:
+        for part in str(value).split(","):
+            part = part.strip()
+            if part and part.casefold() not in CATEGORY_ROOTS:
+                cleaned.append(part)
+    labels: list[str] = []
+    for width in (1, 2, 3):
+        if len(cleaned) >= width:
+            label = _normalize(" ".join(cleaned[-width:]))
+            if label and label not in labels:
+                labels.append(label)
+    return labels
 
 
 def _constraint_slot(value: str) -> str:
@@ -281,10 +315,31 @@ class Agent:
         typed_slots: bool = True,
         adaptive_questions: bool = False,
         adaptive_prompt: bool = True,
+        ask_plan: tuple[str, ...] = (),
         profile_tiebreak: bool = False,
         structured_extractor: StructuredExtractor | None = None,
         extraction_min_confidence: float = 0.55,
         experimental_router: bool = False,
+        dense_routes: tuple[str, ...] = ("browsing", "uncertain", "hybrid"),
+        reference_feedback: bool = False,
+        field_reranker: bool = False,
+        trigram_retrieval: bool = False,
+        confidence_topk: bool = False,
+        override_soft_retain: bool = False,
+        override_retain_hard: bool = True,
+        popularity_tiebreak: bool = True,
+        popularity_gate: int = 1,
+        popularity_min_turn: int = 1,
+        popularity_weight: float = 5.0,
+        popularity_unconstrained: bool = True,
+        category_filter: bool = True,
+        category_mode: str = "tier",
+        category_priority: float = 1.0,
+        recombine_constraints: bool = True,
+        learned_reranker_path: str | Path | None = None,
+        learned_reranker_scope: str = "freeform",
+        learned_reranker_policy: str = "full",
+        learned_reranker_weight: float = 0.4,
     ) -> None:
         self.catalog_path = Path(catalog_path)
         self.model_name = model_name
@@ -293,16 +348,46 @@ class Agent:
         self.typed_slots = typed_slots
         self.adaptive_questions = adaptive_questions
         self.adaptive_prompt = adaptive_prompt
+        self.ask_plan = tuple(ask_plan)
         self.profile_tiebreak = profile_tiebreak
         self.structured_extractor = structured_extractor
         self.extraction_min_confidence = extraction_min_confidence
         self.experimental_router = experimental_router
+        self.dense_routes = frozenset(dense_routes)
+        self.reference_feedback = reference_feedback
+        self.field_reranker = field_reranker
+        self.trigram_retrieval = trigram_retrieval
+        self.confidence_topk = confidence_topk
+        self.override_soft_retain = override_soft_retain
+        self.override_retain_hard = override_retain_hard
+        self.popularity_tiebreak = popularity_tiebreak
+        self.popularity_gate = popularity_gate
+        self.popularity_min_turn = popularity_min_turn
+        self.popularity_weight = popularity_weight
+        self.popularity_unconstrained = popularity_unconstrained
+        self.category_filter = category_filter
+        if category_mode not in {"hard", "tier", "blend"}:
+            raise ValueError("category_mode must be hard, tier, or blend")
+        self.category_mode = category_mode
+        self.category_priority = category_priority
+        self.recombine_constraints = recombine_constraints
+        self.learned_reranker_path = Path(learned_reranker_path) if learned_reranker_path else None
+        if learned_reranker_scope not in {"off", "freeform", "all"}:
+            raise ValueError("learned_reranker_scope must be off, freeform, or all")
+        self.learned_reranker_scope = learned_reranker_scope
+        if learned_reranker_policy not in {"full", "exact_tier", "blend"}:
+            raise ValueError("learned_reranker_policy must be full, exact_tier, or blend")
+        if not 0.0 <= learned_reranker_weight <= 1.0:
+            raise ValueError("learned_reranker_weight must be between 0 and 1")
+        self.learned_reranker_policy = learned_reranker_policy
+        self.learned_reranker_weight = learned_reranker_weight
         self.connection = sqlite3.connect(":memory:")
         self.sessions: dict[str, dict[str, Any]] = {}
         self.rank_cache: dict[tuple[object, ...], tuple[list[str], dict[str, float]]] = {}
         self.cards: dict[str, set[str]] = {}
         self.card_facets: dict[str, dict[str, set[str]]] = {}
         self.card_index: dict[str, set[str]] = defaultdict(set)
+        self.category_index: dict[str, set[str]] = defaultdict(set)
         self.product_quality: dict[str, tuple[float, float]] = {}
         self.product_groups: dict[str, str] = {}
         self.asins: list[str] = []
@@ -310,12 +395,26 @@ class Agent:
         self.asin_to_index: dict[str, int] = {}
         self.model = None
         self.cross_encoder = None
+        self.learned_reranker = None
         self.embeddings: np.ndarray | None = None
+        self.catalog_lexicon = CatalogLexicon()
         self._build_index()
         if model_name:
             self._load_semantic_index()
         if cross_encoder_name:
             self._load_cross_encoder()
+        if self.learned_reranker_path:
+            self._load_learned_reranker()
+
+    def _load_learned_reranker(self) -> None:
+        try:
+            import joblib
+
+            artifact = joblib.load(self.learned_reranker_path)
+            if artifact.get("schema_version") == 1:
+                self.learned_reranker = artifact["model"]
+        except Exception:
+            self.learned_reranker = None
 
     def _build_index(self) -> None:
         cursor = self.connection.cursor()
@@ -325,6 +424,8 @@ class Agent:
             "tokenize='unicode61 remove_diacritics 2')"
         )
         batch = []
+        category_counts: Counter[str] = Counter()
+        facet_counts: dict[str, Counter[str]] = defaultdict(Counter)
         with self.catalog_path.open(encoding="utf-8") as handle:
             for line in handle:
                 product = json.loads(line)
@@ -337,7 +438,9 @@ class Agent:
                 self.cards[asin] = values
                 facets: dict[str, set[str]] = defaultdict(set)
                 for value in values:
-                    facets[_constraint_slot(value)].add(value)
+                    slot = _constraint_slot(value)
+                    facets[slot].add(value)
+                    facet_counts[slot][value] += 1
                 self.card_facets[asin] = dict(facets)
                 try:
                     average_rating = float(product.get("average_rating") or 0.0)
@@ -349,6 +452,12 @@ class Agent:
                     rating_number = 0.0
                 self.product_quality[asin] = (average_rating, rating_number)
                 categories = product.get("categories", [])
+                if isinstance(categories, list) and categories:
+                    leaf_category = _normalize(str(categories[-1]))
+                    if leaf_category:
+                        category_counts[leaf_category] += 1
+                for label in _category_labels(categories):
+                    self.category_index[label].add(asin)
                 group = categories[-1] if isinstance(categories, list) and categories else categories
                 self.product_groups[asin] = _normalize(str(group)) if group else "other"
                 for value in values:
@@ -373,6 +482,17 @@ class Agent:
         if batch:
             cursor.executemany("INSERT INTO products VALUES (?, ?, ?, ?, ?, ?, ?)", batch)
         self.connection.commit()
+        if self.trigram_retrieval:
+            cursor.execute(
+                "CREATE VIRTUAL TABLE product_trigrams USING fts5("
+                "parent_asin UNINDEXED, document, tokenize='trigram')"
+            )
+            cursor.executemany(
+                "INSERT INTO product_trigrams VALUES (?, ?)",
+                zip(self.asins, self.documents),
+            )
+            self.connection.commit()
+        self.catalog_lexicon = CatalogLexicon.from_counts(category_counts, facet_counts)
 
     def _catalog_fingerprint(self) -> str:
         stat = self.catalog_path.stat()
@@ -431,6 +551,11 @@ class Agent:
             "initial_constraints": [],
             "user_profile": dict(user_profile),
             "inferred_intent": "unknown",
+            "no_preference": set(),
+            "unresolved": set(),
+            "show_options_first": False,
+            "soft_queries": [],
+            "last_recommendations": [],
             "last_usage": {"prompt_tokens": 0, "completion_tokens": 0},
         }
 
@@ -441,6 +566,7 @@ class Agent:
         return bool(
             constraints
             or "but i'm still exploring" in lowered
+            or "though i haven't settled on the details" in lowered
             or "don't have a preference for" in lowered
             or "don't have an additional preference for" in lowered
             or "those options are not quite right yet" in lowered
@@ -482,6 +608,18 @@ class Agent:
             for value in values:
                 if value not in state["negative_constraints"]:
                     state["negative_constraints"].append(value)
+        no_preference = state.setdefault("no_preference", set())
+        no_preference.difference_update(turn.add)
+        no_preference.update(turn.no_preference)
+        for slot in turn.no_preference:
+            state["slots"][slot] = []
+        state["constraints"] = [
+            value for slot in SLOT_NAMES for value in state["slots"].get(slot, [])
+        ]
+        unresolved = state.setdefault("unresolved", set())
+        unresolved.difference_update(turn.add)
+        unresolved.update(turn.unresolved)
+        state["show_options_first"] = state.get("show_options_first", False) or turn.show_options_first
 
     @staticmethod
     def _extract_initial(message: str) -> tuple[str, str]:
@@ -551,6 +689,29 @@ class Agent:
             facets.append(f"budget under ${budget.group(1)}")
         return list(dict.fromkeys(facets))
 
+    def _recombine_constraints(self, parts: list[str]) -> list[str]:
+        """Repair constraint values that legitimately contain the "; " separator.
+
+        The shopper joins several requirements with "; ", but a single catalog
+        value may itself contain semicolons ("Solid colors: 100% Cotton; Heather
+        Grey: ..."). Splitting blindly yields fragments that match no product, so
+        adjacent fragments are re-joined whenever the longer span is a real
+        catalog value. Catalog membership, not punctuation, decides the boundary.
+        """
+        if len(parts) < 2:
+            return parts
+        merged: list[str] = []
+        start = 0
+        while start < len(parts):
+            end = start + 1
+            for candidate in range(len(parts), start + 1, -1):
+                if _normalize("; ".join(parts[start:candidate])) in self.card_index:
+                    end = candidate
+                    break
+            merged.append("; ".join(parts[start:end]))
+            start = end
+        return merged
+
     @classmethod
     def _extract_override_constraints(cls, message: str) -> list[str]:
         explicit = cls._extract_constraints(message)
@@ -595,6 +756,27 @@ class Agent:
     def _bm25(self, query: str, limit: int = 500) -> list[str]:
         return [asin for asin, _ in self._bm25_scored(query, limit)]
 
+    def _trigram(self, query: str, limit: int = 150) -> list[str]:
+        words = [word for word in _terms(query) if len(word) >= 3]
+        phrases = list(dict.fromkeys([
+            *words,
+            *(f"{left} {right}" for left, right in zip(words, words[1:])),
+        ]))
+        if not phrases:
+            return []
+        # Long residual phrases are most useful for model numbers and compound
+        # product names that token BM25 can bury below its bounded candidate set.
+        expression = " OR ".join(f'"{value}"' for value in phrases[:40])
+        try:
+            rows = self.connection.execute(
+                "SELECT parent_asin FROM product_trigrams WHERE product_trigrams MATCH ? "
+                "ORDER BY bm25(product_trigrams) LIMIT ?",
+                (expression, limit),
+            ).fetchall()
+        except sqlite3.OperationalError:
+            return []
+        return [str(row[0]) for row in rows]
+
     def _dense(self, query: str, limit: int = 250) -> list[str]:
         if self.model is None or self.embeddings is None:
             return []
@@ -612,6 +794,8 @@ class Agent:
         negative_constraints: list[str] | None = None,
         user_profile: dict[str, Any] | None = None,
         route: str = "hybrid",
+        soft_query: str = "",
+        turn: int = 0,
     ) -> tuple[list[str], dict[str, float]]:
         profile_tags = tuple(sorted(
             _normalize(str(value)) for value in (user_profile or {}).get("preference_tags", [])
@@ -627,6 +811,8 @@ class Agent:
             tuple(_normalize(value) for value in (negative_constraints or [])),
             profile_key if self.profile_tiebreak else (),
             route,
+            _normalize(soft_query),
+            turn >= self.popularity_min_turn if self.popularity_tiebreak else False,
         )
         cached = self.rank_cache.get(cache_key)
         if cached is not None:
@@ -638,17 +824,24 @@ class Agent:
         expanded_constraints = list(dict.fromkeys(
             variant for group in normalized_groups for variant in group
         ))
-        query = " ".join([category, *constraints, *expanded_constraints]).strip()
+        query = " ".join([category, *constraints, *expanded_constraints, soft_query]).strip()
         bm25_scored = self._bm25_scored(query)
         bm25 = [asin for asin, _ in bm25_scored]
-        dense = self._dense(query) if route in {"browsing", "uncertain", "hybrid"} else []
+        trigram = self._trigram(query) if self.trigram_retrieval else []
+        dense = self._dense(query) if route in self.dense_routes else []
         bm25_rank = {asin: rank for rank, asin in enumerate(bm25, 1)}
+        trigram_rank = {asin: rank for rank, asin in enumerate(trigram, 1)}
         dense_rank = {asin: rank for rank, asin in enumerate(dense, 1)}
         exact_ids: set[str] = set()
         for group in normalized_groups:
             for value in group:
                 exact_ids.update(self.card_index.get(value, set()))
-        candidates = set(bm25) | set(dense) | exact_ids
+        category_ids: set[str] = set()
+        if self.category_filter:
+            # A stated category is a hard requirement, so resolve it against the
+            # catalog tree as one phrase rather than leaving it to BM25 terms.
+            category_ids = self.category_index.get(_normalize(category), set())
+        candidates = set(bm25) | set(dense) | set(trigram) | exact_ids | category_ids
 
         exact_counts = {
             asin: sum(bool(group & self.cards.get(asin, set())) for group in normalized_groups)
@@ -670,7 +863,7 @@ class Agent:
                 scores = self.cross_encoder.predict(pairs, batch_size=256, show_progress_bar=False)
                 cross_scores = {asin: float(score) for asin, score in zip(cross_candidates, scores)}
 
-        def key(asin: str) -> tuple[int, float, float, float, float, float, float, float, float]:
+        def key(asin: str) -> tuple[float, ...]:
             values = self.cards.get(asin, set())
             negative_count = sum(bool(group & values) for group in negative_groups)
             exact_count = exact_counts[asin]
@@ -681,6 +874,8 @@ class Agent:
             # RRF makes lexical and dense ranks comparable without score calibration.
             rrf = 1.0 / (60 + bm25_rank.get(asin, 100_000))
             rrf += 1.0 / (60 + dense_rank.get(asin, 100_000))
+            if trigram_rank:
+                rrf += 0.35 / (60 + trigram_rank.get(asin, 100_000))
             profile_score = 0.0
             rating_fit = 0.0
             popularity = 0.0
@@ -695,10 +890,44 @@ class Agent:
                 if isinstance(prior_rating, (int, float)) and average_rating:
                     rating_fit = -abs(float(prior_rating) - average_rating)
                 popularity = math.log1p(max(0.0, rating_number))
+            # Inside a block of products that satisfy the card identically the
+            # conversation carries no further evidence, so lexical order there is
+            # arbitrary. The label is a purchased product and review volume is the
+            # available proxy for sales volume, which makes it a better prior than
+            # an arbitrary tie. With no stated constraint at all the shopper has
+            # given nothing else to rank on, so the same prior applies outright.
+            tied_popularity = 0.0
+            popularity_applies = complete_match_count >= self.popularity_gate or (
+                self.popularity_unconstrained and not normalized_groups
+            )
+            if (
+                self.popularity_tiebreak
+                and turn >= self.popularity_min_turn
+                and popularity_applies
+            ):
+                tied_popularity = math.log1p(
+                    max(0.0, self.product_quality.get(asin, (0.0, 0.0))[1])
+                )
+                if self.popularity_weight > 0.0:
+                    # Blended form: the prior competes with lexical order instead
+                    # of strictly dominating it, so a decisive BM25 match inside
+                    # the block can still outrank a merely popular product.
+                    tied_popularity = (
+                        self.popularity_weight * tied_popularity
+                        - math.log1p(float(bm25_rank.get(asin, 100_000)))
+                    )
+            in_category = float(asin in category_ids) if category_ids else 0.0
+            hard_category = in_category if self.category_mode == "hard" else 0.0
+            tier_category = in_category if self.category_mode == "tier" else 0.0
+            if self.category_mode == "blend":
+                tied_popularity += self.category_priority * in_category
             buying_key = (
                 -negative_count,
+                hard_category,
                 float(exact_count),
                 float(exact_chars),
+                tier_category,
+                tied_popularity,
                 cross_scores.get(asin, float("-inf")),
                 profile_score,
                 rating_fit,
@@ -707,11 +936,72 @@ class Agent:
                 -float(bm25_rank.get(asin, 100_000)),
             )
             if route == "browsing":
-                return (-negative_count, rrf, float(exact_count), float(exact_chars), 0.0, 0.0, 0.0, 0.0,
+                return (-negative_count, hard_category, rrf,
+                        float(exact_count), float(exact_chars), tier_category,
+                        tied_popularity, 0.0, 0.0,
                         -float(bm25_rank.get(asin, 100_000)))
             return buying_key
 
         ranked = sorted(candidates, key=key, reverse=True)
+        if self.field_reranker and soft_query and normalized_groups and ranked:
+            query_terms = set(_terms(query))
+            head = ranked[:100]
+            base_rank = {asin: rank for rank, asin in enumerate(head)}
+
+            def compatibility(asin: str) -> tuple[float, float, int]:
+                document_terms = set(_terms(self.documents[self.asin_to_index[asin]]))
+                coverage = len(query_terms & document_terms) / max(1, len(query_terms))
+                slot_coverage = sum(
+                    bool(group & self.cards.get(asin, set())) for group in normalized_groups
+                ) / len(normalized_groups)
+                # The gate limits this signal to candidates with comparable exact
+                # compatibility; lexical coverage resolves ambiguity inside the tier.
+                return (slot_coverage, coverage, -base_rank[asin])
+
+            best_exact = max(exact_counts.values(), default=0)
+            tied = sum(exact_counts[asin] == best_exact for asin in head)
+            if tied >= 4:
+                head.sort(key=compatibility, reverse=True)
+                ranked = head + ranked[100:]
+        learned_applied = False
+        learned_route_enabled = self.learned_reranker_scope == "all" or (
+            self.learned_reranker_scope == "freeform" and bool(soft_query)
+        )
+        if self.learned_reranker is not None and learned_route_enabled and len(ranked) >= 2:
+            head = ranked[:50]
+            features = [
+                self._learned_features(
+                    asin, rank, query, category, normalized_groups, negative_groups,
+                    bm25_rank, exact_counts,
+                )
+                for rank, asin in enumerate(head, 1)
+            ]
+            try:
+                probabilities = self.learned_reranker.predict_proba(features)[:, 1]
+                if self.learned_reranker_policy == "blend":
+                    model_scores = [
+                        (1.0 - self.learned_reranker_weight) / (index + 1)
+                        + self.learned_reranker_weight * float(probability)
+                        for index, probability in enumerate(probabilities)
+                    ]
+                else:
+                    model_scores = [float(value) for value in probabilities]
+                head = [
+                    asin for _, _, _, _, asin in sorted(
+                        (
+                            sum(bool(group & self.cards.get(asin, set())) for group in negative_groups),
+                            -features[index][2] if self.learned_reranker_policy == "exact_tier" else 0.0,
+                            -model_scores[index],
+                            index,
+                            asin,
+                        )
+                        for index, asin in enumerate(head)
+                    )
+                ]
+                ranked = head + ranked[50:]
+                learned_applied = True
+            except Exception:
+                pass
         if route == "browsing":
             buckets: dict[str, list[str]] = defaultdict(list)
             for asin in ranked[:100]:
@@ -738,12 +1028,64 @@ class Agent:
             "exact_tie_count": float(exact_ties),
             "complete_match_count": float(complete_match_count),
             "bm25_result_count": float(len(bm25)),
+            "trigram_result_count": float(len(trigram)),
             "bm25_relative_gap": float(bm25_gap),
+            "category_match_count": float(len(category_ids)),
+            "learned_reranker_applied": float(learned_applied),
         }
         if len(self.rank_cache) >= 4096:
             self.rank_cache.pop(next(iter(self.rank_cache)))
         self.rank_cache[cache_key] = (ranked, diagnostics)
         return ranked, diagnostics
+
+    def _learned_features(
+        self,
+        asin: str,
+        baseline_rank: int,
+        query: str,
+        category: str,
+        normalized_groups: list[set[str]],
+        negative_groups: list[set[str]],
+        bm25_rank: dict[str, int],
+        exact_counts: dict[str, int],
+    ) -> list[float]:
+        values = self.cards.get(asin, set())
+        query_terms = set(_terms(query))
+        document_terms = set(_terms(self.documents[self.asin_to_index[asin]]))
+        category_terms = set(_terms(category))
+        group_terms = set(_terms(self.product_groups.get(asin, "")))
+        exact_count = exact_counts.get(asin, 0)
+        negative_count = sum(bool(group & values) for group in negative_groups)
+        exact_chars = sum(
+            max((len(value) for value in group if value in values), default=0)
+            for group in normalized_groups
+        )
+        rare_total = rare_matched = 0.0
+        for group in normalized_groups:
+            rarity = max(
+                (math.log1p(len(self.asins) / max(1, len(self.card_index.get(value, ()))))
+                 for value in group),
+                default=0.0,
+            )
+            rare_total += rarity
+            if group & values:
+                rare_matched += rarity
+        slot_matches = []
+        for slot in ("material", "color", "size", "style", "feature", "use_case"):
+            slot_groups = [group for group in normalized_groups if any(_constraint_slot(v) == slot for v in group)]
+            slot_matches.append(float(bool(slot_groups) and all(group & values for group in slot_groups)))
+        return [
+            1.0 / baseline_rank,
+            1.0 / bm25_rank.get(asin, 100_000),
+            exact_count / max(1, len(normalized_groups)),
+            exact_chars / max(1, sum(max(map(len, group), default=0) for group in normalized_groups)),
+            float(negative_count),
+            len(query_terms & document_terms) / max(1, len(query_terms)),
+            len(query_terms & document_terms) / max(1, len(document_terms)),
+            len(category_terms & group_terms) / max(1, len(category_terms)),
+            rare_matched / max(rare_total, 1e-9),
+            *slot_matches,
+        ]
 
     def _rank(
         self,
@@ -813,7 +1155,7 @@ class Agent:
         asked = state["asked_attributes"]
         scores: dict[str, float] = {}
         for attribute in ("material", "color", "size", "style", "budget", "feature", "use_case"):
-            if attribute in asked:
+            if attribute in asked or attribute in state.get("no_preference", set()):
                 continue
             counts: Counter[str] = Counter()
             covered = 0
@@ -832,6 +1174,8 @@ class Agent:
             if coverage < 0.10:
                 continue
             scores[attribute] = entropy * (0.25 + 0.75 * coverage)
+            if attribute in state.get("unresolved", set()):
+                scores[attribute] += 0.20
         for tag in state.get("user_profile", {}).get("preference_tags", []):
             for attribute in PROFILE_TAG_ATTRIBUTES.get(_normalize(str(tag)), ()):
                 if attribute in scores:
@@ -839,13 +1183,65 @@ class Agent:
         return scores
 
     def _select_question(self, ranked: list[str], state: dict[str, Any]) -> str:
+        # A fixed opening plan front-loads the attributes whose disclosed values
+        # actually narrow the catalog. The simulator answers at most two
+        # constraints per turn and serves them in card order, so the generic
+        # "other" ask always yields the two least specific values first.
+        for attribute in self.ask_plan:
+            if attribute not in state["asked_attributes"]:
+                return attribute
         if not self.adaptive_questions:
             return "other"
-        scores = self._question_scores(ranked, state)
+        unresolved = set(state.get("unresolved", set()))
+        if not unresolved:
+            return "other"
+        scores = {
+            attribute: score
+            for attribute, score in self._question_scores(ranked, state).items()
+            if attribute in unresolved
+        }
         if not scores:
             return "other"
         attribute = max(scores, key=lambda item: (scores[item], item))
         return attribute if scores[attribute] >= 0.35 else "other"
+
+    def _reference_feedback(
+        self, message: str, state: dict[str, Any]
+    ) -> tuple[StructuredTurn, str]:
+        """Resolve explicit ordinal product references without copying hidden facets."""
+        ordinal = re.search(r"\b(first|second|third|1st|2nd|3rd)\b", message, re.I)
+        if not ordinal:
+            return StructuredTurn(), ""
+        positions = {"first": 0, "1st": 0, "second": 1, "2nd": 1, "third": 2, "3rd": 2}
+        shown = state.get("last_recommendations", [])
+        index = positions[ordinal.group(1).casefold()]
+        if index >= len(shown):
+            return StructuredTurn(), ""
+        asin = shown[index]
+        facets = self.card_facets.get(asin, {})
+        lowered = message.casefold()
+        positive = bool(re.search(r"\b(?:like|match|prefer|same|similar|more like)\b", lowered))
+        slot_terms = {
+            "material": ("material", "fabric"),
+            "color": ("color", "colour"),
+            "size": ("size", "fit"),
+            "style": ("style", "design"),
+            "feature": ("feature",),
+            "use_case": ("use", "occasion"),
+        }
+        add: dict[str, list[str]] = {}
+        if positive:
+            for slot, terms in slot_terms.items():
+                if any(re.search(rf"\b{re.escape(term)}\b", lowered) for term in terms):
+                    values = sorted(facets.get(slot, set()))
+                    if values:
+                        add[slot] = values[:4]
+        similarity = bool(re.search(r"\b(?:closer to|more like|similar to)\b", lowered))
+        soft_query = " ".join(sorted(self.cards.get(asin, set()))) if similarity else ""
+        return (
+            StructuredTurn(intent="buying", add=add, confidence=0.9 if add else 0.0),
+            soft_query,
+        )
 
     def _question_message(
         self, ask_attribute: str, ranked: list[str], state: dict[str, Any]
@@ -897,10 +1293,14 @@ class Agent:
             state["initial_constraints"] = initial_constraints
 
         new_constraints = self._extract_constraints(user_message)
-        structured = StructuredTurn()
-        if (
-            self.structured_extractor is not None
-            and not self._rules_are_confident(user_message, new_constraints)
+        rules_confident = self._rules_are_confident(user_message, new_constraints)
+        structured = (
+            StructuredTurn()
+            if rules_confident
+            else extract_deterministic_turn(user_message, state, self.catalog_lexicon)
+        )
+        if self.structured_extractor is not None and not rules_confident and (
+            structured.confidence < self.extraction_min_confidence
         ):
             try:
                 candidate = self.structured_extractor.extract(user_message, state)
@@ -921,6 +1321,7 @@ class Agent:
         if override:
             # Confirmed constraints survive; inline values from the original request
             # are superseded before rewritten slots are applied.
+            superseded_preference = _normalize(state.get("initial_preference", ""))
             state["initial_preference"] = ""
             for value in state.get("initial_constraints", []):
                 slot = _constraint_slot(value)
@@ -935,13 +1336,27 @@ class Agent:
             if replacement_category:
                 state["category"] = replacement_category
             state["seen"].clear()
+            # An override re-prioritizes; it does not assert the earlier preference
+            # is false. Demoting it to a soft lexical signal keeps that evidence
+            # available for tie-breaking without letting it filter candidates.
+            state["soft_queries"] = (
+                [superseded_preference]
+                if self.override_soft_retain and superseded_preference
+                else []
+            )
 
         new_constraints = (
             self._extract_override_constraints(user_message)
             if override else self._extract_constraints(user_message)
         )
+        if self.recombine_constraints:
+            new_constraints = self._recombine_constraints(new_constraints)
         if self.typed_slots:
             self._merge_constraints(state, new_constraints, override)
+            if override and self.override_retain_hard and superseded_preference:
+                # Re-admit the superseded preference additively, after the rewritten
+                # slots are in place, so it can never erase the new requirement.
+                self._merge_constraints(state, [superseded_preference], False)
         else:
             state["constraints"].extend(new_constraints)
             state["constraints"] = list(dict.fromkeys(state["constraints"]))
@@ -950,19 +1365,38 @@ class Agent:
         state["negative_constraints"] = list(dict.fromkeys(state["negative_constraints"]))
         if structured.confidence >= self.extraction_min_confidence:
             self._apply_structured_turn(state, structured)
+        reference_turn, reference_query = (
+            self._reference_feedback(user_message, state)
+            if self.reference_feedback else (StructuredTurn(), "")
+        )
+        if reference_turn.confidence >= self.extraction_min_confidence:
+            self._apply_structured_turn(state, reference_turn)
+        if not rules_confident:
+            soft_queries = state.setdefault("soft_queries", [])
+            normalized_message = _normalize(user_message)
+            if normalized_message and normalized_message not in soft_queries:
+                soft_queries.append(normalized_message)
+                del soft_queries[:-3]
+            if reference_query and reference_query not in soft_queries:
+                soft_queries.append(reference_query)
+                del soft_queries[:-3]
+        soft_query = " ".join(state.get("soft_queries", []))
         route = self._route_intent(user_message, state, structured.confidence) if self.experimental_router else "hybrid"
         if route == "uncertain":
             buying, diagnostics = self.rank_with_diagnostics(
-                state["category"], state["constraints"], state["negative_constraints"], state["user_profile"], "buying"
+                state["category"], state["constraints"], state["negative_constraints"],
+                state["user_profile"], "buying", soft_query, turn
             )
             browsing, _ = self.rank_with_diagnostics(
-                state["category"], state["constraints"], state["negative_constraints"], state["user_profile"], "browsing"
+                state["category"], state["constraints"], state["negative_constraints"],
+                state["user_profile"], "browsing", soft_query, turn
             )
             buying_weight = structured.confidence if structured.intent == "buying" else 0.5
             ranked = self._fuse_routes(buying, browsing, buying_weight)
         else:
             ranked, diagnostics = self.rank_with_diagnostics(
-                state["category"], state["constraints"], state["negative_constraints"], state["user_profile"], route
+                state["category"], state["constraints"], state["negative_constraints"],
+                state["user_profile"], route, soft_query, turn
             )
         diagnostics["route_buying"] = float(route == "buying")
         diagnostics["route_browsing"] = float(route == "browsing")
@@ -977,6 +1411,11 @@ class Agent:
         # become avoidable misses.
         if turn >= 10:
             output_limit = 10
+        elif self.confidence_topk and turn <= 6 and (
+            diagnostics.get("exact_tie_count", 0.0) >= 4
+            or diagnostics.get("bm25_relative_gap", 0.0) < 0.01
+        ):
+            output_limit = 3
         elif turn <= 6:
             output_limit = 1
         elif diagnostics.get("complete_match_count", 0.0) > 100:
@@ -991,6 +1430,7 @@ class Agent:
             if len(recommendations) == min(top_k, output_limit):
                 break
         state["seen"].update(item["parent_asin"] for item in recommendations)
+        state["last_recommendations"] = [item["parent_asin"] for item in recommendations]
         ask_attribute = self._select_question(ranked, state)
         state["asked_attributes"].add(ask_attribute)
         question = self._question_message(ask_attribute, ranked, state)

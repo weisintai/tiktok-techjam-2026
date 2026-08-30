@@ -1,26 +1,190 @@
 from __future__ import annotations
 
 import unittest
+from pathlib import Path
 from time import sleep
 
-from solution.agent import Agent, OVERRIDE_RE, _constraint_variants, _quarantine_structured_turn
-from solution.extraction import StructuredTurn, TimeoutExtractor, _first_json_object
+from solution.agent import (
+    Agent,
+    OVERRIDE_RE,
+    _category_labels,
+    _constraint_variants,
+    _quarantine_structured_turn,
+)
+from solution.extraction import (
+    CatalogLexicon,
+    StructuredTurn,
+    TimeoutExtractor,
+    _first_json_object,
+    extract_deterministic_turn,
+)
 from stress_eval import transform_message
 
 
 class SolutionParsingTest(unittest.TestCase):
+    def test_missing_learned_reranker_falls_back_without_failure(self) -> None:
+        agent = Agent.__new__(Agent)
+        agent.learned_reranker_path = Path("missing-reranker.joblib")
+        agent.learned_reranker = object()
+
+        agent._load_learned_reranker()
+
+        self.assertIsNone(agent.learned_reranker)
+
+    def test_learned_reranker_scope_is_validated_before_catalog_loading(self) -> None:
+        with self.assertRaisesRegex(ValueError, "off, freeform, or all"):
+            Agent("missing-catalog.jsonl", learned_reranker_scope="sometimes")
+
+    def test_learned_reranker_policy_is_validated_before_catalog_loading(self) -> None:
+        with self.assertRaisesRegex(ValueError, "full, exact_tier, or blend"):
+            Agent("missing-catalog.jsonl", learned_reranker_policy="replace_everything")
+
+        with self.assertRaisesRegex(ValueError, "between 0 and 1"):
+            Agent("missing-catalog.jsonl", learned_reranker_weight=1.1)
+
+    def test_catalog_lexicon_adds_repeated_safe_categories_and_facets(self) -> None:
+        lexicon = CatalogLexicon.from_counts(
+            {"Loafers & Slip-Ons": 12, "Women": 100},
+            {
+                "feature": {"zipper closure": 8, "imported": 100},
+                "style": {"style: bohemian": 4},
+            },
+        )
+
+        turn = extract_deterministic_turn(
+            "I need bohemian loafers and slip ons with zipper closure.",
+            {},
+            lexicon,
+        )
+
+        self.assertEqual(turn.category, "loafers and slip ons")
+        self.assertEqual(turn.add["style"], ["style: bohemian"])
+        self.assertEqual(turn.add["feature"], ["zipper closure"])
+        self.assertNotIn("imported", turn.add["feature"])
+
+    def test_catalog_lexicon_respects_negative_operation_scope(self) -> None:
+        lexicon = CatalogLexicon.from_counts(
+            {},
+            {"feature": {"zipper closure": 8}},
+        )
+
+        turn = extract_deterministic_turn("No zipper closure.", {}, lexicon)
+
+        self.assertEqual(turn.negative, {"feature": ["zipper closure"]})
+        self.assertFalse(turn.add)
+
+    def test_catalog_lexicon_filters_mislabeled_metadata(self) -> None:
+        lexicon = CatalogLexicon.from_counts(
+            {"Clearance": 20, "Earrings": 20},
+            {
+                "color": {"batteries required: no": 10, "color: silver": 10},
+                "style": {"department: womens": 10, "style: bohemian": 10},
+                "feature": {"30 day money back guarantee": 10, "buckle closure": 10},
+            },
+        )
+
+        self.assertNotIn("clearance", lexicon.categories)
+        turn = extract_deterministic_turn(
+            "I want silver bohemian earrings with a buckle closure.", {}, lexicon
+        )
+        self.assertEqual(turn.category, "earrings")
+        self.assertEqual(turn.add["color"], ["color: silver"])
+        self.assertEqual(turn.add["style"], ["style: bohemian"])
+        self.assertEqual(turn.add["feature"], ["buckle closure"])
+
+    def test_one_word_catalog_category_requires_shopping_context(self) -> None:
+        lexicon = CatalogLexicon.from_counts(
+            {"Running": 20}, {"use_case": {"sport: running": 20}}
+        )
+
+        incidental = extract_deterministic_turn("I use it for running.", {}, lexicon)
+        requested = extract_deterministic_turn("Show me running.", {}, lexicon)
+
+        self.assertEqual(incidental.category, "")
+        self.assertEqual(incidental.add["use_case"], ["running"])
+        self.assertEqual(requested.category, "running")
+
+    def test_natural_browsing_turn_tracks_preferences_and_dialogue_state(self) -> None:
+        turn = extract_deterministic_turn(
+            "I want a bag. I do not have a design preference. Black would be nice. "
+            "I have a budget, but show me the options first.",
+            {},
+        )
+
+        self.assertEqual(turn.intent, "browsing")
+        self.assertEqual(turn.category, "bag")
+        self.assertEqual(turn.add["color"], ["color: black"])
+        self.assertEqual(turn.no_preference, ("style",))
+        self.assertEqual(turn.unresolved, ("budget",))
+        self.assertTrue(turn.show_options_first)
+
+    def test_natural_operations_are_evidence_grounded(self) -> None:
+        replacement = extract_deterministic_turn("Blue instead of black, still waterproof.", {})
+        self.assertEqual(replacement.add["color"], ["color: blue"])
+        self.assertEqual(replacement.add["feature"], ["waterproof"])
+        self.assertEqual(replacement.replace_slots, ("color",))
+
+        removal = extract_deterministic_turn("Forget leather.", {})
+        self.assertEqual(removal.remove, {"material": ["leather"]})
+        self.assertFalse(removal.add)
+
+        exclusion = extract_deterministic_turn("No leather.", {})
+        self.assertEqual(exclusion.negative, {"material": ["leather"]})
+        self.assertFalse(exclusion.add)
+
+    def test_explicit_value_clears_an_old_no_preference_marker(self) -> None:
+        state = {
+            "slots": {},
+            "constraints": [],
+            "negative_constraints": [],
+            "no_preference": {"color"},
+        }
+        Agent._apply_structured_turn(
+            state,
+            StructuredTurn(add={"color": ["color: black"]}),
+        )
+        self.assertNotIn("color", state["no_preference"])
+
+    def test_no_preference_releases_an_existing_slot(self) -> None:
+        state = {
+            "slots": {"material": ["leather"], "color": ["color: black"]},
+            "constraints": ["leather", "color: black"],
+            "negative_constraints": [],
+        }
+        turn = extract_deterministic_turn("The material makes no difference to me.", {})
+
+        Agent._apply_structured_turn(state, turn)
+
+        self.assertEqual(state["slots"]["material"], [])
+        self.assertEqual(state["constraints"], ["color: black"])
+
+    def test_freeform_deferred_and_removal_phrases_are_typed(self) -> None:
+        deferred = extract_deterministic_turn(
+            "Give me options for hats first; I will decide on color afterward.", {}
+        )
+        removed = extract_deterministic_turn("I no longer care about the $80 ceiling.", {})
+
+        self.assertEqual(deferred.intent, "browsing")
+        self.assertEqual(deferred.unresolved, ("color",))
+        self.assertTrue(deferred.show_options_first)
+        self.assertEqual(removed.remove, {"budget": ["budget under $80"]})
+
+
     def test_plain_language_demo_flow_returns_products_and_updates_slots(self) -> None:
         agent = Agent("data/catalog.jsonl")
         agent.reset("demo", {})
 
         first = agent.respond("demo", "I need black running shoes under $80", 1, 10)
         second = agent.respond("demo", "No leather, and blue instead of black", 2, 10)
+        agent.respond("demo", "I also prefer gorpcore details.", 3, 10)
 
         self.assertTrue(first["recommendations"])
         self.assertTrue(second["recommendations"])
         self.assertIn("color: blue", agent.sessions["demo"]["constraints"])
         self.assertNotIn("color: black", agent.sessions["demo"]["constraints"])
         self.assertIn("leather", agent.sessions["demo"]["negative_constraints"])
+        self.assertIn("i also prefer gorpcore details", agent.sessions["demo"]["soft_queries"])
+        self.assertNotIn("gorpcore", agent.sessions["demo"]["constraints"])
 
     def test_late_extraction_is_discarded(self) -> None:
         class SlowExtractor:
@@ -154,6 +318,44 @@ class SolutionParsingTest(unittest.TestCase):
         fused = Agent._fuse_routes(["buy", "shared"], ["browse", "shared"], 0.5)
         self.assertEqual(fused[0], "shared")
 
+    def test_adaptive_question_requires_an_answerable_unresolved_slot(self) -> None:
+        agent = Agent("data/catalog.jsonl", adaptive_questions=True)
+        ranked = agent.asins[:20]
+        state = {
+            "asked_attributes": set(), "no_preference": set(), "unresolved": set(),
+            "user_profile": {}, "seen": set(),
+        }
+
+        self.assertEqual(agent._select_question(ranked, state), "other")
+        state["unresolved"] = {"color"}
+        selected = agent._select_question(ranked, state)
+        self.assertIn(selected, {"color", "other"})
+        agent.connection.close()
+
+    def test_reference_feedback_copies_only_an_explicit_facet(self) -> None:
+        agent = Agent.__new__(Agent)
+        agent.card_facets = {
+            "a": {"material": {"cotton"}, "color": {"color: black"}},
+            "b": {"style": {"casual"}},
+        }
+        agent.cards = {
+            "a": {"cotton", "color: black"},
+            "b": {"casual", "lightweight"},
+        }
+        state = {"last_recommendations": ["a", "b"]}
+
+        facet_turn, facet_query = agent._reference_feedback(
+            "I prefer the same material as the first one.", state
+        )
+        similarity_turn, similarity_query = agent._reference_feedback(
+            "Show me something more like the second one.", state
+        )
+
+        self.assertEqual(facet_turn.add, {"material": ["cotton"]})
+        self.assertEqual(facet_query, "")
+        self.assertFalse(similarity_turn.add)
+        self.assertEqual(similarity_query, "casual lightweight")
+
     def test_structured_payload_validation(self) -> None:
         turn = StructuredTurn.from_payload({
             "intent": "BUYING",
@@ -199,6 +401,7 @@ class SolutionParsingTest(unittest.TestCase):
         messages = [
             ("I'm looking for Women's Shoes. I prefer a lightweight design.", []),
             ("I'm looking for Women's Shoes, but I'm still exploring.", []),
+            ("Help me find Women's Shoes, though I haven't settled on the details.", []),
             ("For that, what matters is: cotton; color: black.", ["cotton", "color: black"]),
             ("I don't have a preference for material; please use your judgment.", []),
             ("I don't have an additional preference for style.", []),
@@ -286,6 +489,76 @@ class SolutionParsingTest(unittest.TestCase):
             ["color: white", "casual"],
         )
         self.assertEqual(Agent._extract_override_category(message), "sneakers")
+
+
+
+class CategoryResolutionTest(unittest.TestCase):
+    def test_category_labels_index_the_informative_tail_of_the_breadcrumb(self) -> None:
+        labels = _category_labels(
+            ["Clothing, Shoes & Jewelry", "Women", "Clothing", "Tops, Tees & Blouses", "T-Shirts"]
+        )
+
+        # Breadcrumbs are comma-split, the catalog-wide "Clothing" root is
+        # dropped, and the tail is indexed at three widths so a shopper naming
+        # the shelf loosely or precisely resolves either way.
+        self.assertEqual(
+            labels,
+            ["t-shirts", "tees & blouses t-shirts", "tops tees & blouses t-shirts"],
+        )
+
+    def test_category_labels_ignore_missing_or_malformed_breadcrumbs(self) -> None:
+        self.assertEqual(_category_labels(None), [])
+        self.assertEqual(_category_labels([]), [])
+        self.assertEqual(_category_labels(["Clothing"]), [])
+
+    def test_category_mode_is_validated_before_catalog_loading(self) -> None:
+        with self.assertRaisesRegex(ValueError, "hard, tier, or blend"):
+            Agent("missing-catalog.jsonl", category_mode="whenever")
+
+
+class PurchasePriorTest(unittest.TestCase):
+    """The prior orders products only where the shopper has given nothing else."""
+
+    def _ranked(self, **options: object) -> list[str]:
+        agent = Agent.__new__(Agent)
+        agent.__dict__.update(
+            popularity_tiebreak=True, popularity_min_turn=1, popularity_gate=1,
+            popularity_weight=5.0, popularity_unconstrained=True,
+            category_filter=False, category_mode="tier", category_priority=1.0,
+            profile_tiebreak=False, trigram_retrieval=False, field_reranker=False,
+            learned_reranker=None, learned_reranker_scope="off", cross_encoder=None,
+            dense_routes=frozenset(), rank_cache={},
+            cards={"POPULAR": {"cotton"}, "NICHE": {"cotton"}, "OTHER": {"wool"}},
+            card_index={"cotton": {"POPULAR", "NICHE"}, "wool": {"OTHER"}},
+            category_index={},
+            product_quality={"POPULAR": (4.1, 9000.0), "NICHE": (4.9, 3.0), "OTHER": (4.5, 50000.0)},
+            product_groups={}, asin_to_index={}, documents=[],
+        )
+        # A fixed lexical order that disagrees with the prior isolates its effect.
+        agent._bm25_scored = lambda query, limit=500: [
+            ("NICHE", -1.0), ("POPULAR", -0.9), ("OTHER", -0.8)
+        ]
+        ranked, _ = agent.rank_with_diagnostics(**options)
+        return ranked
+
+    def test_review_volume_outranks_lexical_order_inside_a_tied_block(self) -> None:
+        ranked = self._ranked(category="shirts", constraints=["cotton"], turn=1)
+
+        # Both products satisfy the stated constraint identically, so BM25 order
+        # between them is arbitrary and the purchase prior decides.
+        self.assertEqual(ranked[:2], ["POPULAR", "NICHE"])
+
+    def test_the_prior_never_promotes_a_product_that_fails_a_constraint(self) -> None:
+        ranked = self._ranked(category="shirts", constraints=["cotton"], turn=1)
+
+        # OTHER is the most-reviewed product here and still ranks last, because
+        # stated evidence is ordered ahead of the prior.
+        self.assertEqual(ranked[-1], "OTHER")
+
+    def test_the_prior_orders_candidates_when_nothing_has_been_stated(self) -> None:
+        ranked = self._ranked(category="shirts", constraints=[], turn=1)
+
+        self.assertEqual(ranked[0], "OTHER")
 
 
 if __name__ == "__main__":

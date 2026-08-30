@@ -19,6 +19,12 @@ paraphrases confirm an existing slot instead of erasing sibling constraints.
 Natural overrides such as `Actually, make them casual white sneakers` also
 rewrite the stale category and inline facets.
 
+Messages outside the established simulator fast path use an evidence-grounded
+deterministic delta extractor. It handles explicit additions, replacements,
+removals, exclusions, no-preference slots, unresolved budget mentions, and
+show-options-first instructions. The fallback updates state through the same
+`StructuredTurn` boundary and adds no model call or dependency.
+
 The natural clarification prompt is selected from candidate-facet entropy and
 weak aggregate-profile priors. The structured contract deliberately remains
 `ask_attribute="other"`: direct attribute selection reduced the official score,
@@ -50,9 +56,10 @@ for reproducibility rather than recommended for submission.
 
 ## Optional local structured extraction
 
-The deterministic parser remains the zero-latency fast path for released
-simulator messages. For free-form shopper language, a local causal model can
-extract typed slots, exclusions, intent and slot-level replacements:
+The deterministic parser remains the zero-latency path for released simulator
+messages and common free-form operations. For unfamiliar shopper language, an
+optional local causal model can propose typed slots, exclusions, intent and
+slot-level replacements:
 
 ```bash
 uv pip install --python .venv/bin/python -r solution/requirements-llm.txt
@@ -106,6 +113,27 @@ Policy selection is weighted to the official scenario mix: 40% Buying, 40%
 Browsing, 15% Intent Override and 5% Boundary. Public and paraphrase-stress
 scores remain mandatory promotion gates because synthetic optimization alone
 selected one threshold that did not generalize.
+
+## Catalog-derived extraction lexicon
+
+During the existing catalog-index build, the agent counts leaf categories and
+typed intent-card facets. The free-form fallback receives a lexicon made only
+from short phrases appearing in at least three catalog products. Generic
+taxonomy nodes and known metadata boilerplate are excluded, while longer
+matches suppress nested generic matches.
+
+On the frozen 50,000-product catalog this produces 535 leaf-category phrases
+and 1,145 facet phrases. It expands coverage for catalog terms such as
+`rash guard shirts`, `loafers and slip ons`, and specific closure
+types without changing the read-only catalog or adding a runtime dependency.
+Conversational operations remain explicit deterministic rules; catalog text
+supplies product vocabulary rather than intent labels.
+
+Unrecognized wording is retained for at most three fallback turns as soft query
+text. It participates in BM25 and optional dense retrieval but never becomes an
+exact facet, exclusion, or state mutation. Intent overrides clear this residual
+text. This lets open-vocabulary terms remain searchable while typed constraints
+keep their higher ranking priority.
 
 ## Offline robustness diagnostics
 

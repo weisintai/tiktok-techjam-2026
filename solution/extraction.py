@@ -5,7 +5,7 @@ import os
 import re
 from concurrent.futures import ThreadPoolExecutor, TimeoutError
 from dataclasses import dataclass, field
-from typing import Any, Protocol
+from typing import Any, Mapping, Protocol
 
 
 SLOT_NAMES = ("material", "color", "size", "style", "budget", "feature", "use_case")
@@ -41,6 +41,9 @@ class StructuredTurn:
     remove: dict[str, list[str]] = field(default_factory=dict)
     replace_slots: tuple[str, ...] = ()
     negative: dict[str, list[str]] = field(default_factory=dict)
+    no_preference: tuple[str, ...] = ()
+    unresolved: tuple[str, ...] = ()
+    show_options_first: bool = False
     confidence: float = 0.0
     prompt_tokens: int = 0
     completion_tokens: int = 0
@@ -68,6 +71,18 @@ class StructuredTurn:
                 if str(slot).casefold() in SLOT_NAMES
             )
         ) if isinstance(payload.get("replace_slots", []), list) else ()
+        no_preference = tuple(
+            dict.fromkeys(
+                str(slot).casefold() for slot in payload.get("no_preference", [])
+                if str(slot).casefold() in SLOT_NAMES
+            )
+        ) if isinstance(payload.get("no_preference", []), list) else ()
+        unresolved = tuple(
+            dict.fromkeys(
+                str(slot).casefold() for slot in payload.get("unresolved", [])
+                if str(slot).casefold() in SLOT_NAMES
+            )
+        ) if isinstance(payload.get("unresolved", []), list) else ()
         return cls(
             intent=intent,
             override=bool(payload.get("override", False)),
@@ -76,10 +91,376 @@ class StructuredTurn:
             remove=_slot_map(payload.get("remove")),
             replace_slots=replace_slots,
             negative=_slot_map(payload.get("negative")),
+            no_preference=no_preference,
+            unresolved=unresolved,
+            show_options_first=bool(payload.get("show_options_first", False)),
             confidence=confidence,
             prompt_tokens=max(0, int(prompt_tokens)),
             completion_tokens=max(0, int(completion_tokens)),
         )
+
+
+_CATEGORY_RE = re.compile(
+    r"\b(running shoes?|hiking shoes?|sneakers?|shoes?|boots?|sandals?|slippers?|"
+    r"bags?|handbags?|backpacks?|purses?|jackets?|coats?|dresses?|shirts?|tops?|"
+    r"pants|trousers?|shorts?|skirts?|socks?|hats?|caps?|watches?|jewelry)\b",
+    re.I,
+)
+_COLORS = ("black", "white", "blue", "red", "pink", "green", "brown", "gray", "grey", "purple", "yellow", "orange", "navy")
+_MATERIALS = ("cotton", "polyester", "nylon", "leather", "wool", "spandex", "silk", "rayon", "denim", "synthetic")
+_SIZES = ("small", "medium", "large", "xl", "xxl", "wide", "narrow", "petite", "plus size")
+_STYLES = ("casual", "formal", "classic", "elegant", "relaxed", "slim", "modern", "vintage")
+_FEATURES = ("waterproof", "lightweight", "cushioned", "cushioning", "comfortable", "warm", "breathable", "durable", "supportive")
+_USE_CASES = {
+    "running": "running", "jogging": "running", "hiking": "hiking",
+    "office": "work", "work": "work", "winter": "winter", "beach": "beach",
+    "outdoor": "outdoor", "gift": "gift", "everyday": "everyday",
+}
+_VALUE_ALIASES = {
+    "animal hide": ("material", "leather"),
+    "animal hide material": ("material", "leather"),
+    "waterproofing": ("feature", "waterproof"),
+}
+
+_GENERIC_CATEGORIES = {
+    "accessories", "active", "athletic", "baby", "boys", "clothing",
+    "clothing shoes jewelry", "fashion", "girls", "jewelry", "men",
+    "novelty", "novelty more", "shoes", "women",
+}
+_CATALOG_VALUE_BLOCKLIST = {
+    "closure", "fabric", "imported", "no", "yes",
+    "is discontinued by manufacturer no",
+    "made in usa", "made in the usa or imported", "machine wash",
+    "hand wash only",
+}
+_CATEGORY_NOISE_WORDS = {
+    "clearance", "cohort", "daily", "markdown", "markdowns", "sale",
+    "savings", "westlake",
+}
+_FEATURE_NOISE_PREFIXES = (
+    "batteries ", "brand ", "department ", "genuine original authentic",
+    "imported ", "is discontinued ", "made in ", "package ", "printed in ",
+)
+_FEATURE_NOISE_TERMS = (
+    "complimentary repair", "money back guarantee", "reasonable price",
+    "return exchange", "warranty through",
+)
+
+
+def _lexicon_phrase(value: str) -> str:
+    value = value.casefold().replace("&", " and ")
+    return re.sub(r"[^a-z0-9]+", " ", value).strip()
+
+
+def _catalog_facet_allowed(slot: str, phrase: str, canonical: str) -> bool:
+    lowered = canonical.casefold().strip()
+    if phrase in _CATALOG_VALUE_BLOCKLIST:
+        return False
+    if slot == "color":
+        return lowered.startswith("color:")
+    if slot == "style":
+        return (
+            lowered.startswith("style:")
+            or any(term in phrase.split() for term in ("fit", "sleeve", "sleeveless", "neck"))
+        ) and not phrase.startswith("department ")
+    if slot == "size":
+        return any(term in phrase.split() for term in ("fit", "fitment", "size", "width"))
+    if slot == "use_case":
+        return lowered.startswith("sport:")
+    if slot == "feature":
+        return (
+            len(phrase.split()) >= 2
+            and not phrase.startswith(_FEATURE_NOISE_PREFIXES)
+            and not any(term in phrase for term in _FEATURE_NOISE_TERMS)
+        )
+    return slot == "material"
+
+
+@dataclass(frozen=True)
+class CatalogLexicon:
+    """Short, repeated phrases derived from the immutable product catalog."""
+
+    categories: tuple[str, ...] = ()
+    facets: Mapping[str, tuple[tuple[str, str], ...]] = field(default_factory=dict)
+
+    @classmethod
+    def from_counts(
+        cls,
+        category_counts: Mapping[str, int],
+        facet_counts: Mapping[str, Mapping[str, int]],
+        *,
+        minimum_frequency: int = 3,
+    ) -> "CatalogLexicon":
+        def safe_phrase(value: str, *, max_words: int = 5) -> bool:
+            words = re.findall(r"[a-z0-9]+", value.casefold())
+            return bool(words) and len(words) <= max_words and len(value) <= 56
+
+        normalized_categories: dict[str, int] = {}
+        for value, count in category_counts.items():
+            phrase = _lexicon_phrase(value)
+            normalized_categories[phrase] = normalized_categories.get(phrase, 0) + count
+        categories = tuple(sorted(
+            (
+                phrase for phrase, count in normalized_categories.items()
+                if count >= minimum_frequency
+                and phrase not in _GENERIC_CATEGORIES
+                and safe_phrase(phrase, max_words=4)
+                and not set(phrase.split()) & _CATEGORY_NOISE_WORDS
+            ),
+            key=lambda phrase: (-len(phrase.split()), -len(phrase), phrase),
+        ))
+        facets: dict[str, tuple[tuple[str, str], ...]] = {}
+        for slot in SLOT_NAMES:
+            if slot == "budget":
+                continue
+            entries: dict[str, str] = {}
+            for canonical, count in facet_counts.get(slot, {}).items():
+                if count < minimum_frequency or not safe_phrase(canonical):
+                    continue
+                phrase = re.sub(r"^(?:color|style|sport)\s*:\s*", "", canonical)
+                phrase = _lexicon_phrase(phrase)
+                if not safe_phrase(phrase) or not _catalog_facet_allowed(slot, phrase, canonical):
+                    continue
+                entries.setdefault(phrase, canonical)
+            facets[slot] = tuple(sorted(
+                entries.items(),
+                key=lambda item: (-len(item[0].split()), -len(item[0]), item[0]),
+            ))
+        return cls(categories=categories, facets=facets)
+
+
+def _phrase_present(text: str, phrase: str) -> bool:
+    return f" {phrase} " in f" {_lexicon_phrase(text)} "
+
+
+def _catalog_category_in_message(normalized_message: str, phrase: str) -> bool:
+    if f" {phrase} " not in f" {normalized_message} ":
+        return False
+    if len(phrase.split()) > 1:
+        return True
+    cue = r"(?:browse|find|need|options for|show me|want|looking for|seeking)"
+    return bool(re.search(rf"\b{cue}(?:\s+[a-z0-9]+){{0,4}}\s+{re.escape(phrase)}\b", normalized_message))
+
+
+def _mentioned_values(
+    text: str, catalog_lexicon: CatalogLexicon | None = None
+) -> dict[str, list[str]]:
+    lowered = text.casefold()
+    values: dict[str, list[str]] = {}
+    for slot, vocabulary in (
+        ("material", _MATERIALS),
+        ("size", _SIZES),
+        ("style", _STYLES),
+        ("feature", _FEATURES),
+    ):
+        found = [value for value in vocabulary if re.search(rf"\b{re.escape(value)}\b", lowered)]
+        if found:
+            values[slot] = list(dict.fromkeys(
+                "cushioning" if value == "cushioned" else value for value in found
+            ))
+    colors = [color for color in _COLORS if re.search(rf"\b{re.escape(color)}\b", lowered)]
+    if colors:
+        values["color"] = [f"color: {'gray' if color == 'grey' else color}" for color in colors]
+    use_cases = [canonical for term, canonical in _USE_CASES.items() if re.search(rf"\b{term}\b", lowered)]
+    if use_cases:
+        values["use_case"] = list(dict.fromkeys(use_cases))
+    normalized_alias_text = _lexicon_phrase(text)
+    for phrase, (slot, canonical) in _VALUE_ALIASES.items():
+        if f" {phrase} " in f" {normalized_alias_text} ":
+            values.setdefault(slot, []).append(canonical)
+    budget = re.search(
+        r"(?:under|below|less than|no more than|at most|maximum(?: of)?|ceiling(?: is)?|"
+        r"budget(?: of| is| within)?|cost(?:s|ing)?(?: below| under)?|cheaper than)\s*"
+        r"(?:one hundred|fifty|\$?\s*([0-9]+(?:\.[0-9]+)?))",
+        lowered,
+    )
+    if budget:
+        phrase = budget.group(0)
+        amount = budget.group(1) or ("100" if "one hundred" in phrase else "50")
+        values["budget"] = [f"budget under ${amount}"]
+    elif any(term in lowered for term in ("budget", "ceiling", "price")):
+        amount = re.search(r"\$\s*([0-9]+(?:\.[0-9]+)?)", lowered)
+        if amount:
+            values["budget"] = [f"budget under ${amount.group(1)}"]
+    if catalog_lexicon:
+        normalized_catalog_text = f" {_lexicon_phrase(text)} "
+        for slot, entries in catalog_lexicon.facets.items():
+            existing = values.setdefault(slot, [])
+            matched_phrases = [
+                _lexicon_phrase(re.sub(r"^(?:color|style|sport)\s*:\s*", "", value))
+                for value in existing
+            ]
+            for phrase, canonical in entries:
+                if any(f" {phrase} " in f" {matched} " for matched in matched_phrases):
+                    continue
+                if f" {phrase} " in normalized_catalog_text and canonical not in existing:
+                    existing.append(canonical)
+                    matched_phrases.append(phrase)
+                if len(existing) >= 8:
+                    break
+            if not existing:
+                values.pop(slot, None)
+    return values
+
+
+def extract_deterministic_turn(
+    message: str,
+    state: dict[str, Any],
+    catalog_lexicon: CatalogLexicon | None = None,
+) -> StructuredTurn:
+    """Extract a conservative natural-language delta from explicit evidence."""
+    lowered = message.casefold()
+    normalized_message = _lexicon_phrase(message)
+    category_match = _CATEGORY_RE.search(message)
+    category = category_match.group(1).casefold() if category_match else ""
+    category = re.sub(r"\bbags\b", "bag", category)
+    if catalog_lexicon:
+        catalog_category = next(
+            (
+                phrase for phrase in catalog_lexicon.categories
+                if _catalog_category_in_message(normalized_message, phrase)
+            ),
+            "",
+        )
+        if catalog_category and (not category or len(catalog_category) > len(category)):
+            category = catalog_category
+
+    no_preference: list[str] = []
+    preference_aliases = {
+        "material": "material", "fabric": "material", "color": "color",
+        "colour": "color", "size": "size", "fit": "size", "style": "style",
+        "design": "style", "brand": "feature", "feature": "feature",
+    }
+    for match in re.finditer(
+        r"(?:no|do not have a|don't have a|do not have any|don't have any)\s+"
+        r"([a-z]+)\s+preference|(?:i\s+)?(?:do not|don't)\s+care\s+about\s+([a-z]+)",
+        lowered,
+    ):
+        name = match.group(1) or match.group(2)
+        slot = preference_aliases.get(name)
+        if slot:
+            no_preference.append(slot)
+    for match in re.finditer(
+        r"(?:the\s+)?([a-z]+)\s+makes?\s+no\s+difference|"
+        r"\bany\s+([a-z]+)\s+is\s+fine",
+        lowered,
+    ):
+        name = match.group(1) or match.group(2)
+        slot = preference_aliases.get(name)
+        if slot:
+            no_preference.append(slot)
+
+    negative: dict[str, list[str]] = {}
+    for match in re.finditer(
+        r"(?:\bno\s+(?!preference)|\bwithout\s+|\bavoid\s+|\bdon't want\s+|"
+        r"\bdo not want\s+)([^,.;]+)",
+        message,
+        re.I,
+    ):
+        for slot, values in _mentioned_values(match.group(1), catalog_lexicon).items():
+            negative.setdefault(slot, []).extend(values)
+
+    remove: dict[str, list[str]] = {}
+    for match in re.finditer(
+        r"\b(?:forget|drop|remove|no longer need|don't need|do not need|"
+        r"no longer care about)\s+([^,.;]+)",
+        message,
+        re.I,
+    ):
+        for slot, values in _mentioned_values(match.group(1), catalog_lexicon).items():
+            remove.setdefault(slot, []).extend(values)
+    for match in re.finditer(r"\bthe\s+(.+?)\s+requirement\s+can\s+go\b", message, re.I):
+        for slot, values in _mentioned_values(match.group(1), catalog_lexicon).items():
+            remove.setdefault(slot, []).extend(values)
+
+    replace_slots: list[str] = []
+    add: dict[str, list[str]] = {}
+    replacement = re.search(r"(.+?)\s+(?:instead of|rather than)\s+([^,.;]+)", message, re.I)
+    if replacement:
+        replacement_values = _mentioned_values(replacement.group(1), catalog_lexicon)
+        old_values = _mentioned_values(replacement.group(2), catalog_lexicon)
+        for slot, values in replacement_values.items():
+            if slot in old_values:
+                add[slot] = values
+                replace_slots.append(slot)
+
+    excluded_spans = [match.span(1) for match in re.finditer(
+        r"\b(?:forget|drop|remove|no longer need|don't need|do not need|without|avoid|"
+        r"don't want|do not want|no longer care about)\s+([^,.;]+)", message, re.I
+    )]
+    positive_text = "".join(
+        " " if any(start <= index < end for start, end in excluded_spans) else character
+        for index, character in enumerate(message)
+    )
+    positive_text = re.sub(
+        r"\bnarrow\s+(?:it|that|them|this)\s+down\b", " ", positive_text, flags=re.I
+    )
+    positive_values = _mentioned_values(positive_text, catalog_lexicon)
+    for slot, values in positive_values.items():
+        if slot in no_preference or slot in replace_slots:
+            continue
+        blocked = set(negative.get(slot, [])) | set(remove.get(slot, []))
+        retained = [value for value in values if value not in blocked]
+        if retained:
+            add.setdefault(slot, []).extend(retained)
+
+    for mapping in (add, remove, negative):
+        for slot in list(mapping):
+            mapping[slot] = list(dict.fromkeys(mapping[slot]))
+
+    for slot in set(add) & set(negative):
+        conflicts = set(add[slot]) & set(negative[slot])
+        if conflicts:
+            add[slot] = [value for value in add[slot] if value not in conflicts]
+            if not add[slot]:
+                add.pop(slot)
+
+    unresolved: list[str] = []
+    if "budget" in lowered and "budget" not in add:
+        unresolved.append("budget")
+    unresolved_aliases = {
+        "price": "budget", "budget": "budget", "color": "color", "colour": "color",
+        "fit": "size", "size": "size", "material": "material", "fabric": "material",
+        "style": "style", "design": "style",
+    }
+    deferred_patterns = (
+        r"\b([a-z]+)\s+matters?\b.*\b(?:not decided|narrow .* down later)\b",
+        r"\bpreferred\s+([a-z]+)\b.*\b(?:check|confirm)\b",
+        r"\bdecide\s+on\s+([a-z]+)\s+(?:afterward|later)\b",
+        r"\b(?:ask|discuss)\s+(?:me\s+)?about\s+([a-z]+)\s+later\b",
+    )
+    for pattern in deferred_patterns:
+        for match in re.finditer(pattern, lowered):
+            slot = unresolved_aliases.get(match.group(1))
+            if slot and slot not in add:
+                unresolved.append(slot)
+    show_options_first = bool(re.search(
+        r"\b(?:(?:show|give) me (?:the )?options first|browse\b.+\bfirst|"
+        r"options\b.+\bfirst)\b",
+        lowered,
+    ))
+    browsing = bool(re.search(
+        r"\b(?:browse|browsing|exploring|open to|ideas|options first|not sure)\b",
+        lowered,
+    )) or show_options_first
+    has_evidence = bool(category or add or remove or negative or no_preference or unresolved)
+    return StructuredTurn(
+        intent="browsing" if browsing else ("buying" if has_evidence else "unknown"),
+        override=bool(re.search(
+            r"\b(?:actually|instead of|rather than|switch|replace|forget|drop|remove|"
+            r"no longer|requirement can go)\b",
+            lowered,
+        )),
+        category=category,
+        add=add,
+        remove=remove,
+        replace_slots=tuple(dict.fromkeys(replace_slots)),
+        negative=negative,
+        no_preference=tuple(dict.fromkeys(no_preference)),
+        unresolved=tuple(dict.fromkeys(unresolved)),
+        show_options_first=show_options_first,
+        confidence=0.9 if has_evidence else 0.0,
+    )
 
 
 class StructuredExtractor(Protocol):

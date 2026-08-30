@@ -15,7 +15,12 @@ from pathlib import Path
 from typing import Any
 
 from solution.agent import Agent, OVERRIDE_RE, _constraint_slot, _quarantine_structured_turn
-from solution.extraction import LlamaCppExtractor, StructuredTurn, TransformersLocalExtractor
+from solution.extraction import (
+    LlamaCppExtractor,
+    StructuredTurn,
+    TransformersLocalExtractor,
+    extract_deterministic_turn,
+)
 
 
 SPLITS = {"train", "development", "test"}
@@ -41,6 +46,11 @@ def load_cases(path: str | Path) -> list[dict[str, Any]]:
 
 
 def rule_extract(message: str, state: dict[str, Any]) -> StructuredTurn:
+    return extract_deterministic_turn(message, state)
+
+
+def legacy_rule_extract(message: str, state: dict[str, Any]) -> StructuredTurn:
+    """Reproduce the rule extractor shipped on main before the fallback."""
     category, _ = Agent._extract_initial(message)
     constraints = Agent._extract_constraints(message)
     add: dict[str, list[str]] = {}
@@ -75,6 +85,10 @@ def atoms(turn: StructuredTurn) -> set[str]:
         for slot, values in values_by_slot.items():
             result.update(f"{field_name}:{slot}={normalized(value)}" for value in values)
     result.update(f"replace={slot}" for slot in turn.replace_slots)
+    result.update(f"no_preference={slot}" for slot in turn.no_preference)
+    result.update(f"unresolved={slot}" for slot in turn.unresolved)
+    if turn.show_options_first:
+        result.add("show_options_first")
     return result
 
 
@@ -102,6 +116,10 @@ def state_atoms(state: dict[str, Any]) -> set[str]:
         f"negative:{_constraint_slot(str(value))}={normalized(str(value))}"
         for value in state.get("negative_constraints", [])
     )
+    result.update(f"no_preference={slot}" for slot in state.get("no_preference", set()))
+    result.update(f"unresolved={slot}" for slot in state.get("unresolved", set()))
+    if state.get("show_options_first", False):
+        result.add("show_options_first")
     return result
 
 
@@ -324,6 +342,11 @@ class RuleExtractor:
         return rule_extract(message, state)
 
 
+class LegacyRuleExtractor:
+    def extract(self, message: str, state: dict[str, Any]) -> StructuredTurn:
+        return legacy_rule_extract(message, state)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--cases", default="training/freeform_extraction_cases.jsonl")
@@ -333,6 +356,12 @@ def main() -> None:
     parser.add_argument("--split", action="append", choices=sorted(SPLITS))
     parser.add_argument("--max-new-tokens", type=int, default=256)
     parser.add_argument("--prompt-file", help="Use an alternate extraction system prompt")
+    parser.add_argument(
+        "--extractor",
+        choices=("deterministic", "legacy", "both"),
+        default="deterministic",
+        help="Select the offline rule path; legacy reproduces main's original extractor",
+    )
     parser.add_argument("--show-failures", action="store_true")
     parser.add_argument("--output", help="Write the complete benchmark report as JSON")
     args = parser.parse_args()
@@ -351,8 +380,13 @@ def main() -> None:
             "processor": platform.processor() or platform.machine(),
             "logical_cpus": os.cpu_count(),
         },
-        "rules": score(cases, RuleExtractor()),
     }
+    if args.extractor in {"deterministic", "both"}:
+        results["rules"] = score(cases, RuleExtractor(), show_failures=args.show_failures)
+    if args.extractor in {"legacy", "both"}:
+        results["legacy_rules"] = score(
+            cases, LegacyRuleExtractor(), show_failures=args.show_failures
+        )
     if args.model:
         results[args.model] = benchmark(
             cases,
