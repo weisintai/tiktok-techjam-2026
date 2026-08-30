@@ -13,7 +13,7 @@ from evaluator.local_evaluator import (
     load_jsonl,
     materialize_hidden_fields,
 )
-from solution.agent import Agent, _constraint_variants, _normalize, _terms
+from solution.agent import Agent, _constraint_variants, _terms
 
 
 DEFAULT_SAMPLES = {"public_0020", "public_0096", "public_0144", "public_0174"}

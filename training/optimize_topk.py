@@ -4,20 +4,17 @@ import argparse
 import gzip
 import itertools
 import json
-import math
 import uuid
-from collections import Counter, defaultdict
+from collections import Counter
 from pathlib import Path
 from typing import Callable, Iterable
 
 from evaluator.local_evaluator import (
     MAX_TURNS,
-    behavior_for,
     catalog_index,
     coarse_category,
     customer_reply,
     initial_message,
-    intent_card,
     materialize_hidden_fields,
 )
 from solution.agent import Agent

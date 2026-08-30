@@ -14,8 +14,8 @@ import numpy as np
 
 from evaluator.local_evaluator import intent_card
 from solution.extraction import (
-    CatalogLexicon,
     SLOT_NAMES,
+    CatalogLexicon,
     StructuredExtractor,
     StructuredTurn,
     extract_deterministic_turn,

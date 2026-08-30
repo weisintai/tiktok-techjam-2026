@@ -13,6 +13,24 @@ no network, API key, model weight, or token spend. A small local model remains
 an optional demonstration of unfamiliar free-form language rather than a
 dependency of the submitted agent.
 
+Multi-turn product search is where keyword search structurally fails: a
+shopper who says "something warm for winter, not too flashy" cannot be served
+by an index built on literal terms, and every clarifying question that does
+not narrow the catalog is a turn the shopper did not want to spend. This
+project treats that as a state-tracking problem, not a bigger-model problem:
+the win came from making the conversation's stated constraints impossible to
+lose or misapply, not from adding an LLM to the critical path.
+
+## How this maps to the judging rubric
+
+| Criterion | Weight | Where the evidence is |
+|---|---:|---|
+| Technical Execution | 35% | The [Results](#results) table and [Engineering evidence](#engineering-evidence) log every accepted *and* rejected experiment with its measured score, so the architecture reflects deliberate decisions rather than untested guesses. All numbers reproduce from a clean checkout (see [Reproduce the verified checks](#reproduce-the-verified-checks)); 49/49 unit tests pass. |
+| Innovation & Problem Insight | 20% | [What produced the gain](#what-produced-the-gain) and [Why the prior is defensible](#why-the-prior-is-defensible-and-where-it-was-previously-rejected) show the core insight: two mechanisms that only ever act on evidence the shopper already gave or a catalog fact available for any product, applied in strict priority order so neither can override the other. |
+| Impact & Relevance | 20% | The paragraph above states the real-world failure mode this solves. [Limitations](#limitations) is explicit about where the approach's assumptions stop holding, which is itself the boundary of its practical applicability. |
+| Feasibility & Practicality | 15% | The scorer-proven path needs zero network access, zero API keys, and zero token spend (see [Technology and cost](#technology-and-cost)); it runs from a fresh `uv` environment with only the frozen catalog added, and a working [demo console](#demo) sits on top of the same production `Agent`, not a mock. |
+| Presentation & Communication | 10% | Judged live at the final event; see [`docs/team_handoff.md`](docs/team_handoff.md) for the demo script and anticipated Q&A. |
+
 ## Results
 
 | Evaluation | Hit@10 | MRR | MTTC | TechnicalScore | Previous |
@@ -180,6 +198,31 @@ Run the public evaluation:
 
 Expected TechnicalScore: `0.98010` with zero reported model tokens.
 
+## Demo
+
+`frontend/` is a Next.js console for interactively driving the same
+production `Agent` used for scoring — it is a UI layer over `solution/agent.py`,
+not a separate reimplementation. A Node API route spawns
+`frontend/backend/copilot_server.py`, which loads the real catalog and agent
+once and answers turns over stdio, so the demo and the scorer never diverge.
+Complete the [Quick start](#quick-start) steps first so `.venv` and
+`data/catalog.jsonl` exist, then:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Set the `PYTHON` environment variable if the backend should use a different
+interpreter than `../.venv/bin/python`.
+
+The console shows the shopper-facing message, the structured `ask_attribute`,
+ranked recommendations with catalog metadata, and the agent's internal typed
+state (category, slots, negative constraints, inferred intent) for each turn,
+so a reviewer can see the state machine described in
+[How it works](#how-it-works) update live rather than trusting it from prose.
+
 ## Reproduce the verified checks
 
 ```bash
@@ -339,6 +382,8 @@ solution/agent.py                 production agent and retrieval pipeline
 solution/extraction.py            optional local structured extraction
 run_solution.py                   official public evaluation entry point
 stress_eval.py                    deterministic paraphrase stress harness
+frontend/                         Next.js demo console over the production agent
+artifacts/models/                 optional learned reranker artifact
 training/                         synthetic splits, traces, ablations and reports
 artifacts/evaluations/            archived raw experiment outputs
 evaluator/                        unmodified official evaluator
@@ -351,6 +396,8 @@ docs/                             challenge contract and team handoff
 
 - Python, SQLite FTS5, NumPy, and `uv`
 - Optional: sentence-transformers, scikit-learn, llama.cpp, Qwen3 GGUF
+- Demo only: Next.js, React, and Tailwind CSS (`frontend/`), unused by the
+  scored path
 - Dataset: frozen 50,000-product Amazon Reviews 2023
   `Clothing_Shoes_and_Jewelry` catalog supplied by TechJam
 - Scorer-proven path: fully offline, no external API, no credentials, zero model
