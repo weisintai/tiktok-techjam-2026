@@ -26,6 +26,9 @@ docs/participant_release_checklist.md
 tests/test_5core_builder.py
 tests/test_organizer_pipeline.py
 *.log
+.tmp-frontend*.png
 .venv/
+frontend/.next/
+frontend/node_modules/
 artifacts/evaluations/
 artifacts/legacy/

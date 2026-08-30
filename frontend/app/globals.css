@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 42 43% 97%;
+  --foreground: 209 34% 16%;
+  --card: 0 0% 100%;
+  --card-foreground: 209 34% 16%;
+  --primary: 168 83% 25%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 26 100% 94%;
+  --secondary-foreground: 18 63% 27%;
+  --muted: 204 28% 92%;
+  --muted-foreground: 210 12% 42%;
+  --accent: 202 72% 90%;
+  --accent-foreground: 203 58% 24%;
+  --border: 205 21% 84%;
+  --input: 205 21% 84%;
+  --ring: 168 83% 25%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  min-height: 100vh;
+  background:
+    linear-gradient(120deg, rgba(243, 250, 245, 0.86), rgba(255, 250, 241, 0.72)),
+    radial-gradient(circle at 18% 12%, rgba(24, 144, 119, 0.18), transparent 32%),
+    radial-gradient(circle at 92% 2%, rgba(249, 136, 73, 0.16), transparent 28%),
+    hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.dashboard-grid {
+  background-image:
+    linear-gradient(rgba(34, 79, 82, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 79, 82, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
