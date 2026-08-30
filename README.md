@@ -6,14 +6,14 @@ of `1.995` turns on the released evaluation set.
 
 The scored path is fully deterministic: structured session state, exact
 catalog-card matches, phrase-level category resolution, weighted BM25, and a
-purchase-volume prior for products the conversation can't tell apart — no
-network access, API key, or token spend required. A small local model is an
+purchase-volume prior for products the conversation can't tell apart. It
+needs no network access, API key, or token spend. A small local model is an
 optional demo of free-form language understanding, not a dependency.
 
 Keyword search fails multi-turn shopping: a shopper who says "something warm
 for winter, not too flashy" can't be served by literal-term matching, and a
 clarifying question that doesn't narrow the catalog wastes a turn. This is a
-state-tracking problem, not a bigger-model one — the gain came from never
+state-tracking problem, not a bigger-model one. The gain came from never
 losing or misapplying what the shopper said, not from adding an LLM to the
 critical path.
 
@@ -28,7 +28,7 @@ critical path.
 
 The released BM25 starter scored Hit@10 `0.125`, MRR `0.068034`, MTTC `9.81`.
 Every released session now converges, and every converged session converges
-at rank one — the entire remaining score gap is turns, not misses.
+at rank one. The entire remaining score gap is turns, not misses.
 
 By scenario, the released set converges in `1.51` turns for buying, `1.79`
 for browsing, `2.50` for boundary, and `3.67` for intent override. The
@@ -49,7 +49,7 @@ it. This only uses evidence the shopper actually stated, so it's applied
 unconditionally.
 
 **A blended purchase-volume prior.** Once the stated constraints are used up,
-hundreds of products can still satisfy the intent card identically — the
+hundreds of products can still satisfy the intent card identically, and the
 conversation gives no way to separate them. Review volume is the available
 proxy for sales volume, and the target is a real purchase, so it's used as a
 tiebreaker blended against lexical rank rather than replacing it:
@@ -68,15 +68,15 @@ said.
 An earlier version of this prior was rejected for losing `-0.0237` on the
 synthetic test split. That test wasn't a fair gate for this signal: its
 targets are generated uniformly across the catalog, so a popularity prior has
-nothing to exploit there. The real released sessions are different — targets
+nothing to exploit there. The real released sessions are different: targets
 are drawn from actual purchases, and the median public target sits in the
 catalog's most-reviewed `1%`. The private sessions use the same generator
 against the same catalog, so the same skew applies there too.
 
 The prior doesn't need that argument anymore, because it's no longer used
 alone. Once category resolution pins the correct shelf first, the prior only
-reorders products already on that shelf, so it now helps on all three splits
-— including the two with uniform targets:
+reorders products already on that shelf, so it now helps on all three
+splits, including the two with uniform targets:
 
 | Configuration | Public | Synthetic validation | Synthetic test |
 |---|---:|---:|---:|
@@ -166,7 +166,7 @@ Expected TechnicalScore: `0.98010` with zero reported model tokens.
 ## Demo
 
 `frontend/` is a Next.js console for interactively driving the same
-production `Agent` used for scoring — a UI layer over `solution/agent.py`,
+production `Agent` used for scoring: a UI layer over `solution/agent.py`,
 not a separate reimplementation. A Node API route spawns
 `frontend/backend/copilot_server.py`, which loads the real catalog and agent
 once and answers turns over stdio, so the demo and the scorer never diverge.
@@ -261,7 +261,7 @@ ASIN-separated synthetic gates.
 
 **Why Top-K stays narrow:** the evaluator scores a session at its first hit
 and stops, so dropping from rank 1 to rank 2 costs `0.15` while saving a turn
-only returns `0.02` — a wider list would need to save seven turns to break
+only returns `0.02`. A wider list would need to save seven turns to break
 even. 25 alternative policies were tested and all scored lower.
 
 **Why the opening question stays generic:** the simulator always answers a
@@ -279,19 +279,19 @@ runtime.
 
 - Some intent cards describe hundreds of metadata-identical products without
   ever disclosing what makes the purchased one unique. The purchase-volume
-  prior that orders them is a prior, not conversation evidence — it assumes
+  prior that orders them is a prior, not conversation evidence. It assumes
   the labelled purchase is more likely to be a popular one, which holds
   structurally for this dataset but can't be verified against the private
   sessions. It's only consulted after every stated constraint and category,
   so a shopper who states enough never reaches it.
 - `popularity_weight = 5.0` is fitted on the public set. A split-half check
-  shows it transfers, not proves it — the plateau is wide (`2.4` to `8.0`
+  shows it transfers, not proves it. The plateau is wide (`2.4` to `8.0`
   behaves the same).
 - The released simulator is deterministic. The stress and metamorphic
   harnesses test paraphrases and clause order, but aren't a substitute for a
   large, independently authored conversation set.
 - Dense retrieval and the explicit router are implemented but stay
-  experimental — they didn't beat the deterministic ranker end to end.
+  experimental: they didn't beat the deterministic ranker end to end.
 - The optional local extractor hasn't met its accuracy promotion gate. Its
   200-case corpus is single-author seed data, not independent validation.
 
@@ -303,7 +303,7 @@ lands. A realistic ceiling is around `0.988`.
 Remaining work is about earning turn-one convergence more often: resolving
 the stated category to a deeper catalog node, tracing the dense-router
 regression, and calibrating selective BM25/vector fusion for browsing turns
-with a large shelf. Top-K changes don't need further testing — the scoring
+with a large shelf. Top-K changes don't need further testing: the scoring
 arithmetic above already rules them out.
 
 ## Repository layout
@@ -339,8 +339,8 @@ tests/                            parser, state, evaluator and training checks
 
 | Member | Contribution |
 |---|---|
-| Aung Ye Thant Hein | Retrieval and ranking - category resolution, purchase-volume prior, override handling |
+| Aung Ye Thant Hein | Category resolution, purchase-volume prior, and override handling |
 | Chue Myat Sandy | Evaluation, ablation experiments, and repo cleanup |
-| Htet Shwe Win Than | Testing unit, regression, and stress harnesses |
+| Htet Shwe Win Than | Unit, regression, and stress test harnesses |
 | Tai Wei Sin | Core agent architecture and pipeline |
 | Win Lei Thawdar | Frontend demo console |
