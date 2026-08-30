@@ -28,9 +28,9 @@ export type DemoScenario = {
 };
 
 export const metrics = [
-  { label: "Hit@10", value: "0.995", caption: "public set" },
-  { label: "MRR", value: "0.985", caption: "rank quality" },
-  { label: "MTTC", value: "2.97", caption: "turns to conversion" },
+  { label: "Hit@10", value: "1.000", caption: "public set" },
+  { label: "MRR", value: "1.000", caption: "rank quality" },
+  { label: "MTTC", value: "1.995", caption: "turns to conversion" },
   { label: "Token cost", value: "0", caption: "offline default" },
 ];
 
