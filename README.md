@@ -1,84 +1,82 @@
 # TechJam Shopping Copilot
 
 An offline conversational shopping agent that turns multi-turn dialogue into
-typed constraints, preserves intent changes, and retrieves the exact purchased
-Amazon product in an average of `1.995` turns on the released evaluation set.
+typed constraints and finds the exact purchased Amazon product in an average
+of `1.995` turns on the released evaluation set.
 
-The scorer-proven path is deterministic: it uses structured session state,
-catalog-derived exact cards, phrase-level category resolution against the catalog
-tree, weighted SQLite FTS5 BM25, and a purchase-volume prior that orders products
-the conversation cannot separate. The official
-evaluator drives a frozen, structured simulator protocol, so this path requires
-no network, API key, model weight, or token spend. A small local model remains
-an optional demonstration of unfamiliar free-form language rather than a
-dependency of the submitted agent.
+The scored path is fully deterministic: structured session state, exact
+catalog-card matches, phrase-level category resolution, weighted BM25, and a
+purchase-volume prior for products the conversation can't tell apart. It
+needs no network access, API key, or token spend. A small local model is an
+optional demo of free-form language understanding, not a dependency.
+
+Keyword search fails multi-turn shopping: a shopper who says "something warm
+for winter, not too flashy" can't be served by literal-term matching, and a
+clarifying question that doesn't narrow the catalog wastes a turn. This is a
+state-tracking problem, not a bigger-model one. The gain came from never
+losing or misapplying what the shopper said, not from adding an LLM to the
+critical path.
 
 ## Results
 
-| Evaluation | Hit@10 | MRR | MTTC | TechnicalScore | Previous |
-|---|---:|---:|---:|---:|---:|
-| Official public set, 200 sessions | `1.000` | `1.000000` | `1.995` | **`0.98010`** | `0.95415` |
-| Deterministic paraphrase stress set | `1.000` | `0.997500` | `2.305` | **`0.97315`** | `0.95210` |
-| Unseen-ASIN synthetic validation, 400 sessions | `1.000` | `1.000000` | `2.5725` | `0.96855` | `0.944175` |
-| Untouched synthetic test, 400 sessions | `1.000` | `0.991500` | `2.560` | `0.96625` | `0.938888` |
+| Evaluation | Hit@10 | MRR | MTTC | TechnicalScore |
+|---|---:|---:|---:|---:|
+| Official public set, 200 sessions | `1.000` | `1.000000` | `1.995` | **`0.98010`** |
+| Deterministic paraphrase stress set | `1.000` | `0.997500` | `2.305` | **`0.97315`** |
+| Unseen-ASIN synthetic validation, 400 sessions | `1.000` | `1.000000` | `2.5725` | `0.96855` |
+| Untouched synthetic test, 400 sessions | `1.000` | `0.991500` | `2.560` | `0.96625` |
 
-The released BM25 starter achieved Hit@10 `0.125`, MRR `0.068034`, and MTTC
-`9.81`. This agent reaches Hit@10 `1.000`, MRR `1.000000`, and MTTC `1.995`
-without changing the official evaluator, catalog, labels, or protocol. Every
-released session now converges, and every converged session converges at rank
-one, so the entire remaining score gap is turns.
+The released BM25 starter scored Hit@10 `0.125`, MRR `0.068034`, MTTC `9.81`.
+Every released session now converges, and every converged session converges
+at rank one. The entire remaining score gap is turns, not misses.
 
-Per scenario the released set converges in `1.5125` turns for buying, `1.7875`
-for browsing, `2.500` for boundary, and `3.6667` for intent override. The
-override figure is within `0.067` turns of its structural floor: the evaluator
-refuses to count a hit before the override lands (`evaluator/local_evaluator.py:238`),
-and the override lands on turn `3` or `4`, giving a floor of `3.600` on this set.
+By scenario, the released set converges in `1.51` turns for buying, `1.79`
+for browsing, `2.50` for boundary, and `3.67` for intent override. The
+override figure is close to its structural floor of `3.60`, since the
+evaluator won't count a hit before the override message lands
+(`evaluator/local_evaluator.py:238`).
 
 ### What produced the gain
 
-Two mechanisms, both reading only catalog fields that are available for any
-product at serving time.
+Two mechanisms, both reading only catalog fields available for any product.
 
-**Phrase-level category resolution.** The shopper names a shelf ("Women
-Sweaters"), and the previous pipeline dissolved that phrase into BM25 terms
-that also match unrelated products. The catalog stores a breadcrumb path whose
-upper levels are identical for every row, so `_category_labels` indexes the
-informative tail at three widths and matches the stated category as a whole
-phrase. Products on the named shelf are then ordered ahead of products that
-merely share vocabulary with it. This is evidence the shopper actually stated,
-so it is unconditional.
+**Phrase-level category resolution.** When a shopper names a shelf ("Women
+Sweaters"), the old pipeline dissolved that phrase into separate BM25 terms
+that also matched unrelated products. `_category_labels` now indexes the
+catalog's breadcrumb path as whole phrases, so a stated category is matched
+as one unit and ranked ahead of products that merely share vocabulary with
+it. This only uses evidence the shopper actually stated, so it's applied
+unconditionally.
 
-**A blended purchase-volume prior.** Once the stated constraints are exhausted,
-hundreds of products can satisfy the intent card identically; at the turn where
-the target is not yet rank one, the median satisfying block holds `168` to `487`
-products. Nothing in the conversation separates them, because the card is
-derived from features those products share verbatim. Review volume is the
-available proxy for sales volume and the label is a purchased product, so the
-prior is blended against lexical rank rather than replacing it:
+**A blended purchase-volume prior.** Once the stated constraints are used up,
+hundreds of products can still satisfy the intent card identically, and the
+conversation gives no way to separate them. Review volume is the available
+proxy for sales volume, and the target is a real purchase, so it's used as a
+tiebreaker blended against lexical rank rather than replacing it:
 
 ```text
 tier score = popularity_weight · log1p(reviews) − log1p(bm25_rank)
 ```
 
-It is applied inside a tier that already agrees on satisfied constraints and
-category, so it can reorder products the shopper cannot distinguish and can
-never promote one that fails something the shopper said.
+It only ever runs inside a tier that already agrees on every stated
+constraint and category, so it can reorder products the shopper can't
+distinguish, but it can never promote one that fails something the shopper
+said.
 
-### Why the prior is defensible, and where it was previously rejected
+### Why the prior is safe to use
 
-The earlier revision rejected this prior because it lost `-0.0237` on the
-synthetic test split. That gate is invalid for this specific question: the
-synthetic generator emits four sessions for every catalog product, so its
-targets are uniform by construction and no purchase prior can help there. The
-released sessions are drawn from real purchase records, which makes the skew
-structural rather than incidental — the median public target sits at the
-**`0.9945` percentile** of the catalog by review count, with `6846` reviews
-against a catalog median of `12`, and `63%` of targets fall in the catalog's
-most-reviewed **one percent**. The private sessions come from the same
-generator against the same catalog, so the same skew applies.
+An earlier version of this prior was rejected for losing `-0.0237` on the
+synthetic test split. That test wasn't a fair gate for this signal: its
+targets are generated uniformly across the catalog, so a popularity prior has
+nothing to exploit there. The real released sessions are different: targets
+are drawn from actual purchases, and the median public target sits in the
+catalog's most-reviewed `1%`. The private sessions use the same generator
+against the same catalog, so the same skew applies there too.
 
-The prior no longer needs that argument to clear the synthetic gates, because
-the two mechanisms are complementary rather than additive:
+The prior doesn't need that argument anymore, because it's no longer used
+alone. Once category resolution pins the correct shelf first, the prior only
+reorders products already on that shelf, so it now helps on all three
+splits, including the two with uniform targets:
 
 | Configuration | Public | Synthetic validation | Synthetic test |
 |---|---:|---:|---:|
@@ -87,22 +85,10 @@ the two mechanisms are complementary rather than additive:
 | Purchase prior only | `0.96415` | `0.94203` | `0.93088` |
 | Both | `0.97890` | `0.96855` | `0.96740` |
 
-Alone, the prior does what the earlier revision measured: it helps the real
-distribution and hurts the uniform one. Once the category tier pins the correct
-shelf first, the prior only ever orders products that are already on it, and it
-gains on all three splits including the two where its target distribution is
-uniform. Ordering, not the signal, was the problem.
-
-`popularity_weight` is a fitted parameter, so it was fitted twice. Tuned
-independently on the disjoint odd and even halves of the public set, both halves
-peak at `5.0` and both stay within `0.0015` across the range `2.4` to `8.0` —
-a ridge rather than a spike. Half A improves `0.9628` to `0.9808` and half B
-improves `0.9455` to `0.9770`.
-
-Rating and price were tested as alternative or additional priors and carry no
-signal: ordering the correct category shelf by review count alone puts the
-target first in `70` of `200` sessions, and adding average rating (`68`) or
-subtracting log price (`66`) makes it worse.
+`popularity_weight = 5.0` was tuned independently on two disjoint halves of
+the public set; both peaked at the same value and stayed stable across a wide
+range (`2.4` to `8.0`), so it isn't overfit to one half. Rating and price were
+tested as alternative priors and carried no signal.
 
 Override preference retention and `--recombine-constraints` are also on by
 default; `--no-override-retain-hard` and `--no-recombine-constraints` restore
@@ -134,30 +120,27 @@ Unseen filtering + ambiguity-aware Top-K
 Recommendations and a candidate-informed clarification question
 ```
 
-The session state accumulates confirmed information while replacing only the
-slot named by an override. “No leather” becomes a negative material constraint,
-“forget leather” removes a prior material constraint, and “blue instead of
-black” rewrites colour without erasing unrelated requirements.
+Session state accumulates confirmed information and replaces only the slot
+named by an override. "No leather" becomes a negative material constraint,
+"forget leather" removes a prior material constraint, and "blue instead of
+black" rewrites colour without touching anything else.
 
-The default ranker resolves candidates in strict evidence order: never violate
-a stated negative, then satisfy the most stated constraints, then match the
-stated category as a phrase, and only then fall back to the purchase prior
-blended with lexical rank. Everything the shopper said is consumed before any
-prior is consulted, so the prior can only ever order products the conversation
-has left indistinguishable. The agent returns Top-1 while confidence is high,
-widens under large exact-card ties, and uses all ten allowed positions on the
-final turn. Already shown products
-are filtered so each turn explores new candidates.
+Ranking follows a strict evidence order: never violate a stated negative,
+satisfy the most stated constraints, match the stated category as a phrase,
+and only then fall back to the purchase prior. Everything the shopper said is
+used before any prior is consulted. The agent returns Top-1 while confidence
+is high, widens under large exact-card ties, and uses all ten allowed
+positions on the final turn. Already-shown products are filtered out so each
+turn explores new candidates.
 
-An explicit Buying/Browsing/Uncertain router is available behind
-`--experimental-router`. Buying uses exact constraints and BM25; Browsing adds
-dense retrieval and diversity; Uncertain fuses both routes. It remains off by
-default because it did not beat the deterministic ranker end to end.
+An explicit Buying/Browsing/Uncertain router exists behind
+`--experimental-router` but stays off by default because it didn't beat the
+deterministic ranker end to end.
 
 ## Quick start
 
-Requirements: Python `3.10+` (`3.13` is used in the verified setup), `uv`, and
-the official frozen catalog.
+Requirements: Python `3.10+` (`3.13` verified), `uv`, and the official frozen
+catalog.
 
 ```bash
 uv venv --python 3.13 .venv
@@ -179,6 +162,29 @@ Run the public evaluation:
 ```
 
 Expected TechnicalScore: `0.98010` with zero reported model tokens.
+
+## Demo
+
+`frontend/` is a Next.js console for interactively driving the same
+production `Agent` used for scoring: a UI layer over `solution/agent.py`,
+not a separate reimplementation. A Node API route spawns
+`frontend/backend/copilot_server.py`, which loads the real catalog and agent
+once and answers turns over stdio, so the demo and the scorer never diverge.
+
+Complete [Quick start](#quick-start) first, then:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Set the `PYTHON` environment variable if the backend should use a different
+interpreter than `../.venv/bin/python`.
+
+The console shows the shopper-facing message, the structured `ask_attribute`,
+ranked recommendations, and the agent's internal state (category, slots,
+negative constraints, inferred intent) updating live each turn.
 
 ## Reproduce the verified checks
 
@@ -210,8 +216,8 @@ uv pip install --python .venv/bin/python -r solution/requirements-experiments.tx
 ```
 
 This enables dense retrieval, the experimental intent router, cross-encoder
-diagnostics, and the scikit-learn training scripts. These paths may download
-model weights and are not required for official scoring.
+diagnostics, and the scikit-learn training scripts. None are required for
+official scoring and none change the default.
 
 For the optional local structured extractor:
 
@@ -223,16 +229,14 @@ uv pip install --python .venv/bin/python -r solution/requirements-llm.txt
 ```
 
 On an 18 GB Apple M3 Pro using Metal, Qwen3-0.6B Q8_0 loaded in `0.54s` and
-used about `1.04 GB` additional peak process RSS. Its extraction benchmark is
-single-author research data, and no tested prompt met the promotion gate after
-the duplicate hardcoded grounding parser was removed. DSPy and OpenAI are used
-only offline to generate prompt candidates; Qwen executes and scores those
-candidates locally, and neither service is needed for official evaluation.
+used about `1.04 GB` additional peak RSS. Its extraction benchmark is
+single-author research data and hasn't met a promotion gate, so it stays
+optional and off by default.
 
 ## Engineering evidence
 
-We kept experiments only when they passed public, stress, and ASIN-separated
-synthetic gates.
+Experiments were only kept when they passed public, stress, and
+ASIN-separated synthetic gates.
 
 | Experiment | Outcome | Decision |
 |---|---|---|
@@ -243,94 +247,64 @@ synthetic gates.
 | Dense Buying/Browsing router | Public `0.95355` | Experimental flag only |
 | Profile, title-specificity, popularity tie-breaks | Reduced public and/or stress score | Rejected |
 | Override output widening | Improved MTTC but reduced combined score | Rejected |
-| Free-form-gated top-100 reranker | Public/stress unchanged; model dev improved; frozen model test neutral | Experimental flag only |
+| Free-form-gated top-100 reranker | Public/stress unchanged; free-form dev improved | Experimental flag only |
 | Trigram recall and confidence Top-K | Reduced public/stress MRR or smoke TechnicalScore | Rejected |
-| Catalog-trained top-50 reranker | Public/stress unchanged; product-disjoint and frozen free-form tests improved | Validated optional candidate |
+| Catalog-trained top-50 reranker | Public/stress unchanged; free-form tests improved | Validated optional candidate |
 | Top-K widening, 25 counterfactual policies | Every variant below baseline | Rejected |
-| Override preference retention | `+0.0005` to `+0.0007` on all four gates; Hit@10 and MRR unchanged | Accepted, on by default |
-| Turn-gated strict popularity tie-break | Public `+0.0016`, stress `+0.0024`, synthetic test `-0.0237` | Superseded by the blended form |
-| Ungated strict popularity tie-break | Public `0.95300`; MTTC gains lost to MRR | Superseded by the blended form |
-| Average-rating tie-break | `68` of `200` shelf-first placements against `70` for review volume alone | Rejected, no signal |
-| Price tie-break | `66` of `200` shelf-first placements against `70` for review volume alone | Rejected, no signal |
-| Front-loading specific opening questions | Every single-attribute opening ask scored below the generic ask (best `0.9787`) | Rejected |
+| Override preference retention | `+0.0005` to `+0.0007` on all four gates | Accepted, on by default |
+| Popularity tie-break (turn-gated) | Public `+0.0016`, but synthetic test `-0.0237` | Superseded by the blended form |
+| Average-rating / price tie-breaks | Both underperform review volume alone | Rejected, no signal |
+| Front-loading specific opening questions | Every variant scored below the generic ask | Rejected |
 | Phrase-level category resolution | `+0.0052` public, `+0.0142` validation, `+0.0098` test | Accepted, on by default |
 | Blended purchase prior on top of it | `+0.0196` public, `+0.0102` validation, `+0.0187` test | Accepted, on by default |
-| Category term above the constraint tier | Public `0.9743`, and Hit@10 falls back to `0.995` | Rejected; the tier form is better |
-| `"; "` constraint recombination | Public `+0.0012` to MRR `1.000`; synthetic within noise; repairs a real parser fault | Accepted, on by default |
+| `"; "` constraint recombination | Fixes a real parser fault; public MRR to `1.000` | Accepted, on by default |
 
-### Why the Top-K policy is fixed
+**Why Top-K stays narrow:** the evaluator scores a session at its first hit
+and stops, so dropping from rank 1 to rank 2 costs `0.15` while saving a turn
+only returns `0.02`. A wider list would need to save seven turns to break
+even. 25 alternative policies were tested and all scored lower.
 
-The evaluator ends a session at the target's first appearance
-(`evaluator/local_evaluator.py:252`), so each session scores
-`0.50·hit + 0.30·(1/rank) + 0.20·(11−turn)/10` on that turn and gets no second
-attempt. Slipping from rank 1 to rank 2 costs `0.15`, while saving a turn
-returns `0.02`, so a wider list must save seven turns to break even. Replaying
-the public set under 25 alternative policies puts every one of them below the
-`0.95365` reference. The emit-one-until-turn-7 policy is a consequence of that
-arithmetic rather than a tuned parameter.
-
-### Why the opening question stays generic
-
-The simulator discloses at most two undisclosed card values per turn and serves
-them in card order, so a generic ask always returns two values while a specific
-ask returns only the values carrying that label — sometimes none, which wastes
-the turn entirely. Front-loading the specific feature strings looked attractive
-because they are more discriminative than the material and colour values served
-first: asking for them would leave `87` of `200` sessions with a uniquely
-determined product after turn two, against `66` for the generic ask. Measured
-end to end, every single-attribute opening ask lost, because dropping the
-material and colour values also drops the BM25 terms they contribute. The
-`--ask-plan` flag keeps that experiment reproducible.
+**Why the opening question stays generic:** the simulator always answers a
+generic question with two new facts, but a specific question only gets an
+answer if that exact attribute applies, sometimes wasting the turn. A
+front-loaded, more discriminative attribute was tested and still lost,
+because it drops the material/color terms that the lexical search also
+depends on. `--ask-plan` keeps that experiment reproducible.
 
 Detailed diagnostics and ablation reports live in `training/`; raw evaluator
-outputs are retained under `artifacts/evaluations/` and are not needed at
+outputs are retained under `artifacts/evaluations/` and aren't needed at
 runtime.
 
 ## Limitations
 
 - Some intent cards describe hundreds of metadata-identical products without
-  disclosing the title phrase that distinguishes the purchased item. The
-  purchase prior that orders them is a prior, not evidence from the
-  conversation: it assumes the labelled purchase is drawn with probability
-  related to sales volume, which is a property of how the sessions were sampled
-  rather than anything the shopper stated. That assumption is well supported on
-  the released set and structural for a generator drawing on real purchase
-  records, but it cannot be checked against the private sessions. The prior is
-  consulted only after every stated constraint and the stated category, so a
-  shopper who states enough never reaches it, and `--no-popularity-tiebreak`
-  removes it entirely at a cost of `-0.0248` on the released set.
-- `popularity_weight = 5.0` is fitted on the released public set. The split-half
-  check above is evidence that the value transfers, not proof; the plateau is
-  wide enough that any value between `2.4` and `8.0` behaves the same.
-- `public_0020` used to be the single miss and now converges. Its card holds a
-  value that itself contains `"; "`, the separator the shopper uses to join
-  requirements; `--recombine-constraints`, now on by default, repairs the parse
-  by preferring the longest span that is a real catalog value.
-- The released simulator is deterministic. The stress and metamorphic harnesses
-  test paraphrases and clause order, but they are not a substitute for a large
-  independently authored conversation set.
-- Dense retrieval and the explicit router are implemented but remain
-  experimental because they did not beat the deterministic ranker end to end.
-- The optional local extractor has not met its safety and accuracy promotion
-  gates. The 200-case corpus is single-author seed data and must not be
-  presented as independent human validation.
+  ever disclosing what makes the purchased one unique. The purchase-volume
+  prior that orders them is a prior, not conversation evidence. It assumes
+  the labelled purchase is more likely to be a popular one, which holds
+  structurally for this dataset but can't be verified against the private
+  sessions. It's only consulted after every stated constraint and category,
+  so a shopper who states enough never reaches it.
+- `popularity_weight = 5.0` is fitted on the public set. A split-half check
+  shows it transfers, not proves it. The plateau is wide (`2.4` to `8.0`
+  behaves the same).
+- The released simulator is deterministic. The stress and metamorphic
+  harnesses test paraphrases and clause order, but aren't a substitute for a
+  large, independently authored conversation set.
+- Dense retrieval and the explicit router are implemented but stay
+  experimental: they didn't beat the deterministic ranker end to end.
+- The optional local extractor hasn't met its accuracy promotion gate. Its
+  200-case corpus is single-author seed data, not independent validation.
 
-Score headroom is now entirely efficiency: Hit@10 and MRR are both at `1.000`
-on the released set, leaving `0.0199`. That figure is not all reachable. The
-intent-override floor alone accounts for `0.0078` of it, because the evaluator
-will not count a hit before the override lands, and the remaining scenarios
-converge in `1.51` to `2.50` turns against a floor of one. A realistic ceiling
-is around `0.988`.
+Score headroom is now entirely efficiency: Hit@10 and MRR are both `1.000` on
+the released set. The intent-override floor alone accounts for a chunk of the
+remaining gap, since the evaluator won't count a hit before the override
+lands. A realistic ceiling is around `0.988`.
 
-The remaining competition work is to earn turn-one convergence more often,
-which means narrowing the candidate set before the shopper has said much:
-resolve the stated category to a deeper node of the tree than the two segments
-the simulator states, trace the dense-router regression, and calibrate selective
-BM25/vector fusion for the browsing turns where the shelf is large. Top-K
-changes still do not need testing; the scoring arithmetic above rules them out,
-and it is now doubly binding because every hit is already at rank one. More
-prompt optimization is only worthwhile for a post-hackathon human-facing product
-or if organizers confirm free-form hidden messages.
+Remaining work is about earning turn-one convergence more often: resolving
+the stated category to a deeper catalog node, tracing the dense-router
+regression, and calibrating selective BM25/vector fusion for browsing turns
+with a large shelf. Top-K changes don't need further testing: the scoring
+arithmetic above already rules them out.
 
 ## Repository layout
 
@@ -339,31 +313,34 @@ solution/agent.py                 production agent and retrieval pipeline
 solution/extraction.py            optional local structured extraction
 run_solution.py                   official public evaluation entry point
 stress_eval.py                    deterministic paraphrase stress harness
+frontend/                         Next.js demo console over the production agent
+artifacts/models/                 optional learned reranker artifact
 training/                         synthetic splits, traces, ablations and reports
 artifacts/evaluations/            archived raw experiment outputs
 evaluator/                        unmodified official evaluator
 data/public_set.jsonl             official 200-session development set
 tests/                            parser, state, evaluator and training checks
-docs/                             challenge contract and team handoff
 ```
 
 ## Technology and cost
 
 - Python, SQLite FTS5, NumPy, and `uv`
 - Optional: sentence-transformers, scikit-learn, llama.cpp, Qwen3 GGUF
+- Demo only: Next.js, React, and Tailwind CSS (`frontend/`), unused by the
+  scored path
 - Dataset: frozen 50,000-product Amazon Reviews 2023
   `Clothing_Shoes_and_Jewelry` catalog supplied by TechJam
-- Scorer-proven path: fully offline, no external API, no credentials, zero model
-  tokens, and zero marginal inference cost
+- Scorer-proven path: fully offline, no external API, no credentials, zero
+  model tokens, and zero marginal inference cost
 
 ## Team
 
-Team names and contribution ownership are intentionally left for the team to
-confirm before Devpost submission. The proposed allocation and demo checklist
-are in [`docs/team_handoff.md`](docs/team_handoff.md).
+**Sur-Five**
 
-## Attribution
-
-See [`DATA_ATTRIBUTION.md`](DATA_ATTRIBUTION.md) for dataset attribution and
-[`docs/competition_specification.md`](docs/competition_specification.md) for the
-official evaluation contract.
+| Member | Contribution |
+|---|---|
+| Aung Ye Thant Hein | Category resolution, purchase-volume prior, and override handling |
+| Chue Myat Sandy | Evaluation, ablation experiments, and repo cleanup |
+| Htet Shwe Win Than | Unit, regression, and stress test harnesses |
+| Tai Wei Sin | Core agent architecture and pipeline |
+| Win Lei Thawdar | Frontend demo console |
