@@ -21,6 +21,9 @@ from solution.extraction import (
 from stress_eval import transform_message
 
 
+CATALOG_AVAILABLE = Path("data/catalog.jsonl").is_file()
+
+
 class SolutionParsingTest(unittest.TestCase):
     def test_missing_learned_reranker_falls_back_without_failure(self) -> None:
         agent = Agent.__new__(Agent)
@@ -169,7 +172,7 @@ class SolutionParsingTest(unittest.TestCase):
         self.assertTrue(deferred.show_options_first)
         self.assertEqual(removed.remove, {"budget": ["budget under $80"]})
 
-
+    @unittest.skipUnless(CATALOG_AVAILABLE, "official catalog is not installed")
     def test_plain_language_demo_flow_returns_products_and_updates_slots(self) -> None:
         agent = Agent("data/catalog.jsonl")
         agent.reset("demo", {})
@@ -185,6 +188,7 @@ class SolutionParsingTest(unittest.TestCase):
         self.assertIn("leather", agent.sessions["demo"]["negative_constraints"])
         self.assertIn("i also prefer gorpcore details", agent.sessions["demo"]["soft_queries"])
         self.assertNotIn("gorpcore", agent.sessions["demo"]["constraints"])
+        agent.connection.close()
 
     def test_late_extraction_is_discarded(self) -> None:
         class SlowExtractor:
@@ -318,6 +322,7 @@ class SolutionParsingTest(unittest.TestCase):
         fused = Agent._fuse_routes(["buy", "shared"], ["browse", "shared"], 0.5)
         self.assertEqual(fused[0], "shared")
 
+    @unittest.skipUnless(CATALOG_AVAILABLE, "official catalog is not installed")
     def test_adaptive_question_requires_an_answerable_unresolved_slot(self) -> None:
         agent = Agent("data/catalog.jsonl", adaptive_questions=True)
         ranked = agent.asins[:20]

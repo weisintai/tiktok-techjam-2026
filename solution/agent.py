@@ -398,7 +398,11 @@ class Agent:
         self.learned_reranker = None
         self.embeddings: np.ndarray | None = None
         self.catalog_lexicon = CatalogLexicon()
-        self._build_index()
+        try:
+            self._build_index()
+        except Exception:
+            self.connection.close()
+            raise
         if model_name:
             self._load_semantic_index()
         if cross_encoder_name:
