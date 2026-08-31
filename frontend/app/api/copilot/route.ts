@@ -13,7 +13,6 @@ type PendingRequest = {
 };
 
 declare global {
-  // eslint-disable-next-line no-var
   var copilotBridge:
     | {
         process: ChildProcessWithoutNullStreams;

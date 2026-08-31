@@ -1,8 +1,9 @@
 # TechJam Shopping Copilot
 
 An offline conversational shopping agent. It turns a multi-turn chat into
-structured constraints (category, material, color, budget, negatives) and
-finds the exact product the shopper wants in an average of `1.995` turns.
+structured constraints (category, material, color, budget, negatives). On the
+released 200-session public evaluation set, it finds the target product in an
+average of `1.995` turns.
 
 It runs fully offline: no network access, no API key, no token cost. A small
 local model is available as an optional demo of free-form language
@@ -10,9 +11,9 @@ understanding, but the scored path never depends on it.
 
 Keyword search breaks down in a conversation: a shopper who says "something
 warm for winter, not too flashy" can't be matched by literal keywords, and
-every question that doesn't narrow the catalog wastes a turn. This project
-solves that by never losing or misapplying anything the shopper already said,
-not by using a bigger model.
+every question that doesn't narrow the catalog wastes a turn. Shopping Copilot
+instead preserves confirmed constraints across turns and grounds retrieval in
+the supplied catalog.
 
 ## Results
 
@@ -32,44 +33,44 @@ The starter code this competition ships with scored Hit@10 `0.125`, MRR
 and always at rank 1. The only remaining score gap is how many turns it
 takes, not whether it finds the product.
 
-## What makes it work
-
-Two mechanisms, both using only information the shopper stated or facts the
-catalog already has:
-
-- **Category matching as a phrase.** If a shopper says "Women Sweaters," the
-  system used to break that into separate keywords that also matched
-  unrelated products. Now it matches the full phrase against the catalog's
-  own category tree first.
-- **A popularity tiebreaker for identical products.** Sometimes hundreds of
-  products satisfy everything the shopper said and nothing in the
-  conversation can tell them apart. In that case only, the agent prefers the
-  one with more reviews, since the labeled answer is a real purchase and
-  popular products are more likely to be the one actually bought. It never
-  overrides anything the shopper stated.
-
-Both were tested individually and together on all four evaluation sets above
-before being turned on by default; see [Engineering evidence](#engineering-evidence)
-for the full experiment log, including what was tried and rejected.
-
 ## How it works
 
 ```text
-Shopper message
-  ├─ released simulator wording ──> deterministic typed parser
-  └─ unfamiliar free-form text ──> optional local model
-                                      │
-                                      v
-Typed session state: category, positive slots, negative slots, overrides
-                              │
-                              v
-Exact catalog matches + category-phrase matching + keyword search (BM25)
-                              │
-                              v
-Rank by: constraints satisfied -> category match -> popularity tiebreaker
-                              │
-                              v
-Recommendations + one clarifying question
+                           Customer Message
+                                  |
+                +-----------------+-----------------+
+                |                                   |
+                v                                   v
+        Recognized Message                  Unfamiliar Free Form
+                |                                   |
+                v                                   v
+       Deterministic Parser          Catalog-Grounded Deterministic
+                                               Fallback
+                +-----------------+-----------------+
+                                  |
+                                  v
+                         Typed Multi-Turn State
+                    (Add | Replace | Remove | Exclude)
+                                  |
+               +------------------+------------------+
+               |                  |                  |
+               v                  v                  v
+         Weighted BM25       Exact-Facet       Category-Phrase
+         Text Retrieval        Lookup            Resolution
+               +------------------+------------------+
+                                  |
+                                  v
+                         Candidate Pool Fusion
+                                  |
+                                  v
+                      Constraint-Aware Ranking
+               (Exclusions | Exact Evidence | Category Fit)
+                                  |
+                                  v
+                Bounded Popularity + Lexical Tie-Breaking
+                                  |
+                                  v
+                      Recommendations + Clarification
 ```
 
 The session remembers everything confirmed so far, and an override only
@@ -77,8 +78,10 @@ replaces the one thing that changed. "No leather" adds a negative
 constraint. "Forget leather" removes it. "Blue instead of black" changes
 color without touching material, budget, or anything else already stated.
 
-An experimental Buying/Browsing router exists behind `--experimental-router`
-but is off by default: it didn't beat the simpler ranker in testing.
+Category phrases are matched against the catalog tree instead of scattered into
+unrelated keywords. When multiple products satisfy the same explicit evidence,
+review volume is blended with lexical rank as a bounded popularity tie-breaker.
+It cannot override a stronger constraint match.
 
 ## Quick start
 
@@ -99,6 +102,28 @@ decompress it to `data/catalog.jsonl` (50,000 rows), then run:
 ```
 
 Expected TechnicalScore: `0.98010`, zero reported model tokens.
+
+### Run another evaluation set
+
+To run the same default agent against another compatible session JSONL file:
+
+```bash
+.venv/bin/python run_solution.py \
+  --dataset /path/to/sessions.jsonl \
+  --output results.json
+```
+
+The runner uses `data/catalog.jsonl` by default. To use a different compatible
+catalog file, optionally provide it with `--catalog`:
+
+```bash
+.venv/bin/python run_solution.py \
+  --catalog /path/to/catalog.jsonl \
+  --dataset /path/to/sessions.jsonl \
+  --output results.json
+```
+
+No model weights, API keys, network access, or experimental flags are required.
 
 ## Demo
 
@@ -123,66 +148,59 @@ live each turn.
 .venv/bin/python stress_eval.py --output stress_results.json
 ```
 
-Expected: `49/49` tests pass, public score `0.98010`, stress score `0.97315`.
+Expected with the official catalog installed: `49/49` tests pass, public score
+`0.98010`, and stress score `0.97315`. Without the catalog, the two
+catalog-integration tests are skipped.
 
 ## Optional experiments
 
-The default only needs NumPy. Everything below is optional and off by
-default:
+The default only needs NumPy. Optional dependencies support dense retrieval,
+cross-encoder reranking and the catalog-trained scikit-learn top-50 reranker:
 
 ```bash
 uv pip install --python .venv/bin/python -r solution/requirements-experiments.txt
 ```
 
-Adds dense (semantic) retrieval, an experimental router, and cross-encoder
-reranking. None are required for scoring and none change the default.
-
-An optional local model (Qwen3-0.6B, run via llama.cpp) can also structure
-free-form language the rule-based parser doesn't recognize. It hasn't passed
-its own accuracy bar yet, so it stays off by default too.
+The Buying/Browsing router and a local Qwen structured extractor are also
+available as experiments. None improved or qualified for the default scored
+pipeline. See [Architecture](docs/architecture.md) and
+[Training and experiment details](training/README.md) for activation commands.
 
 ## Engineering evidence
 
-Every change below was measured on the public set, the paraphrase stress
-test, and the self-made validation/test sets, and only kept if it helped
-across all of them.
+Changes were promoted through released, stress and product-disjoint regression
+checks. The most consequential results were:
 
 | Change | Result | Kept? |
 |---|---|---|
 | Typed constraint memory (category, slots, negatives) | Public `0.95365` | Yes |
 | Category matched as a full phrase | `+0.0052` public | Yes |
-| Popularity tiebreaker for identical products | `+0.0196` public | Yes |
+| Popularity tiebreaker within equally matched products | `+0.0196` public | Yes |
 | Keep old preference after an override, don't discard it | `+0.0005` to `+0.0007` | Yes |
-| Fix a parser bug joining multi-part requirements | `+0.0012` public MRR | Yes |
 | Global semantic (dense) search everywhere | Lower overall score | No |
 | Buying/Browsing router | Public `0.95355`, slightly below default | Kept as opt-in flag only |
-| Rating or price as a tiebreaker instead of reviews | Both worse than review count alone | No |
-| Showing more results per turn to hedge uncertainty | Every variant tested scored lower | No |
-| Asking a specific question first instead of a generic one | Every variant scored lower | No |
 
-Full details and raw numbers live in `training/`.
+The phrase-level category resolver and blended popularity prior were also
+tested separately and together; their combination improved the released and
+both product-disjoint synthetic sets. Full ablations, rejected approaches and
+methodology are in [Evaluation methodology and results](docs/evaluation.md) and
+`training/`.
 
 ## Limitations
 
-- A few products are indistinguishable from hundreds of others using only
-  what the shopper said. The popularity tiebreaker is a best guess for those
-  cases, not something the conversation actually proved.
-- The popularity weight was tuned on the public set. It's been checked for
-  overfitting (stable across a wide range of values), but it's still a
-  tuned number, not a universal constant.
-- The official test conversations are scripted, not written by real people.
-  A paraphrase test and a self-made synthetic set both help confirm the
-  approach generalizes, but neither replaces real user conversations.
-- The dense/semantic search and router are built and tested, but stay off
-  by default because they didn't outperform the simpler approach.
-- The optional local language model hasn't passed its own accuracy bar and
-  is not part of the scored path.
+- Some products remain indistinguishable from the evidence revealed in a
+  conversation. Popularity is a best-effort prior in those ties, not proof of
+  shopper preference, and its weight was tuned on the released public set.
+- The released conversations are scripted. Paraphrase and product-disjoint
+  synthetic tests are useful regressions but do not replace human evaluation.
+- Free-form extraction and optional neural components remain less reliable
+  than the released simulator path and are not part of the default score.
 
 ## Repository layout
 
 ```text
 solution/agent.py                 production agent and retrieval pipeline
-solution/extraction.py            optional local structured extraction
+solution/extraction.py            deterministic extraction and optional local-model adapter
 run_solution.py                   official public evaluation entry point
 stress_eval.py                    deterministic paraphrase stress harness
 frontend/                         Next.js demo console over the production agent
@@ -202,6 +220,12 @@ tests/                            parser, state, evaluator and training checks
 - Scored path: fully offline, no external API, no credentials, zero model
   tokens, zero marginal cost
 
+## Further documentation
+
+- [Architecture](docs/architecture.md)
+- [Evaluation methodology and results](docs/evaluation.md)
+- [Training and experiment details](training/README.md)
+
 ## Team
 
 **Sur-Five**
@@ -210,6 +234,6 @@ tests/                            parser, state, evaluator and training checks
 |---|---|
 | Aung Ye Thant Hein | Category resolution, purchase-volume prior, and override handling |
 | Chue Myat Sandy | Evaluation, ablation experiments, and repo cleanup |
-| Htet Shwe Win Than | Unit, regression, and stress test harnesses |
+| Htet Shwe Win Than | Intent extraction, learned reranking, robustness evaluation, and submission write-up |
 | Tai Wei Sin | Core agent architecture and pipeline |
 | Win Lei Thawdar | Frontend demo console |
